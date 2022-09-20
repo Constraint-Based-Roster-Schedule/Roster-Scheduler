@@ -1,38 +1,131 @@
-.App {
-  text-align: center;
+body{
+    background-color: rgb(142, 138, 249) !important;
+    justify-content: center;
+    
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+nav {
+    background: rgb(242, 242, 245);
+    box-shadow: var(--light-shadow);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.nav-toggle {
+    font-size: 1.5rem;
+    color: var(--clr-primary-5);
+    background: transparent;
+    border-color: transparent;
+    transition: var(--transition);
+    cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.nav-toggle:hover {
+    color: var(--clr-primary-1);
+    transform: rotate(90deg);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.logo {
+    height: 40px;
+}
+
+.links a {
+    color: var(--clr-grey-3);
+    font-size: 1rem;
+    text-transform: capitalize;
+    letter-spacing: var(--spacing);
+    display: block;
+    padding: 0.5rem 1rem;
+    transition: var(--transition);
+}
+
+.links a:hover {
+    background: var(--clr-primary-8);
+    color: var(--clr-primary-5);
+    padding-left: 1.5rem;
+}
+
+.social-icons {
+    display: none;
+}
+
+.links-container {
+    height: 0;
+    overflow: hidden;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    margin-right: 100px;
+}
+
+.show-container {
+    height: 10rem;
+}
+
+ul {
+    list-style-type: none;
+}
+
+
+
+span:hover{
+    color: rgb(58, 83, 246);
+}
+
+@media screen and (min-width: 800px) {
+    .nav-center {
+        max-width: 1170px;
+        margin: 0 auto;
+        margin-left: 130px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.01rem;
+    }
+
+    .nav-header {
+        padding: 0;
+    }
+
+    .nav-toggle {
+        display: none;
+    }
+
+    .links-container {
+        height: auto !important;
+        margin-top: 14px;
+    }
+
+    .links {
+        display: flex;
+    }
+
+    .links a {
+        padding: 0;
+        margin: 0 0.5rem;
+    }
+
+    .links a:hover {
+        padding: 0;
+        background: transparent;
+    }
+
+    .social-icons {
+        display: flex;
+    }
+
+    .social-icons a {
+        margin: 0 0.5rem;
+        color: var(--clr-primary-5);
+        transition: var(--transition);
+    }
+
+    .social-icons a:hover {
+        color: var(--clr-primary-7);
+    }
 }
