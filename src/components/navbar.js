@@ -42,12 +42,9 @@ const Navbar = () => {
                 </div>
                 <div className='links-container' ref={linksContainerRef}>
                     <ul className='links' ref={linksRef}>
-                        <Link className="navLink" to='/'style={linkstyle}><span>Home</span></Link>
-                        <HiHome size={30} style={{marginLeft:'15px'}}/>
-                        <Link to='/about' style={linkstyle}><span>About</span></Link>
-                        <HiInformationCircle size={30} style={{marginLeft:'15px'}}/>
-                        <Link to='/profile' style={linkstyle}><span>Profile</span></Link>
-                        <BsFillPersonFill size={30} style={{marginLeft:'15px'}}/>
+                        <Link className="navLink" to='/'style={linkstyle}><span>Home<HiHome size={30} style={{marginLeft:'15px', marginTop:"-8px"}}/></span></Link>                       
+                        <Link to='/about' style={linkstyle}><span>About<HiInformationCircle size={30} style={{marginLeft:'15px', marginTop:"-8px"}}/></span></Link>                      
+                        <Link to='/profile' style={linkstyle}><span>Profile<BsFillPersonFill size={30} style={{marginLeft:'15px',marginTop:"-8px"}}/></span></Link>                       
                     </ul>
                 </div>
             </div>
