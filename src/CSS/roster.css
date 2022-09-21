@@ -1,8 +1,15 @@
 .rosterContainer{
-    margin-top: 100px;
+    margin-top: 20px;
     margin-left: 80px;
     margin-right: 80px;
-    padding: 50px;
-    background-color: rgb(20, 20, 103);
+    padding: 40px;
+    background-color: rgb(20, 20, 106);
+}
+
+.requestButton{
+    margin-top: 20px;
+    margin-right: 10rem;
+    display: flex;
+    justify-content: right;
 }
 
