@@ -28,19 +28,23 @@ function ShiftRequest() {
   };
   const [date,setDate]=useState("");
   const [shift,setShift]=useState("");
+  const [datewith,setDatewith]=useState("");
+  const [shiftwith,setShiftwith]=useState("");
   const [docID,setDocID]=useState("");
   const [showDoctorList,setShowDoctorList]=useState(false);
   const [showShiftList,setShowShiftList]=useState(false);
 
   const handleSubmit=(e)=>{
     e.preventDefault();
-    const shiftExchangeData={"date":date, "working slot":shift,"doctorID":docID}
+    const shiftExchangeData={"date":date, "working slot":shift,"date with":datewith,"shift with":shiftwith,"doctorID":docID}
     console.log(shiftExchangeData);
   }
 
   const handleReset=()=>{
     setDate("");
     setShift("");
+    setDatewith("");
+    setShiftwith("");
     setDocID("");
   }
 
@@ -68,17 +72,14 @@ function ShiftRequest() {
 
   return (
     <>
-      <h1 className='requestHeader'>Request for a Shift Exchange</h1>
+      <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request for a Shift Exchange</h1>
       <div className='main-container col-lg-10'>
         <div className='form-container col-lg-8 '>
-          <img src={doctor} alt="image" style={{width:"400px", marginRight:"8rem",float:"right"}}></img>
-          <Form className='py-3 d-flex flex-column justify-content-center col-lg--4' onSubmit={handleSubmit}>
-            <Form.Group className="mb-3 col-lg-12" controlId="Date">
-              <Form.Label style={{color:"white"}}>Date:</Form.Label>
-              <Form.Control type="text" placeholder="Enter the date" value={date} onChange={(e)=>setDate(e.target.value)} required/>
-            </Form.Group>
-            <Form.Group className="mb-3 col-lg-12">
-              <Form.Label htmlFor="workingSlot" style={{color:"white"}}>Working Slot:</Form.Label>
+          <img src={doctor} alt="image" style={{width:"25rem", marginRight:"3rem",float:"right"}}></img>
+          <Form className= 'd-flex flex-column justify-content-center col-lg-8 ' onSubmit={handleSubmit}>
+            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">
+              <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange:</Form.Label>
+              <Form.Control type="text" placeholder="Enter the date" value={date} onChange={(e)=>setDate(e.target.value)} style={{marginRight:"1rem"}} required/>
               <Form.Select id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
                 <option value={"default"}>Working Slot</option>
                 <option value={1}>1</option>
@@ -86,16 +87,29 @@ function ShiftRequest() {
                 <option value={3}>3</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-3 col-lg--12" controlId="requestingDoctor">
-              <Form.Label style={{color:"white"}}>Requesting Doctor:</Form.Label>
+            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">
+              <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange with:</Form.Label>
+              <Form.Control type="text" placeholder="Enter the date" value={datewith} onChange={(e)=>setDatewith(e.target.value)} style={{marginRight:"1rem"}} required/>
+              <Form.Select id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
+                <option value={"default"}>Working Slot</option>
+                <option value={1}>1</option>
+                <option value={2}>2</option>
+                <option value={3}>3</option>
+              </Form.Select>
+            </Form.Group>
+            <Form.Group className="mb-5 col-lg-8 d-flex flex-row" controlId="requestingDoctor">
+              <Form.Label style={{color:"white", width:"16.5rem"}}>Requesting Doctor:</Form.Label>
               <Form.Control type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/>
             </Form.Group>
-            <Button variant="primary" type="submit" style={{marginTop:"1rem"}}>
-              Submit
-            </Button>
-            <Button variant="primary" type="button" style={{marginTop:"1rem"}}>
-              Reset
-            </Button>
+            <Form.Group className="mb-3 col-lg-10 d-flex flex-row justify-content-center px-0">
+              <Button variant="primary" type="submit" style={{marginTop:"1rem", marginRight:"3rem",width:"7rem"}}>
+                Submit
+              </Button>
+              <Button variant="primary" type="button" style={{marginTop:"1rem",width:"7rem"}}>
+                Reset
+              </Button>
+            </Form.Group>
+            
           </Form>
         </div>
         <div className='doctorList'>
