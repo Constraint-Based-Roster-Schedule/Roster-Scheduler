@@ -7,7 +7,7 @@ import Sidebar from './components/sidebar';
 
 import Login from './components/login'
 
-import Axios from "axios";
+import Axios from 'axios';
 
 
 
@@ -27,10 +27,10 @@ function App() {
       {/* <Navbar/>
       <Sidebar/>
       <Router/>      */}
-      <Login></Login>
+      {/* <Login></Login>
       <Footer/>
 
-      <Navbar/>
+      <Navbar/> */}
       {/* <button type='button' onClick={a}>hi</button> */}
       <Router/>     
       
