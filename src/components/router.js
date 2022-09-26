@@ -7,9 +7,6 @@ import DoctorDashboard from './doctorDashboard';
 import RosterIndividual from './roster';
 import WardRoster from './wardRoster';
 import ShiftRequest from './shiftRequest';
-import Login from './login.jsx'
-import DoctorProfile from './doctorProfile'
-import ConsultantProfile from './consultantProfile';
 
 function router() {
   return (
@@ -22,9 +19,7 @@ function router() {
         <Route path='roster' element={<RosterIndividual/>}/>
         <Route path='wardRoster' element={<WardRoster/>}/>
         <Route path='shiftRequest' element={<ShiftRequest/>}/>
-        <Route path='login' element={<Login/>}/>
-        <Route path='doctorProfile' element={<DoctorProfile/>}/>
-        <Route path='consultantProfile' element={<ConsultantProfile/>}/>
+       
       </Routes>
     </div>
   )
