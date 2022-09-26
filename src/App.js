@@ -12,26 +12,10 @@ import Axios from "axios";
 
 
 function App() {
-  const a= ()=>{
-    return Axios({
-    method: "POST",
-    url: "http://localhost:3500/testAPI",
-    data:{
-      firstName:"abc",
-    },
-  })
-  }
+  
   return (
     <>
-
-      {/* <Navbar/>
-      <Sidebar/>
-      <Router/>      */}
-      <Login></Login>
-      <Footer/>
-
       <Navbar/>
-      {/* <button type='button' onClick={a}>hi</button> */}
       <Router/>     
       
 

@@ -3,7 +3,8 @@ import '../CSS/signupForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import validator from 'validator'
+import validator from 'validator';
+import signup from '../services/API/authSignup';
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -18,12 +19,12 @@ const [isEmailValid,setIsEmailValid]=useState(true)
 const handleSubmit=(e)=>{
     e.preventDefault();
     const user={"type":userType,"name":name,"email":email,"ward":ward,"specializedArea":specializedArea};
+    signup(user);
     console.log(user);
 }
 
 const validateEmail=(e)=>{
     var email = e.target.value
-  
     if (!validator.isEmail(email)) {
         setIsEmailValid(false);
         setEmailError('Enter a Valid Email')
@@ -69,11 +70,11 @@ return (
                         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value); validateEmail(e)}}/>
                         {!isEmailValid && <span style={{fontWeight: 'bold',color: 'red',}}>{emailError}...</span>}
                     </Form.Group>
-                    <Form.Group className="mb-3 col-lg-3" controlId="formBasicWard">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
                         <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>setWard(e.target.value)}/>
                     </Form.Group>
-                    <Form.Group className="mb-3 col-lg-6" controlId="formBasicSpeciality">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
                         <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
                     </Form.Group>
@@ -93,7 +94,7 @@ return (
             <div className='form d-flex justify-content' style={{backgroundColor:'white'}}>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
                 <form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3 " controlId="formBasicFullName">
+                    <Form.Group className="mb-3 col-8" controlId="formBasicFullName">
                         <Form.Label>Full name :</Form.Label>
                         <Form.Control type="text" placeholder="Enter full name" value={name}  onChange={(e)=>setName(e.target.value)}/>
                     </Form.Group>
@@ -102,11 +103,11 @@ return (
                         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}}/>
                         {!isEmailValid && <span style={{fontWeight: 'bold',color: 'red',}}>{emailError}...</span>}
                     </Form.Group>
-                    <Form.Group className="mb-3 col-3" controlId="formBasicWard">
+                    <Form.Group className="mb-3 col-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
                         <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>setWard(e.target.value)}/>
                     </Form.Group>
-                    <Form.Group className="mb-3 col-6" controlId="formBasicSpeciality">
+                    <Form.Group className="mb-3 col-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
                         <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
                     </Form.Group>

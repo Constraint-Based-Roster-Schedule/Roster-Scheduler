@@ -1,9 +1,9 @@
 import React,{useState} from 'react'
-import './login.css'
+import '../CSS/login.css'
 import logo from'../assets/logo.png'
 import welcomeimg from '../assets/doctor.png'
-import Footer from './footer.jsx'
-function login () {
+// import Footer from './footer.jsx'
+function Login () {
     // const handlesubmit-(event)->{
     //     event.preventDefault();
     // }
@@ -38,9 +38,9 @@ function login () {
                 </div>
             </div>
         </div>
-        <Footer/>
+        
     </div>
   )
 }
 
-export default login;
+export default Login;
