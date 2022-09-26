@@ -3,7 +3,8 @@ import '../CSS/signupForm.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import validator from 'validator'
+import validator from 'validator';
+import signup from '../services/API/authSignup';
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -18,6 +19,7 @@ const [isEmailValid,setIsEmailValid]=useState(true)
 const handleSubmit=(e)=>{
     e.preventDefault();
     const user={"type":userType,"name":name,"email":email,"ward":ward,"specializedArea":specializedArea};
+    signup(user);
     console.log(user);
 }
 
