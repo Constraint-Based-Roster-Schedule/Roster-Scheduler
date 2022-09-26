@@ -8,6 +8,7 @@ import Sidebar from './components/sidebar';
 import Login from './components/login'
 
 import Axios from 'axios';
+import SideBar from './components/sidebar';
 
 
 
@@ -24,15 +25,10 @@ function App() {
   return (
     <>
 
-      {/* <Navbar/>
-      <Sidebar/>
-      <Router/>      */}
-      {/* <Login></Login>
-      <Footer/>
-
-      <Navbar/> */}
-      {/* <button type='button' onClick={a}>hi</button> */}
-      <Router/>     
+    <Navbar/>
+     
+    <Router/>      
+       
       
 
     </>   

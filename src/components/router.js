@@ -10,7 +10,7 @@ import ShiftRequest from './shiftRequest';
 import Login from './login.jsx'
 import DoctorProfile from './doctorProfile'
 import ConsultantProfile from './consultantProfile';
-
+import AddDoctor from './addDoctor';
 function router() {
   return (
     <div>
@@ -25,6 +25,7 @@ function router() {
         <Route path='login' element={<Login/>}/>
         <Route path='doctorProfile' element={<DoctorProfile/>}/>
         <Route path='consultantProfile' element={<ConsultantProfile/>}/>
+        <Route path='addDoctor' element={<AddDoctor/>}/>
       </Routes>
     </div>
   )

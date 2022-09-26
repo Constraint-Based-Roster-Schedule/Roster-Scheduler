@@ -3,7 +3,7 @@ import './login.css'
 import logo from'../assets/logo.png'
 import welcomeimg from '../assets/doctor.png'
 import Footer from './footer.jsx'
-function login () {
+function Login () {
     // const handlesubmit-(event)->{
     //     event.preventDefault();
     // }
@@ -43,4 +43,4 @@ function login () {
   )
 }
 
-export default login;
+export default Login;
