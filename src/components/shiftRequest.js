@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button';
 import '../CSS/shiftRequest.css';
 import Table from 'react-bootstrap/Table';
 import doctor from '../public/doctor1.jpg'; 
-import rosterObject from './rosterObject';
+import FormGroup from '@mui/material/FormGroup';
 
 function ShiftRequest() {
   const id=2;
@@ -74,11 +74,11 @@ function ShiftRequest() {
     <>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request for a Shift Exchange</h1>
       <div className='main-container col-lg-10'>
-        <div className='form-container col-lg-8 '>
-          <img src={doctor} alt="image" style={{width:"25rem", marginRight:"3rem",float:"right"}}></img>
-          <Form className= 'd-flex flex-column justify-content-center col-lg-8 ' onSubmit={handleSubmit}>
-            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">
-              <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange:</Form.Label>
+        <div className='form-container col-lg-2 '>
+          <img src={doctor} alt="image" style={{width:"25rem", marginRight:"0rem",float:"right"}}></img>
+          <Form className= 'd-flex col-lg-7 ' onSubmit={handleSubmit}>
+            <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange:</Form.Label>
+            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">             
               <Form.Control type="text" placeholder="Enter the date" value={date} onChange={(e)=>setDate(e.target.value)} style={{marginRight:"1rem"}} required/>
               <Form.Select id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
                 <option value={"default"}>Working Slot</option>
@@ -87,8 +87,8 @@ function ShiftRequest() {
                 <option value={3}>3</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">
-              <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange with:</Form.Label>
+            <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange with:</Form.Label>
+            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">              
               <Form.Control type="text" placeholder="Enter the date" value={datewith} onChange={(e)=>setDatewith(e.target.value)} style={{marginRight:"1rem"}} required/>
               <Form.Select id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
                 <option value={"default"}>Working Slot</option>
@@ -97,8 +97,8 @@ function ShiftRequest() {
                 <option value={3}>3</option>
               </Form.Select>
             </Form.Group>
-            <Form.Group className="mb-5 col-lg-8 d-flex flex-row" controlId="requestingDoctor">
-              <Form.Label style={{color:"white", width:"16.5rem"}}>Requesting Doctor:</Form.Label>
+            <Form.Label style={{color:"white", width:"35rem"}}>Requesting Doctor:</Form.Label>
+            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="requestingDoctor">
               <Form.Control type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/>
             </Form.Group>
             <Form.Group className="mb-3 col-lg-10 d-flex flex-row justify-content-center px-0">
