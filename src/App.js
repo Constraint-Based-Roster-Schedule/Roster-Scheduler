@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
-import Footer from './components/footer';
 import Navbar from './components/navbar';
 import Router from './components/router';
-import Sidebar from './components/sidebar';
 
-import Login from './components/login'
 
 import Axios from 'axios';
 import SideBar from './components/sidebar';
+
 
 
 
