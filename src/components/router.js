@@ -9,6 +9,7 @@ import ShiftRequest from './shiftRequest';
 import Notifications from './notifications';
 import Login from './login';
 import RosterIndividual from './roster';
+import DocotrProfile from './doctorProfile';
 
 function router() {
   return (
@@ -30,6 +31,7 @@ function router() {
         <Route path='shiftRequest' element={<ShiftRequest/>}/>
         <Route path='notifications' element={<Notifications/>}/>
         <Route path='login'  element={<Login/>}/>
+        <Route path='doctorProfile' element={<DocotrProfile/>}/>
       </Routes>
     </div>
   )
