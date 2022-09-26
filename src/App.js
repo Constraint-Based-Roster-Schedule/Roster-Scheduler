@@ -17,7 +17,6 @@ function App() {
 <<<<<<< HEAD
 
     <Navbar/>
-     
     <Router/>      
        
 =======
