@@ -25,7 +25,6 @@ const handleSubmit=(e)=>{
 
 const validateEmail=(e)=>{
     var email = e.target.value
-  
     if (!validator.isEmail(email)) {
         setIsEmailValid(false);
         setEmailError('Enter a Valid Email')
