@@ -5,6 +5,7 @@ import Router from './components/router';
 
 
 import Axios from 'axios';
+import SideBar from './components/sidebar';
 
 
 
