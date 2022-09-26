@@ -8,6 +8,7 @@ import RosterIndividual from './roster';
 import WardRoster from './wardRoster';
 import ShiftRequest from './shiftRequest';
 import Notifications from './notifications';
+import Login from './login';
 
 function router() {
   return (
@@ -21,6 +22,7 @@ function router() {
         <Route path='wardRoster' element={<WardRoster/>}/>
         <Route path='shiftRequest' element={<ShiftRequest/>}/>
         <Route path='notifications' element={<Notifications/>}/>
+        <Route path='login'  element={<Login/>}/>
       </Routes>
     </div>
   )
