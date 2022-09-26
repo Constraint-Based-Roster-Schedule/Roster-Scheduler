@@ -10,22 +10,19 @@ import Axios from 'axios';
 
 
 function App() {
-  const a= ()=>{
-    return Axios({
-    method: "POST",
-    url: "http://localhost:3500/testAPI",
-    data:{
-      firstName:"abc",
-    },
-  })
-  }
+  
   return (
     <>
+<<<<<<< HEAD
 
     <Navbar/>
      
     <Router/>      
        
+=======
+      <Navbar/>
+      <Router/>     
+>>>>>>> f0970c9c820cab92a08fae337bc0e16641119dec
       
 
     </>   
