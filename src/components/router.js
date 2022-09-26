@@ -8,6 +8,7 @@ import WardRoster from './wardRoster';
 import ShiftRequest from './shiftRequest';
 import Notifications from './notifications';
 import Login from './login';
+import RosterIndividual from './roster';
 
 function router() {
   return (
