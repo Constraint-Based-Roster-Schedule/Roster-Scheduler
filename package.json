@@ -20,6 +20,7 @@
     "react-bootstrap-sidebar-menu": "^2.0.3",
     "react-dom": "^18.2.0",
     "react-icons": "^4.4.0",
+    "react-phone-number-input": "^3.2.11",
     "react-pro-sidebar": "^0.7.1",
     "react-scripts": "5.0.1",
     "validator": "^13.7.0",
@@ -52,5 +53,4 @@
   "devDependencies": {
     "react-router-dom": "^6.4.0"
   }
-
 }
