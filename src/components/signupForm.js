@@ -5,27 +5,43 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import validator from 'validator';
 import signup from '../services/API/authSignup';
+import {FaUserCircle} from 'react-icons/fa';
+import Alert from '@mui/material/Alert';
+import 'react-phone-number-input/style.css'
+import PhoneInput from 'react-phone-number-input'
+import { ConstructionOutlined } from '@mui/icons-material';
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
 const [name,setName]=useState('');
+const [contact,setContact]=useState('');
 const [email,setEmail]=useState('');
 const [ward,setWard]=useState('');
 const [specializedArea,setSpecializedArea]=useState('');
 
-const [emailError, setEmailError] = useState('')
-const [isEmailValid,setIsEmailValid]=useState(true)
+const [emailError, setEmailError] = useState('');
+const [isEmailValid,setIsEmailValid]=useState(true);
+const [contactError, setContactError] = useState('');
+const [isContactValid,setIsContactValid]=useState(true);
+const [wardError, setwardError] = useState('');
+const [isWardValid,setIsWardValid]=useState(true);
 
-const handleSubmit=(e)=>{
+const noOfWards=10;
+
+const handleSubmit=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"name":name,"email":email,"ward":ward,"specializedArea":specializedArea};
-    signup(user);
+    const user={"type":userType,"name":name,"contact":contact,"email":email,"ward":ward,"specializedArea":specializedArea};
+    try{
+        const response=await signup(user);       
+    }catch{
+
+    }   
     console.log(user);
 }
 
 const validateEmail=(e)=>{
-    var email = e.target.value
-    if (!validator.isEmail(email)) {
+    var email = e.target.value;
+    if (!validator.isEmail(email) && email.length>0) {
         setIsEmailValid(false);
         setEmailError('Enter a Valid Email')
     } else{
@@ -33,19 +49,52 @@ const validateEmail=(e)=>{
     }
 }
 
+const validateContact=(e)=>{
+    var contact=e.target.value;
+    if(isNaN(contact)){
+        setIsContactValid(false);
+        setContactError('Contact number can only have numeric characters')
+    }else if(contact[0]!=='0' && contact.length>0){
+        setIsContactValid(false);
+        setContactError('Contact number should start with 0')
+    }else if(contact.length>10){
+        setIsContactValid(false);
+        setContactError('Number of chracters in the contact number should not exceed 10')
+    }else{
+        setIsContactValid(true);
+    }
+}
+
+const validateWard=(e)=>{
+    var ward=e.target.value;
+    if(isNaN(ward)){
+        setIsWardValid(false);
+        setwardError('Ward number should be a numeric value');
+    }else if((ward>noOfWards || ward<=0) && ward.length>0 ){
+        setIsWardValid(false);
+        setwardError(`Ward number should be between 0 and ${noOfWards +1}`);
+    }else{
+        setIsWardValid(true);
+    }
+}
+
 const handleReset=()=>{
     setName('');
+    setContact('');
     setEmail('');
     setWard('');
     setSpecializedArea('');
     setIsEmailValid(true);
+    setIsContactValid(true);
+    setIsWardValid(true);
 }
 
 
 return (
     <>
         <div className='container col-lg d-flex flex-column'>
-            <div className='userSelector col-lg' style={{backgroundColor:'white', borderRadius:"7px"}}>
+            <h1 className='font-monospace mb-4' style={{textAlign:"center"}}>Add User</h1>
+            <div className='userSelector col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>
                 <form>
                     <div className="form-group col-lg-6 container d-flex flex-row my-3">
                         <label htmlFor="userType" className="col-lg-6" style={{fontSize:"20px"}}><b>Select the user type:</b></label>
@@ -58,31 +107,38 @@ return (
                 </form>
             </div>
             {userType==='Doctor' && (
-            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'white', borderRadius:"7px"}}>
-                <h2 className='m-auto'>Registration form of a doctor</h2>
+            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>                
+                <FaUserCircle className='addUserIcon' size={100}/>                
+                <h2 className='register-topic'>Registration form of a doctor</h2>
                 <form onSubmit={handleSubmit}>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFullName">
                         <Form.Label>Full name :</Form.Label>
                         <Form.Control type="text" placeholder="Enter full name" value={name}  onChange={(e)=>setName(e.target.value)}/>
                     </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
+                        <Form.Label>Contact number : </Form.Label>
+                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value); validateContact(e)}}/>
+                        {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
+                    </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value); validateEmail(e)}}/>
-                        {!isEmailValid && <span style={{fontWeight: 'bold',color: 'red',}}>{emailError}...</span>}
+                        {!isEmailValid && <Alert severity="warning" >{emailError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>setWard(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}}/>
+                        {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
                         <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
                     </Form.Group>
                     <div className='d-flex flex-row justify-content-center col-lg-10'>
-                        <Button variant="primary" type="submit" style={{ width:"120px", marginRight:"10rem"}} >
+                        <Button className='sub-btn' variant="primary" type="submit"  >
                         Submit
                         </Button>
-                        <Button variant="primary" type="button" style={{width:"120px"}} onClick={handleReset}>
+                        <Button className='reset-btn' variant="primary" type="button" onClick={handleReset}>
                         Reset
                         </Button>
                     </div>
@@ -91,31 +147,38 @@ return (
             </div>)}
 
             {userType==='Consultant' && (
-            <div className='form d-flex justify-content' style={{backgroundColor:'white'}}>
+            <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)'}}>
+                <FaUserCircle className='addUserIcon' size={100}/>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
                 <form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3 col-8" controlId="formBasicFullName">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicFullName">
                         <Form.Label>Full name :</Form.Label>
                         <Form.Control type="text" placeholder="Enter full name" value={name}  onChange={(e)=>setName(e.target.value)}/>
                     </Form.Group>
-                    <Form.Group className="mb-3 col-8" controlId="formBasicEmail">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
+                        <Form.Label>Contact number : </Form.Label>
+                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value);validateContact(e)}}/>
+                        {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}}/>
-                        {!isEmailValid && <span style={{fontWeight: 'bold',color: 'red',}}>{emailError}...</span>}
+                        {!isEmailValid && <Alert severity="warning" >{emailError}...</Alert>}
                     </Form.Group>
-                    <Form.Group className="mb-3 col-8" controlId="formBasicWard">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>setWard(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}}/>
+                        {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
                     </Form.Group>
-                    <Form.Group className="mb-3 col-8" controlId="formBasicSpeciality">
+                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
                         <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
                     </Form.Group>
                     <div className='d-flex flex-row justify-content-center'>
-                        <Button variant="primary" type="submit" style={{marginRight:"300px" , width:"120px"}} >
+                        <Button className='sub-btn' variant="primary" type="submit"  >
                         Submit
                         </Button>
-                        <Button variant="primary" type="button" style={{width:"120px"}} onClick={handleReset}>
+                        <Button className='reset-btn' variant="primary" type="button"  onClick={handleReset}>
                         Reset
                         </Button>
                     </div>

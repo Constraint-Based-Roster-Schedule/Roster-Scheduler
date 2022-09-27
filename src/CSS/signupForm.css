@@ -25,3 +25,34 @@
     background-color: rgb(192, 240, 246);
     margin-top: 50px;
 }
+
+.addUserIcon{
+    align-self: center;
+    color:rgb(77, 77, 255);
+    margin-top: -4rem;
+}
+
+.sub-btn{
+    margin-right: 10rem;
+    width:7rem;
+}
+
+.reset-btn{
+    width: 7rem;
+}
+
+.register-topic{
+    align-self: center;
+}
+
+@media screen and (max-width: 991px) {
+    .sub-btn{
+        margin-right: 2rem;
+        width:5rem;
+    }
+
+    .reset-btn{
+        width: 5rem;
+    }
+
+}

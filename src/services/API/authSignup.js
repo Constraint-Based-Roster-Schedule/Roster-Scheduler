@@ -3,7 +3,7 @@ import Axios from "axios";
 function signup(user){
     return Axios({
         method: "POST",
-        url: "http://localhost:3500/testAPI",
+        url: "http://localhost:5000/testAPI",
         
         data:user
     })
