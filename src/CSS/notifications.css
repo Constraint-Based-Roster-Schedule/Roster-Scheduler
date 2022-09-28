@@ -12,5 +12,110 @@ p.notify-text{
     font-size: medium;
 }
 
+.requestReceived-btn{
+    margin-right: 3rem;
+    width: 15rem;
+}
+
+.requestSent-btn{
+    margin-left: 3rem;
+    margin-right: 3rem;
+    width: 15rem;
+}
+
+.btn-container{
+    display: flex;
+    justify-content: center;
+}
+
+.notification-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.requestsReceived{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(28, 81, 254);
+    border-radius: 1rem;
+    padding-inline: 3rem;
+}
+
+.requestsSent{
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(28, 81, 254);
+    border-radius: 1rem;
+    padding-inline: 3rem;
+}
+
+.accept-decline-btns{
+    display: flex;
+    flex-direction: row;
+}
+
+.accept-btn{
+    height: 2.5rem;
+    margin-right: 1rem;
+}
+
+.decline-btn{
+    height: 2.5rem;
+}
+
+.request-close-btns{
+    display: flex;
+    flex-direction: row;
+}
+
+.shift-request-btn{
+    height: 2.5rem;
+    margin-right: 1rem;
+    width: 12rem;
+}
+
+.close-btn{
+    height: 2.5rem;
+    border-radius: 10rem;
+    padding: 5px;
+}
+
+@media screen and (max-width: 767px){
+    .requestsReceived{
+        flex-direction: column;
+        padding-right: 1rem;
+    }
+    .accept-decline-btns{
+        justify-content: center;
+    }
+
+    .requestReceived-btn{
+        width: 10rem;
+        margin-right: 1rem;
+    }
+
+    .requestSent-btn{
+        width: 10rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (max-width: 991px){
+    .requestsSent{
+        flex-direction: column;
+        padding-right: 1rem;
+    }
+
+    .request-close-btns{
+        justify-content: center;
+    }
+
+    .close-btn{
+        width: 2.5rem;
+    }
+}
 
 
