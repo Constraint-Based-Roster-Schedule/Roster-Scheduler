@@ -74,38 +74,45 @@ function ShiftRequest() {
     <>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request for a Shift Exchange</h1>
       <div className='main-container col-lg-10'>
-        <div className='form-container col-lg-2 '>
-          <img src={doctor} alt="image" style={{width:"25rem", marginRight:"0rem",float:"right"}}></img>
-          <Form className= 'd-flex col-lg-7 ' onSubmit={handleSubmit}>
-            <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange:</Form.Label>
-            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">             
-              <Form.Control type="text" placeholder="Enter the date" value={date} onChange={(e)=>setDate(e.target.value)} style={{marginRight:"1rem"}} required/>
-              <Form.Select id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
-                <option value={"default"}>Working Slot</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
+        <div className='form-container col-lg-2 '>          
+          <img className='shiftRequestPhoto col-lg-5' src={doctor} alt="image" ></img>
+          <Form className= 'request-form d-flex col-lg-7 ' onSubmit={handleSubmit}>            
+            <Form.Group className="formGrp col-lg-8" controlId="Date">  
+              <Form.Label className='formLabel' >Slot to exchange:</Form.Label> 
+              <Form.Group className='inner-formGrp'>
+                <Form.Control className='formControlDate' type="text" placeholder="Date" value={date} onChange={(e)=>setDate(e.target.value)}  required/>
+                <Form.Select className='formSelect' id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
+                  <option value={"default"}>Slot</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
               </Form.Select>
+              </Form.Group>                        
             </Form.Group>
-            <Form.Label style={{color:"white", width:"35rem"}}>Slot to exchange with:</Form.Label>
-            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="Date">              
-              <Form.Control type="text" placeholder="Enter the date" value={datewith} onChange={(e)=>setDatewith(e.target.value)} style={{marginRight:"1rem"}} required/>
-              <Form.Select id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
-                <option value={"default"}>Working Slot</option>
-                <option value={1}>1</option>
-                <option value={2}>2</option>
-                <option value={3}>3</option>
-              </Form.Select>
+            
+            <Form.Group className="formGrp  col-lg-8 " controlId="Date">   
+              <Form.Label className='formLabel'>Slot to exchange with:</Form.Label>    
+              <Form.Group className='inner-formGrp'>
+                <Form.Control className='formControlDate' type="text" placeholder="Date" value={datewith} onChange={(e)=>setDatewith(e.target.value)}  required/>
+                <Form.Select className='formSelect' id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
+                  <option value={"default"}>Slot</option>
+                  <option value={1}>1</option>
+                  <option value={2}>2</option>
+                  <option value={3}>3</option>
+                </Form.Select>
+              </Form.Group>
+            </Form.Group>       
+              
+            
+            <Form.Group className="formGrp  col-lg-8" controlId="requestingDoctor">
+              <Form.Label className='formLabel'>Requesting Doctor:</Form.Label>
+              <Form.Control className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/>
             </Form.Group>
-            <Form.Label style={{color:"white", width:"35rem"}}>Requesting Doctor:</Form.Label>
-            <Form.Group className="mb-5 col-lg-10 d-flex flex-row px-0" controlId="requestingDoctor">
-              <Form.Control type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/>
-            </Form.Group>
-            <Form.Group className="mb-3 col-lg-10 d-flex flex-row justify-content-center px-0">
-              <Button variant="primary" type="submit" style={{marginTop:"1rem", marginRight:"3rem",width:"7rem"}}>
+            <Form.Group className="formGrp-btn mb-3 col-lg-8 d-flex flex-row justify-content-center px-0">
+              <Button className='req-sub-btn' variant="primary" type="submit" >
                 Submit
               </Button>
-              <Button variant="primary" type="button" style={{marginTop:"1rem",width:"7rem"}}>
+              <Button className='req-reset-btn' variant="primary" type="button" onClick={handleReset}>
                 Reset
               </Button>
             </Form.Group>
@@ -113,7 +120,7 @@ function ShiftRequest() {
           </Form>
         </div>
         <div className='doctorList'>
-            <Button variant='primary' onClick={()=>setShowDoctorList(!showDoctorList)} style={{marginTop:"6rem", backgroundColor:"rgb(25, 25, 168)" , width:"20rem"}}>Show Doctors of the Ward</Button>
+            <Button className='show-doctor-list-btn' variant='primary' onClick={()=>setShowDoctorList(!showDoctorList)} >Show Doctors of the Ward</Button>
             {showDoctorList && (
               <Table striped hover>
                 <thead>
@@ -127,7 +134,7 @@ function ShiftRequest() {
                 </tbody>
               </Table>
             )}
-            <Button variant='primary' onClick={()=>setShowShiftList(!showShiftList)} style={{marginTop:"4rem", backgroundColor:"rgb(25, 25, 168)" , width:"20rem"}}>Show Your Working Slots</Button>
+            <Button className='show-shifts-btn' variant='primary' onClick={()=>setShowShiftList(!showShiftList)}>Show Your Working Slots</Button>
             {showShiftList && (
               <Table striped hover>
                 <thead>
