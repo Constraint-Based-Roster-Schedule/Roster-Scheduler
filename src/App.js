@@ -11,13 +11,16 @@ import Sidebar from './components/sidebar';
 
 
 
+
 function App() {
   
   return (
     <>
+
       <Navbar/>
       <Sidebar/>
       <Router/>     
+
       
 
     </>   
