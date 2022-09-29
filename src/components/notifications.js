@@ -37,28 +37,32 @@ function Notifications() {
 
   return (
     <div className='container col-lg-12'>
-      <div className='col-lg'>
-        <Button variant='primary' type='button' style={{marginRight:"3rem" ,width:"15rem"}} onClick={()=>{setShowReceivedReq(true); setShowSentReq(false)}}>Requests Received <Badge bg= {recNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{size:"3rem",marginLeft:"1rem"}}>{recNotifyNum}</Badge></Button>
-        <Button variant='primary' style={{marginLeft:"3rem", marginRight:"3rem" , width:"15rem" }} onClick={()=>{setShowReceivedReq(false); setShowSentReq(true)}}>Requests Sent <Badge bg={sentNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{marginLeft:"1rem"}}>{sentNotifyNum}</Badge></Button>
+      <div className='btn-container col-lg-10'>
+        <Button className='requestReceived-btn' variant='primary' type='button'  onClick={()=>{setShowReceivedReq(true); setShowSentReq(false)}}>Requests Received <Badge bg= {recNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{size:"3rem",marginLeft:"1rem"}}>{recNotifyNum}</Badge></Button>
+        <Button className='requestSent-btn' variant='primary' onClick={()=>{setShowReceivedReq(false); setShowSentReq(true)}}>Requests Sent <Badge bg={sentNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{marginLeft:"1rem"}}>{sentNotifyNum}</Badge></Button>
       </div>
-      <div className='d-flex flex-column justify-content-center p-5' >
+      <div className='notification-container' >
         {showReceivedReq && recNotifications.map((notification)=>{
-          return <span className='d-flex flex-row mt-5 px-5 pb-1 pt-3' style={{backgroundColor:"rgb(28, 81, 254)", borderRadius:"1rem"}}>
+          return <div className='requestsReceived mt-5 pb-1 pt-3'>
           <p className='notify-text'>You have a request from <b>Dr. {doctorName}</b>  to exchange the working slot <b>{notification.workingslot}</b> on <b>{notification.date}nd of March
           </b> to working slot <b>{notification.shiftwith}</b> on <b>{notification.datewith}th of March</b></p>
-          <Button variant='success' type='button' style={{height:"2.5rem",marginRight:"1rem"}} onClick={()=>closeRecNotify(notification.id)}>Accept</Button>
-          <Button variant='danger' type='button' style={{height:"2.5rem"}} onClick={()=>closeRecNotify(notification.id)}>Decline</Button>
-        </span>
+          <span className='accept-decline-btns'>
+            <Button className='accept-btn' variant='success' type='button' onClick={()=>closeRecNotify(notification.id)}>Accept</Button>
+            <Button className='decline-btn' variant='danger' type='button' onClick={()=>closeRecNotify(notification.id)}>Decline</Button>
+          </span>
+        </div>
         })}
 
 
         {showSentReq && sentNotifications.map((notification)=>{ 
-        return <span className='d-flex flex-row mt-5 px-5 pb-3 pt-3' style={{backgroundColor:"rgb(28, 81, 254)", borderRadius:"1rem"}}>
+        return <div className='requestsSent mt-5 pb-3 pt-3'>
           <p className='notify-text'>Your request to <b>Dr. {doctorName}</b>  for exchange the working slot <b>{notification.workingslot}</b> on <b>{notification.date}nd of March
           </b> to working slot <b>{notification.shiftwith}</b> on <b>{notification.datewith}th of March </b> has been {notification.state ? <b>accepted</b> : <b>declined</b>}</p>
-          {!notification.state && <Link to='/shiftRequest'><Button variant='success' type='button' style={{height:"2.5rem",marginRight:"1rem", width:"12rem"}}>Request again</Button></Link>}
-          <Button variant='outline-success' style={{height:"2.5rem", borderRadius:"10rem", padding:"5px"}}  onClick={()=>closeSentNotify(notification.id)}><GiCheckMark size={25} style={{color:"rgb(1, 219, 0)"}}/></Button>
-        </span>
+          <span className='request-close-btns'>
+            {!notification.state && <Link className='shift-request-btn' to='/shiftRequest'><Button  variant='success' type='button'>Request again</Button></Link>}
+            <Button className='close-btn' variant='outline-success' onClick={()=>closeSentNotify(notification.id)}><GiCheckMark size={25} style={{color:"rgb(1, 219, 0)"}}/></Button>
+          </span>
+        </div>
         })}
       </div>  
     </div>

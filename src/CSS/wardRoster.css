@@ -1,0 +1,73 @@
+.rosterContainer {
+    margin-top: 20px;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding: 4rem;
+    background-color: rgb(20, 20, 106);
+}
+
+.requestButton {
+    margin-top: 20px;
+    margin-right: 10rem;
+    display: flex;
+    justify-content: right;
+}
+
+.ward-roster-column {
+    background-color: white;
+    margin-bottom: 20px;
+    padding: 2rem;
+    margin-right: 0.3rem;
+    display: flex;
+    justify-content: center;
+    width: 3rem;
+}
+
+
+
+
+
+@media screen and (max-width: 1300px){
+    .rosterContainer{
+        padding: 3rem;
+        margin-left: 4rem;
+        margin-right: 4rem;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .rosterContainer {
+        margin-left: 3rem;
+        margin-right: 3rem;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .rosterContainer {
+        padding: 2rem;
+        margin-left: 2rem;
+        margin-right: 2rem;
+    }
+
+
+    .requestButton{
+        justify-content: center;
+        margin-right: 0rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .rosterContainer {
+        padding: 2rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
+
+@media screen and (max-width: 400px){
+    .rosterContainer {
+        padding: 1rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+}
