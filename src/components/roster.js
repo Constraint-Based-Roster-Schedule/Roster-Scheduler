@@ -18,22 +18,22 @@ function RosterIndividual() {
                 var columns = [];
                 for (var j = intStartDate-1; j < intColumns+intStartDate-1; j++) {
                     if(i==0 && j>intStartDate-1){
-                        columns.push(<Col sm style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{j}</b></Col>);
+                        columns.push(<Col className='roster-column' sm ><b>{j}</b></Col>);
                     }
                     if(i==1 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Morning shift"}</b></Col>);
+                        columns.push(<Col className='roster-column' sm={1} ><b>{"Morning shift"}</b></Col>);
                     }
                     if(i==2 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Evening shift"}</b></Col>);
+                        columns.push(<Col className='roster-column' sm={1} ><b>{"Evening shift"}</b></Col>);
                     }
                     if(i==3 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Night shift"}</b></Col>);
+                        columns.push(<Col className='roster-column' sm={1} ><b>{"Night shift"}</b></Col>);
                     }
                     if(i>0 && j>intStartDate-1){
-                        columns.push(<Col style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}></Col>);
+                        columns.push(<Col className='roster-column' ></Col>);
                     }
                     if(i==0 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Date"}</b></Col>);
+                        columns.push(<Col className='roster-column' sm={1}><b>{"Date"}</b></Col>);
                     }
                     
                 }
@@ -59,12 +59,6 @@ function RosterIndividual() {
                     </div>
                 </Carousel.Item>
             </Carousel> 
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
         </>    
     )
 }
