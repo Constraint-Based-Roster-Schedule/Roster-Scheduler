@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState , useEffect} from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -9,8 +9,26 @@ import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 
 function RosterIndividual() {
-
+    const [windowSize,setWindowSize]=useState(getWindowSize());
     const numberOfDays=31;
+
+    useEffect(() => {
+        function handleWindowResize() {
+            setWindowSize(getWindowSize());
+            console.log(windowSize);
+        }
+
+        window.addEventListener('resize', handleWindowResize);
+
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    },);
+
+    function getWindowSize() {
+        const {innerWidth, innerHeight} = window;
+        return {innerWidth, innerHeight};
+    }
 
     function RenderRoster(intRows, intColumns,intStartDate) {
             var rows = [];
@@ -18,22 +36,22 @@ function RosterIndividual() {
                 var columns = [];
                 for (var j = intStartDate-1; j < intColumns+intStartDate-1; j++) {
                     if(i==0 && j>intStartDate-1){
-                        columns.push(<Col sm style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{j}</b></Col>);
+                        columns.push(<Col className='roster-column'><b>{j}</b></Col>);
                     }
                     if(i==1 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Morning shift"}</b></Col>);
+                        columns.push(<Col className='roster-column' ><b>{"Morning shift"}</b></Col>);
                     }
                     if(i==2 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Evening shift"}</b></Col>);
+                        columns.push(<Col className='roster-column'><b>{"Evening shift"}</b></Col>);
                     }
                     if(i==3 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Night shift"}</b></Col>);
+                        columns.push(<Col className='roster-column'><b>{"Night shift"}</b></Col>);
                     }
                     if(i>0 && j>intStartDate-1){
-                        columns.push(<Col style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}></Col>);
+                        columns.push(<Col className='roster-column' ></Col>);
                     }
                     if(i==0 && j==intStartDate-1){
-                        columns.push(<Col sm={1} style={{backgroundColor:"white", marginBottom:"20px", padding:"23px",marginRight:"5px", display:"flex", justifyContent:"center"}}><b>{"Date"}</b></Col>);
+                        columns.push(<Col className='roster-column'><b>{"Date"}</b></Col>);
                     }
                     
                 }
@@ -47,6 +65,7 @@ function RosterIndividual() {
             <div className='requestButton' >
                 <Link to='/shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
             </div>
+            { windowSize.innerWidth>=1400 && (
             <Carousel>
                 <Carousel.Item>
                     <div className='rosterContainer'>
@@ -58,13 +77,174 @@ function RosterIndividual() {
                         {numberOfDays==30 ? RenderRoster(4,16,16) : RenderRoster(4,17,16)}
                     </div>
                 </Carousel.Item>
-            </Carousel> 
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
-            <h1>HIIIII</h1>
+            </Carousel> )}
+            
+            { windowSize.innerWidth<1400  && windowSize.innerWidth>1050 && (
+            <Carousel>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,11,1)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,11,11)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,11,21)}
+                    </div>
+                </Carousel.Item>
+                {numberOfDays===31 && <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,2,31)}
+                    </div>
+                </Carousel.Item>}
+            </Carousel> )}
+
+            { windowSize.innerWidth<=1050  && windowSize.innerWidth>400 && (
+            <Carousel>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,1)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,4)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,7)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,10)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,13)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,16)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,19)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,22)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,25)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,4,28)}
+                    </div>
+                </Carousel.Item>
+                {numberOfDays===31 && <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,2,31)}
+                    </div>
+                </Carousel.Item>}
+            </Carousel> )}
+
+            {windowSize.innerWidth<400 && windowSize.innerWidth>=300 &&
+            (<Carousel>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,1)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,3)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,5)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,7)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,9)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,11)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,13)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,15)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,17)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,19)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,21)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,23)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,25)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,27)}
+                    </div>
+                </Carousel.Item>
+                <Carousel.Item>
+                    <div className='ward-rosterContainer'>
+                        {RenderRoster(4,3,29)}
+                    </div>
+                </Carousel.Item>
+                {numberOfDays===31 && <Carousel.Item>
+                    <div className='rosterContainer'>
+                        {RenderRoster(4,2,31)}
+                    </div>
+                </Carousel.Item>}
+            </Carousel>)}
         </>    
     )
 }
