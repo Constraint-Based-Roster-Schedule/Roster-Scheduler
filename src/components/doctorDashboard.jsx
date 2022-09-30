@@ -11,7 +11,7 @@ const DoctorDashboard = () => {
             <p></p>
             <div class='row'>
                 <div class="testimanial-col">
-                    <Link  to='./roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/roster-icon.jpg")} alt=""></img>
                         <div>
@@ -25,7 +25,7 @@ const DoctorDashboard = () => {
                 </div>
                        
                 <div class="testimanial-col">
-                    <Link  to='./wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/ward-roster.webp")} alt=""></img>
                         <div>
@@ -42,7 +42,7 @@ const DoctorDashboard = () => {
                                       
                         
                 <div class="testimanial-col">
-                <Link  to='./doctorProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../doctorProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     <img src={require("../assets/profile-icon.png")} alt=""></img>
                     <div>
                         <p>
@@ -54,7 +54,7 @@ const DoctorDashboard = () => {
                 </div>
                 
                 <div class="testimanial-col">
-                <Link  to='./shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                 
                     <img src={require("../assets/doctor.png")} alt=""></img>
                     <div>
@@ -66,9 +66,9 @@ const DoctorDashboard = () => {
                     </Link>
                 </div>
             </div>
-            {/* <div className="row">
+            <div className="row">
                 <div class="testimanial-col">
-                    <Link  to='./shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../notifications' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
@@ -79,7 +79,7 @@ const DoctorDashboard = () => {
                         </div>
                         </Link>
                 </div>
-            </div> */}
+            </div>
         </section>
         <br />
         <br />
