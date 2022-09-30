@@ -1,8 +1,8 @@
 .rosterContainer{
     margin-top: 20px;
-    margin-left: 80px;
-    margin-right: 80px;
-    padding: 40px;
+    margin-left: 5rem;
+    margin-right: 5rem;
+    padding: 3rem;
     background-color: rgb(20, 20, 106);
 }
 
@@ -16,9 +16,33 @@
 .roster-column{
     background-color: white;
     margin-bottom: 20px;
-    padding: 23px;
-    margin-right: 5px;
+    padding: 1.5rem;
+    margin-right: 0.3rem;
     display: flex;
     justify-content: center;
+    width: 5rem;
+}
+
+@media screen and (max-width: 1400px){
+    .rosterContainer{
+        margin-left: 4rem;
+        margin-right: 4rem;
+    }
+}
+
+@media screen and (max-width: 1050px){
+    .rosterContainer{
+        margin-left: 3rem;
+        margin-right: 3rem;
+        padding: 2rem;
+    }
+}
+
+@media screen and (max-width: 750px) {
+    .rosterContainer {
+        margin-left: 1rem;
+        margin-right: 1rem;
+        padding: 2rem;
+    }
 }
 
