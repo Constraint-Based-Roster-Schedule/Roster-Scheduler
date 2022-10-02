@@ -92,11 +92,11 @@
     }
 }
 @media(max-width:700px){
-    .row{
+    /* .row{
         flex-direction:column ;
         display: flex;
         position: relative;
-    }
+    } */
 }
 
 /* footer====================== */
