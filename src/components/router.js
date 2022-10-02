@@ -10,6 +10,7 @@ import Notifications from './notifications';
 import Login from './login';
 import RosterIndividual from '../view/roster';
 import DocotrProfile from './doctorProfile';
+import HomePage from './home';
 
 function router() {
   return (
@@ -32,6 +33,8 @@ function router() {
         <Route path='notifications' element={<Notifications/>}/>
         <Route path='login'  element={<Login/>}/>
         <Route path='doctorProfile' element={<DocotrProfile/>}/>
+        <Route path='home' element={<HomePage/>}/>
+        <Route path='doctorDashboard' element={<DoctorDashboard/>}/>
       </Routes>
     </div>
   )

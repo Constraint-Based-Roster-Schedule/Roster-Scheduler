@@ -18,9 +18,10 @@ function App() {
     <>
 
       <Navbar/>
-      
-      <Router/>     
 
+
+      <Router/>     
+      
       
 
     </>   
