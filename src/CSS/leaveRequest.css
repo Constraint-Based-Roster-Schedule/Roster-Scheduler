@@ -1,0 +1,94 @@
+.leave-request-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;   
+    margin-top: 5rem;
+}
+
+.input-row{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.text-field{
+    background-color: rgb(217, 217, 217);
+}
+
+.slot-select{
+    background-color: rgb(217, 217, 217);
+    width: 7rem;
+}
+
+.leaveRequestForm{
+    background-color: rgb(25, 25, 168);
+    padding: 1rem;
+}
+
+.preferrableSlotForm{
+    background-color:rgb(25, 25, 168);
+    padding: 1rem;
+}
+
+.add-button-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.add-text{
+    font-size: x-large;
+    color: white;
+    margin-top: 1rem;
+    margin-bottom: 2rem;
+}
+
+.delete-btn{
+    color: white;   
+}
+
+.add-icon{
+    color: white;
+}
+
+.submit-leaves-div{
+    margin-top: 4rem;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.submit-leaves-btn{
+    align-self: center;
+}
+
+.table{
+    color: white;
+}
+
+@media screen and (max-width: 900px){
+    .leave-request-container{
+        flex-direction: column;
+        margin-top: 3rem;
+    }
+
+    .leaveRequestForm{
+        align-self: center;
+        margin-bottom: 3rem;
+    }
+
+    .preferrableSlotForm{
+        align-self: center;
+    }
+}
+
+@media screen and (max-width: 450px){
+    .text-field{
+        width: 8rem;
+    }
+    
+    .slot-select{
+        width: 6rem;
+    }
+}
+
