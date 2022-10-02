@@ -2,22 +2,21 @@ import React from 'react'
 import Footer from './footer'
 import '../CSS/doctorDashboard.css'
 import { Link } from 'react-router-dom';
-import { Row } from 'react-bootstrap';
-const DoctorDashboard = () => {
+const AdminDashboard = () => {
   return (
     <div className='dashboard-container'>
        {/* fffffffffffffffff */}
        <section class='dashboard'>
             <h1>DASHBOARD</h1>
             <p></p>
-            <row class='testimanial-container'>
+            <div class='testimanial-container'>
                 <div class="testimanial-col">
                     <Link  to='../roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/roster-icon.jpg")} alt=""></img>
                         <div>
                             <p>
-                                MY ROSTER
+                                ADD CONSTRAINTS
                             </p>
                             <h3></h3>
                             <h6></h6>
@@ -31,14 +30,14 @@ const DoctorDashboard = () => {
                         <img src={require("../assets/ward-roster.webp")} alt=""></img>
                         <div>
                             <p>
-                                WARD ROSTER
+                                WARD ROSTERS
                             </p>
                             
                         </div>
                     </Link>
                 </div>
                 
-            </row>
+            </div>
             <div class='testimanial-container'>
                                       
                         
@@ -47,7 +46,7 @@ const DoctorDashboard = () => {
                     <img src={require("../assets/profile-icon.png")} alt=""></img>
                     <div>
                         <p>
-                            PROFILE
+                            MY PROFILE
                         </p>
                         
                     </div>
@@ -60,7 +59,7 @@ const DoctorDashboard = () => {
                     <img src={require("../assets/doctor.png")} alt=""></img>
                     <div>
                         <p active={true} >
-                            SHIFT REQUEST
+                            ROSTER APPROVEL NOTIFICATIONS
                         </p>
                        
                     </div>
@@ -89,4 +88,4 @@ const DoctorDashboard = () => {
   )
 }
 
-export default DoctorDashboard
+export default AdminDashboard

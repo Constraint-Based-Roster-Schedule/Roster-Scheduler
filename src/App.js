@@ -17,9 +17,8 @@ function App() {
   return (
     <>
 
-      <Navbar/>
-
-
+      {/* <Navbar/> */}
+     
       <Router/>     
       
       
