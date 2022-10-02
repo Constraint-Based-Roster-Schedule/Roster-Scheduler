@@ -20,6 +20,7 @@ function Login() {
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
+    console.log(value,name)
     if (name == "email") {
       setEmail(value);
     } else if (name == "password") {
@@ -28,6 +29,10 @@ function Login() {
       setType(value);
     }
   };
+  //handle the submit and  send to the following page according to the user type
+  //if doctor-user type 1
+  //admin user type 0
+  //consultant user type 2
   const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { emailAddress: email, type: type, password: password };
@@ -84,14 +89,21 @@ function Login() {
               onChange={handleChange}
             />
             <label for="type">Type</label>
-            <input
+            <select name="type" id="type" value={type} onChange={handleChange}>
+              
+              <option name="1" id="type"value="1" onClick={handleChange}>Doctor</option>
+              <option name="2" id="type"value="2"onClick={handleChange}>Admin</option>
+              <option name="3" id="type" value="3"onClick={handleChange}>Consultant</option>
+              
+            </select>
+            {/* <input
               type="text"
               placeholder="Enter type"
               id="type"
               name="type"
               value={type}
               onChange={handleChange}
-            />
+            /> */}
             <button type="submit">Submit</button>
           </form>
           <div className="footer">
