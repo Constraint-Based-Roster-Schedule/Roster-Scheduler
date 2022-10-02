@@ -97,15 +97,15 @@ function RosterIndividual() {
                         <Col className='roster-column'>{searchDate}</Col>
                     </Row>
 
-                    {shiftNames.map((shift)=>{
+                    {/* {shiftNames.map((shift)=>{
                         return(
                             <Row>
                                 <Col className='roster-column'>Morning shift</Col>
                                 <Col className='roster-column'></Col>
                             </Row>
                         );
-                    })}
-                    {/* <Row>
+                    })} */}
+                    <Row>
                         <Col className='roster-column'>Morning shift</Col>
                         <Col className='roster-column'></Col>
                     </Row>
@@ -116,7 +116,7 @@ function RosterIndividual() {
                     <Row>
                         <Col className='roster-column'>Night shift</Col>
                         <Col className='roster-column'></Col>
-                    </Row> */}
+                    </Row>
                 </div>
             )}
             <IndividualRoster numberOfDays={numberOfDays} myShifts={myShifts}/>
