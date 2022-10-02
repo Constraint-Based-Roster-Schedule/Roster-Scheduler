@@ -4,11 +4,11 @@ import Home from './home';
 import About from './about';
 import SignupForm from './signupForm';
 import DoctorDashboard from './doctorDashboard';
-import WardRoster from './wardRoster';
+import WardRoster from '../view/wardRoster';
 import ShiftRequest from './shiftRequest';
 import Notifications from './notifications';
 import Login from './login';
-import RosterIndividual from './roster';
+import RosterIndividual from '../view/roster';
 import DocotrProfile from './doctorProfile';
 import HomePage from './home';
 
