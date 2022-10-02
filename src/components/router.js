@@ -11,6 +11,7 @@ import Login from './login';
 import RosterIndividual from '../view/roster';
 import DocotrProfile from './doctorProfile';
 import HomePage from './home';
+import LeaveRequests from '../view/leaveRequests';
 
 function router() {
   return (
@@ -35,6 +36,7 @@ function router() {
         <Route path='doctorProfile' element={<DocotrProfile/>}/>
         <Route path='home' element={<HomePage/>}/>
         <Route path='doctorDashboard' element={<DoctorDashboard/>}/>
+        <Route path='leaveRequests' element={<LeaveRequests/>}/>
       </Routes>
     </div>
   )
