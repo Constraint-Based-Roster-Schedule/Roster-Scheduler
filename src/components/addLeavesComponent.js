@@ -13,6 +13,7 @@ import {IoMdAddCircle} from 'react-icons/io';
 import { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
+import Axios from "axios";
 
 
 function AddLeavesComponent() {
@@ -54,8 +55,9 @@ function AddLeavesComponent() {
     
   }
 
-  function handleSubmit(){
-    //send node request
+  const handleSubmit=async()=>{
+    await Axios.post("http://localhost:5000/user/doctor/submitLeaveRequest", leaveRequests).then((res) => {
+      console.log(res.data)})
     setDate('');
     setSlot('');
     setLeaveRequests([]);

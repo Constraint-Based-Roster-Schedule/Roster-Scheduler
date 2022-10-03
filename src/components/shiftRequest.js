@@ -25,7 +25,7 @@ function ShiftRequest() {
   },[])
 
   const fetchData=async()=>{
-    await Axios.get("http://localhost:5000/shiftExchange/getData").then((res) => {
+    await Axios.get("http://localhost:5000/user/doctor/getData").then((res) => {
       setWardDoctors(res.data.wardDoctors);
       setMyshifts(res.data.myShifts);
       console.log(res.data.wardDoctors);
@@ -36,7 +36,7 @@ function ShiftRequest() {
   const handleSubmit=async(e)=>{
     e.preventDefault();
     const shiftExchangeData={"date":date, "working slot":shift,"date with":datewith,"shift with":shiftwith,"doctorID":docID}
-    await Axios.post("http://localhost:5000/shiftExchange/submitShiftRequest", shiftExchangeData).then((res) => {
+    await Axios.post("http://localhost:5000/user/doctor/submitShiftRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})
     //console.log(shiftExchangeData);
     handleReset();

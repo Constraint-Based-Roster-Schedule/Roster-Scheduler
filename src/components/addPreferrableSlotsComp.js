@@ -13,6 +13,7 @@ import {IoMdAddCircle} from 'react-icons/io';
 import { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
+import Axios from "axios";
 
 function AddPreferrableSlotsComp() {
   const [preferrableSlotRequests,setpreferrableSlotRequests]=useState([]);
@@ -49,8 +50,9 @@ function AddPreferrableSlotsComp() {
     
   }
 
-  function handleSubmit(){
-    //send node request
+  const handleSubmit=async()=>{
+    await Axios.post("http://localhost:5000/user/doctor/submitPrefferableSlots", preferrableSlotRequests).then((res) => {
+      console.log(res.data)})
     setSlotDate('');
     setSlot('');
     setpreferrableSlotRequests([]);

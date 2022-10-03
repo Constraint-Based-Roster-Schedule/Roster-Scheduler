@@ -3,8 +3,10 @@ import { FaBars } from 'react-icons/fa';
 import {BsFillPersonFill} from 'react-icons/bs';
 import {HiHome} from 'react-icons/hi';
 import {HiInformationCircle} from 'react-icons/hi';
+import {FiLogOut} from 'react-icons/fi';
 import logo from '../public/Group 3.png';
 import { Link } from 'react-router-dom';
+import { Button } from 'react-bootstrap';
 
 const Navbar = () => {
     
@@ -26,7 +28,7 @@ const Navbar = () => {
     }, [showLinks]);
 
     const linkstyle={
-        marginLeft:"100px" , 
+        marginLeft:"10rem" , 
         fontSize:'20px',
         textDecoration: 'none'
     }
@@ -44,7 +46,7 @@ const Navbar = () => {
                     <ul className='links' ref={linksRef}>
                         <Link className="navLink" to='/'style={linkstyle}><span>Home<HiHome size={30} style={{marginLeft:'15px', marginTop:"-8px"}}/></span></Link>                       
                         <Link to='/about' style={linkstyle}><span>About<HiInformationCircle size={30} style={{marginLeft:'15px', marginTop:"-8px"}}/></span></Link>                      
-                        <Link to='/profile' style={linkstyle}><span>Profile<BsFillPersonFill size={30} style={{marginLeft:'15px',marginTop:"-8px"}}/></span></Link>                       
+                        <Button  style={{backgroundColor:"transparent",fontSize:"5px",marginLeft:"10rem",color:"black",borderColor:"transparent"}}><span><FiLogOut size={30} style={{marginLeft:'15px',marginTop:"-8px"}}/></span></Button>                       
                     </ul>
                 </div>
             </div>
