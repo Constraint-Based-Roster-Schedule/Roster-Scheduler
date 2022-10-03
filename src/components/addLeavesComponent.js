@@ -13,6 +13,7 @@ import {IoMdAddCircle} from 'react-icons/io';
 import { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
+import Axios from "axios";
 
 
 function AddLeavesComponent() {
@@ -54,8 +55,9 @@ function AddLeavesComponent() {
     
   }
 
-  function handleSubmit(){
-    //send node request
+  const handleSubmit=async()=>{
+    await Axios.post("http://localhost:5000/user/doctor/submitLeaveRequest", leaveRequests).then((res) => {
+      console.log(res.data)})
     setDate('');
     setSlot('');
     setLeaveRequests([]);
@@ -94,7 +96,7 @@ function AddLeavesComponent() {
         </ButtonGroup>
       </div>
       {isError && <Alert severity="warning"  style={{marginTop:"1rem", marginBottom:"1rem"}} >{error}...</Alert>}
-      <Table className='table'>
+      <Table className='table-leave'>
         <thead>
           <tr>
             <th>Date</th>
