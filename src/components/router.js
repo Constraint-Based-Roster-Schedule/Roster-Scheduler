@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "./home";
@@ -13,10 +14,15 @@ import DocotrProfile from "./doctorProfile";
 import HomePage from "./home";
 import ConsultantDashboard from "./consultantDashboard";
 import AdminDashboard from "./adminDashboard";
+
+import LeaveRequests from '../view/leaveRequests';
+
+
 function router() {
   return (
     <div>
       <Routes>
+
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/signupForm" element={<SignupForm />} />
@@ -38,6 +44,8 @@ function router() {
         <Route path="doctorDashboard" element={<DoctorDashboard />} />
         <Route path="consultantDashboard" element={<ConsultantDashboard />} />
         <Route path="adminDashboard" element={<AdminDashboard />} />
+        <Route path='leaveRequests' element={<LeaveRequests/>}/>
+
       </Routes>
     </div>
   );

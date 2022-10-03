@@ -5,6 +5,8 @@ import '../CSS/shiftRequest.css';
 import Table from 'react-bootstrap/Table';
 import doctor from '../public/doctor1.jpg'; 
 import FormGroup from '@mui/material/FormGroup';
+import { useEffect } from 'react';
+import Axios from "axios";
 
 function ShiftRequest() {
   const id=2;
@@ -34,10 +36,21 @@ function ShiftRequest() {
   const [showDoctorList,setShowDoctorList]=useState(false);
   const [showShiftList,setShowShiftList]=useState(false);
 
-  const handleSubmit=(e)=>{
+  useEffect(()=>{
+
+  },[])
+
+  // const fetchData=async()=>{
+  //   await Axios.post("http://localhost:5000/newUser", user).then((res) => {
+  //     console.log(res.data)})
+  // }
+
+  const handleSubmit=async(e)=>{
     e.preventDefault();
     const shiftExchangeData={"date":date, "working slot":shift,"date with":datewith,"shift with":shiftwith,"doctorID":docID}
-    console.log(shiftExchangeData);
+    await Axios.post("http://localhost:5000/shiftExchange/submitShiftRequest", shiftExchangeData).then((res) => {
+      console.log(res.data)})
+    //console.log(shiftExchangeData);
   }
 
   const handleReset=()=>{
