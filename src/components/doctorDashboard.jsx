@@ -8,7 +8,7 @@ const DoctorDashboard = () => {
     <div className='dashboard-container'>
        {/* fffffffffffffffff */}
        <section class='dashboard'>
-            <h1>DASHBOARD</h1>
+            <h1>DOCTOR DASHBOARD</h1>
             <p></p>
             <row class='testimanial-container'>
                 <div class="testimanial-col">

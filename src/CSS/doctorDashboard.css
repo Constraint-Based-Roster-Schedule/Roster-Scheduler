@@ -28,7 +28,7 @@
     padding: 15px;
     background: #0f0544;
     cursor: pointer;
-    background-image: url(), repeating-linear-gradient(rgb(36, 10, 97), rgb(25, 160, 158) );
+    background-image:  repeating-linear-gradient(rgb(36, 10, 97), rgb(25, 160, 158) );
     
 }
 .Link{

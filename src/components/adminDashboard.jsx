@@ -7,7 +7,7 @@ const AdminDashboard = () => {
     <div className='dashboard-container'>
        {/* fffffffffffffffff */}
        <section class='dashboard'>
-            <h1>DASHBOARD</h1>
+            <h1>ADMIN DASHBOARD</h1>
             <p></p>
             <div class='testimanial-container'>
                 <div class="testimanial-col">
