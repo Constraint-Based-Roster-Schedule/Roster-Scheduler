@@ -97,9 +97,9 @@ function Login() {
             <label for="type">Type</label>
             <select name="type" id="type" value={type} onChange={handleChange}>
               
-              <option name="1" id="type"value="1"onChange={handleChange}>Doctor</option>
-              <option name="3" id="type"value="3"onChange={handleChange}>Admin</option>
-              <option name="2" id="type" value="2"onChange={handleChange}>Consultant</option>
+              <option name="1" id="type"value="1"onClick={handleChange}>Doctor</option>
+              <option name="3" id="type"value="3"onClick={handleChange}>Admin</option>
+              <option name="2" id="type" value="2"onClick={handleChange}>Consultant</option>
               
             </select>
             {/* <input
