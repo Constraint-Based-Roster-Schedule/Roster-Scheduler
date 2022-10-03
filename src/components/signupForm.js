@@ -34,7 +34,7 @@ const noOfWards=10;
 
 const handleSubmit=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"telephone":contact,"address":address,"email":emailaddress,"ward":ward,"specializedArea":specializedArea};
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"telephone":contact,"address":address,"emailaddress":email,"ward":ward,"specializedArea":specializedArea};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
 
