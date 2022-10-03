@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;600&family=Montserrat:wght@600&display=swap');
 .about{
     min-height: 90vh;
-    /* min-width: 100vw; */
+    min-width: 100vw;
     /* overflow: hidden; */
     border-color: black;
     background-color:rgb(59, 130, 237);
@@ -173,7 +173,7 @@
 @media screen and (max-width: 700px) {
     .about-container{
         height: 75vh;
-        width:70%;
+        width:100%;
         /* background-color: rgb(34, 177, 199); */
         /* background: linear-gradient(to right bottom,rgba(255,255,255,0.7),rgba(10, 50, 182, 0.4));  */
         border-radius: 1rem;
@@ -193,6 +193,7 @@
        
         align-items: center;
         display: static;
+        padding: 5px;
         /* justify-content: center; */
         /* box-shadow: 0.5rem 0.5rem 2rem -1rem rgb(21, 15, 100); */
         
@@ -226,13 +227,14 @@
         position: relative;
     }
     .button-container-about{
-        width: 15vw;
-        height: 3vw;
+        align-items:center;
+        width: 170px;
+        height: 50px;
     }
     .button-container-about button{
         font-size: small;
        
-        width: 15vw;
-        height: 3vw;
+        width: 75px;
+        height: 50px;
     }
 }

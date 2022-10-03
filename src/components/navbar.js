@@ -34,6 +34,7 @@ const Navbar = () => {
     }
 
     return (
+        <div>
         <nav>
             <div className='nav-center'>
                 <div className='nav-header'>
@@ -51,6 +52,8 @@ const Navbar = () => {
                 </div>
             </div>
         </nav>
+        <Outlet></Outlet>
+        </div>
     );
 };
 
