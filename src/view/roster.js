@@ -12,9 +12,19 @@ import InputAdornment from '@mui/material/InputAdornment';
 import {FaCalendarAlt} from 'react-icons/fa';
 import Alert from '@mui/material/Alert';
 import IndividualRoster from '../components/individualRoster';
+import Axios from "axios";
 
 function RosterIndividual() {
     const numberOfDays=31;
+
+    const [searched,setSearched]=useState(false);
+    const [searchDate,setSearchDate]=useState('');
+
+    const [iserror,setisError] =useState(false);
+    const [error,setError]=useState('');
+
+    // const [shiftNames,setShiftNames]=useState({});
+    //const [myShifts,setMyShifts]=useState({})
     const myShifts={
         "1":[0,1,0],
         "2":[1,0,0],
@@ -50,18 +60,29 @@ function RosterIndividual() {
     };
 
     const shiftNames={
-        '1':"Morning Shift",
-        "2":"Evening Shift",
-        "3":"Night Shift",
-    }
+    '1':"Morning Shift",
+    "2":"Evening Shift",
+    "3":"Night Shift",
+  }
 
-    const [searched,setSearched]=useState(false);
-    const [searchDate,setSearchDate]=useState('');
+    // useEffect(()=>{
+    //     //fetchIndividualRoster();
+    //     // fetchShiftNames();
+    // },[])
 
-    const [iserror,setisError] =useState(false);
-    const [error,setError]=useState('');
+    // const fetchIndividualRoster=async()=>{
+    //     await Axios.get("http://localhost:5000/user/doctor/getRosterObject").then((res) => {
+    //         setMyShifts(res.data.myShifts);
+    //         console.log(res.data.myShifts);
+    //     })
+    // }
 
-    
+    // const fetchShiftNames=async()=>{
+    //     await Axios.get("http://localhost:5000/user/doctor/getShiftNames").then((res) => {
+    //         setMyShifts(res.data.shiftNames);
+    //         console.log(shiftNames);
+    //     })
+    // }
 
     const handleSearch=(e)=>{         
         var search=e.target.value;          
