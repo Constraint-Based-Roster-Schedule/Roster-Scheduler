@@ -28,6 +28,7 @@ function Login() {
     } else if (name == "type") {
       setType(value);
     }
+    
   };
   //handle the submit and  send to the following page according to the user type
   //if doctor-user type 1
@@ -94,26 +95,26 @@ function Login() {
               onChange={handleChange}
             />
             <label for="type">Type</label>
-            {/* <select name="type" id="type" value={type} onChange={handleChange}>
+            <select name="type" id="type" value={type} onChange={handleChange}>
               
-              <option name="1" id="type"value="1" onClick={handleChange}>Doctor</option>
-              <option name="2" id="type"value="2"onClick={handleChange}>Admin</option>
-              <option name="3" id="type" value="3"onClick={handleChange}>Consultant</option>
+              <option name="1" id="type"value="1"onChange={handleChange}>Doctor</option>
+              <option name="3" id="type"value="3"onChange={handleChange}>Admin</option>
+              <option name="2" id="type" value="2"onChange={handleChange}>Consultant</option>
               
-            </select> */}
-            <input
+            </select>
+            {/* <input
               type="text"
               placeholder="Enter type"
               id="type"
               name="type"
               value={type}
               onChange={handleChange}
-            />
+            /> */}
             <button type="submit">Submit</button>
           </form>
           <div className="footer">
             <h4>
-              Dont' have an account.. <link href="" />
+              {/* Dont' have an account.. <link href="" /> */}
             </h4>
           </div>
         </div>
