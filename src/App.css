@@ -56,7 +56,7 @@ nav {
 
 .links-container {
     height: 0;
-    /* overflow: hidden; */
+    overflow: hidden;
     transition: var(--transition);
     display: flex;
     flex-direction: column;

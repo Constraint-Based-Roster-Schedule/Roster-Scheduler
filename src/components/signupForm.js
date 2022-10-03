@@ -10,6 +10,7 @@ import Alert from '@mui/material/Alert';
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { ConstructionOutlined } from '@mui/icons-material';
+import Axios from "axios";
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -31,12 +32,39 @@ const noOfWards=10;
 const handleSubmit=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"name":name,"contact":contact,"email":email,"ward":ward,"specializedArea":specializedArea};
-    try{
-        const response=await signup(user);       
-    }catch{
+        await Axios.post("http://localhost:5000/newUser", user).then((res) => {
+      console.log(res.data);
 
-    }   
-    console.log(user);
+    //   if (!res.data.success) {
+    //     console.log("insideError");
+    //     alert(res.data.msg);
+    //     // toast.error(res.data.msg,{position:toast.POSITION.TOP_RIGHT});
+    //   } else {
+    //     localStorage.setItem("user", res.data.token);
+    //     let decode = jwtDecode(res.data.token);
+    //     // console.log(decode);
+    //     if (decode.userType == "1") {
+    //         console.log(decode.userType);
+    //         navigate("/doctorDashboard");
+    //     //   window.location.herf = "../doctorDashboard";
+    //     } 
+    //     else if (decode.userType =="2") {
+    //       console.log(decode.userType);
+    //       navigate("/consultantDashboard");
+          
+    //     } 
+    //     else if (decode.userType == "3") {
+    //       console.log(decode.userType);
+    //       navigate("/adminDashboard");
+    //     }
+    //   }
+    });
+    // try{
+    //     const response=await signup(user);       
+    // }catch{
+    //     console.log("error");
+    // }   
+    //console.log(user);
 }
 
 const validateEmail=(e)=>{
