@@ -90,7 +90,7 @@ function AddPreferrableSlotsComp() {
         </ButtonGroup>
       </div>
       {isError && <Alert severity="warning"  style={{marginTop:"1rem", marginBottom:"1rem"}} >{error}...</Alert>}
-      <Table className='table'>
+      <Table className='table-leave'>
         <thead>
           <tr>
             <th>Date</th>

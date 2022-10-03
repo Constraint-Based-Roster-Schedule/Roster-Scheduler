@@ -10,24 +10,6 @@ import Axios from "axios";
 
 function ShiftRequest() {
   const id=2;
-  const wardDoctors=[[1,'Thinira Wanasingha'],[2,'Sakuni Bandara'], [3,'Gamunu Bandara'], [4,'Harshani Bandara']];
-  const myShifts={
-    "1":[0,1],
-    "2":[1],
-    "3":[0,1],
-    "4":[2],
-    "5":[1],
-    "6":[1,2],
-    "7":[0,1],
-    "8":[0,1],
-    "9":[1],
-    "10":[2],
-    "11":[1,2],
-    "12":[0,1],
-    "13":[2],
-    "14":[1],
-    "15":[1,2]
-  };
   const [date,setDate]=useState("");
   const [shift,setShift]=useState("");
   const [datewith,setDatewith]=useState("");
@@ -35,15 +17,21 @@ function ShiftRequest() {
   const [docID,setDocID]=useState("");
   const [showDoctorList,setShowDoctorList]=useState(false);
   const [showShiftList,setShowShiftList]=useState(false);
+  const [wardDoctors,setWardDoctors]=useState([])
+  const [myShifts,setMyshifts]=useState({})
 
   useEffect(()=>{
-
+    fetchData();
   },[])
 
-  // const fetchData=async()=>{
-  //   await Axios.post("http://localhost:5000/newUser", user).then((res) => {
-  //     console.log(res.data)})
-  // }
+  const fetchData=async()=>{
+    await Axios.get("http://localhost:5000/shiftExchange/getData").then((res) => {
+      setWardDoctors(res.data.wardDoctors);
+      setMyshifts(res.data.myShifts);
+      console.log(res.data.wardDoctors);
+      console.log(res.data.myShifts);
+    })
+  }
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
@@ -51,6 +39,7 @@ function ShiftRequest() {
     await Axios.post("http://localhost:5000/shiftExchange/submitShiftRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})
     //console.log(shiftExchangeData);
+    handleReset();
   }
 
   const handleReset=()=>{
