@@ -54,8 +54,13 @@ function Login() {
         //   window.location.herf = "../doctorDashboard";
         } 
         else if (decode.userType =="2") {
+          console.log(decode.userType);
+          navigate("/consultantDashboard");
+          
         } 
         else if (decode.userType == "3") {
+          console.log(decode.userType);
+          navigate("/adminDashboard");
         }
       }
     });
