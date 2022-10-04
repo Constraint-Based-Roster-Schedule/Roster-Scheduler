@@ -54,8 +54,8 @@ return (
                 <p className="text-muted mb-1">{consultant.name}</p>
                 <p className="text-muted mb-4" style={{color:'#fffff'}}>{consultant.position}</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn style={{color:'#1c0b7c',background:'#4ceded ',fontSize:'10px',fontWeight:'bold'}}>View Ward Roster</MDBBtn>
-                  <MDBBtn outline className="ms-1" >Contact</MDBBtn>
+                  <button style={{color:'#1c0b7c',background:'#4ceded ',fontSize:'10px',fontWeight:'bold'}}>View Ward Roster</button>
+                  <button outline className="ms-1" >Contact</button>
                 </div>
               </MDBCardBody>
             </MDBCard>
