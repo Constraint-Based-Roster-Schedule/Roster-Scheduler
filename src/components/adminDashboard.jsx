@@ -54,7 +54,7 @@ const AdminDashboard = () => {
                 </div>
                 
                 <div class="testimanial-col">
-                <Link  to='../shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../admin/approveRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                 
                     <img src={require("../assets/doctor.png")} alt=""></img>
                     <div>
@@ -74,6 +74,18 @@ const AdminDashboard = () => {
                         <div>
                             <p active={true} >
                                 NOTIFICATION
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
+                <div class="testimanial-col">
+                    <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                ADD USER
                             </p>
                         
                         </div>

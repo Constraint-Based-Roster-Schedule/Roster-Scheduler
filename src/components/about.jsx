@@ -29,7 +29,7 @@ const About = () => {
             Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores numquam ipsa quia impedit. Deleniti magni necessitatibus obcaecati quo voluptatem quae, voluptate ipsam fuga dolore iste repudiandae facilis soluta cupiditate eos.
           </div>
           <div className="button-container-about">
-            <button> <Link to='/home'>Home page</Link> </button>
+            <button> <Link to='/'>Home page</Link> </button>
           </div>
           </div>
           
