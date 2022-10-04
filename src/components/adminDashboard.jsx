@@ -42,7 +42,7 @@ const AdminDashboard = () => {
                                       
                         
                 <div class="testimanial-col">
-                <Link  to='../doctorProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../admin/adminProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     <img src={require("../assets/profile-icon.png")} alt=""></img>
                     <div>
                         <p>
