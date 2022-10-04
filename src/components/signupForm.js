@@ -37,29 +37,6 @@ const handleSubmitConsultant=async(e)=>{
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":"6339b9cc79b089f956978b20","address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
-
-    //   if (!res.data.success) {
-    //     console.log("insideError");
-    //     alert(res.data.msg);
-    //     // toast.error(res.data.msg,{position:toast.POSITION.TOP_RIGHT});
-    //   } else {
-    //     localStorage.setItem("user", res.data.token);
-    //     let decode = jwtDecode(res.data.token);
-    //     // console.log(decode);
-    //     if (decode.userType == "1") {
-    //         console.log(decode.userType);
-    //         navigate("/doctorDashboard");
-    //     //   window.location.herf = "../doctorDashboard";
-    //     } 
-    //     else if (decode.userType =="2") {
-    //       console.log(decode.userType);
-    //       navigate("/consultantDashboard");
-    //     } 
-    //     else if (decode.userType == "3") {
-    //       console.log(decode.userType);
-    //       navigate("/adminDashboard");
-    //     }
-    //   }
     });
     
 }
@@ -70,29 +47,6 @@ const handleSubmitDoctor=async(e)=>{
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
 
-    //   if (!res.data.success) {
-    //     console.log("insideError");
-    //     alert(res.data.msg);
-    //     // toast.error(res.data.msg,{position:toast.POSITION.TOP_RIGHT});
-    //   } else {
-    //     localStorage.setItem("user", res.data.token);
-    //     let decode = jwtDecode(res.data.token);
-    //     // console.log(decode);
-    //     if (decode.userType == "1") {
-    //         console.log(decode.userType);
-    //         navigate("/doctorDashboard");
-    //     //   window.location.herf = "../doctorDashboard";
-    //     } 
-    //     else if (decode.userType =="2") {
-    //       console.log(decode.userType);
-    //       navigate("/consultantDashboard");
-          
-    //     } 
-    //     else if (decode.userType == "3") {
-    //       console.log(decode.userType);
-    //       navigate("/adminDashboard");
-    //     }
-    //   }
     });
     
 }

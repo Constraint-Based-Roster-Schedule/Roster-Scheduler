@@ -7,6 +7,7 @@ import doctor from '../public/doctor1.jpg';
 import FormGroup from '@mui/material/FormGroup';
 import { useEffect } from 'react';
 import Axios from "axios";
+import Alert from '@mui/material/Alert';
 
 function ShiftRequest() {
   const id=2;
@@ -18,7 +19,14 @@ function ShiftRequest() {
   const [showDoctorList,setShowDoctorList]=useState(false);
   const [showShiftList,setShowShiftList]=useState(false);
   const [wardDoctors,setWardDoctors]=useState([])
-  const [myShifts,setMyshifts]=useState({})
+  const [myShifts,setMyshifts]=useState({});
+
+  const [isDateValidate,setIsDateValidate]=useState(true);
+  const [Dateerror,setDateError]=useState('');
+  const [isDateWithValidate,setIsDateWithValidate]=useState(true);
+  const [DateWitherror,setDateWithError]=useState('');
+
+  const numberOfDays=31
 
   useEffect(()=>{
     fetchData();
@@ -49,6 +57,32 @@ function ShiftRequest() {
     setShiftwith("");
     setDocID("");
   }
+
+    const validateDateWith=(e)=>{
+    var enter_date=e.target.value;
+    if(isNaN(enter_date)){
+        setIsDateWithValidate(false);
+        setDateWithError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
+        setIsDateWithValidate(false);
+        setDateWithError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else{
+        setIsDateWithValidate(true);
+    }
+  }
+
+   const validateDate=(e)=>{
+    var enter_date=e.target.value;
+    if(isNaN(enter_date)){
+        setIsDateValidate(false);
+        setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
+        setIsDateValidate(false);
+        setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else{
+        setIsDateValidate(true);
+    }
+  } 
 
   function renderDoctorList(wardDoctors){
     const rows=[]
@@ -82,20 +116,20 @@ function ShiftRequest() {
             <Form.Group className="formGrp col-lg-8" controlId="Date">  
               <Form.Label className='formLabel' >Slot to exchange:</Form.Label> 
               <Form.Group className='inner-formGrp'>
-                <Form.Control className='formControlDate' type="text" placeholder="Date" value={date} onChange={(e)=>setDate(e.target.value)}  required/>
+                <Form.Control className='formControlDate' type="text" placeholder="Date" value={date} onChange={(e)=>{setDate(e.target.value);validateDate(e);}}  required/>
                 <Form.Select className='formSelect' id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
                   <option value={"default"}>Slot</option>
                   <option value={1}>1</option>
                   <option value={2}>2</option>
                   <option value={3}>3</option>
               </Form.Select>
-              </Form.Group>                        
+              </Form.Group>                    
             </Form.Group>
             
             <Form.Group className="formGrp  col-lg-8 " controlId="Date">   
               <Form.Label className='formLabel'>Slot to exchange with:</Form.Label>    
               <Form.Group className='inner-formGrp'>
-                <Form.Control className='formControlDate' type="text" placeholder="Date" value={datewith} onChange={(e)=>setDatewith(e.target.value)}  required/>
+                <Form.Control className='formControlDate' type="text" placeholder="Date" value={datewith} onChange={(e)=>{setDatewith(e.target.value);validateDateWith(e);}}  required/>
                 <Form.Select className='formSelect' id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
                   <option value={"default"}>Slot</option>
                   <option value={1}>1</option>
@@ -103,6 +137,7 @@ function ShiftRequest() {
                   <option value={3}>3</option>
                 </Form.Select>
               </Form.Group>
+              
             </Form.Group>       
               
             
@@ -118,8 +153,10 @@ function ShiftRequest() {
                 Reset
               </Button>
             </Form.Group>
-            
+          {!isDateValidate && <Alert severity="warning">{Dateerror}...</Alert>}
+          {!isDateWithValidate && <Alert severity="warning" >{DateWitherror}...</Alert>}    
           </Form>
+          
         </div>
         <div className='doctorList'>
             <Button className='show-doctor-list-btn' variant='primary' onClick={()=>setShowDoctorList(!showDoctorList)} >Show Doctors of the Ward</Button>
