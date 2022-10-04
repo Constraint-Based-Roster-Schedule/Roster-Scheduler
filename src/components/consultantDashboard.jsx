@@ -8,7 +8,7 @@ const ConsultantDashboard = () => {
     <div className='dashboard-container'>
        {/* fffffffffffffffff */}
        <section class='dashboard'>
-            <h1>CONSALTANT DASHBOARD</h1>
+            <h1>CONSULTANT DASHBOARD</h1>
             <p></p>
             <div class='testimanial-container'>
                 <div class="testimanial-col">
@@ -67,8 +67,20 @@ const ConsultantDashboard = () => {
                     </Link>
                 </div>
             </div>
-            {/* <div className="testimanial-container">
+            <div className="testimanial-container">
                 <div class="testimanial-col">
+                    <Link  to='../consultant/shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                Shift Request
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
+                {/* <div class="testimanial-col">
                     <Link  to='../consultant/rosterNotification' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
@@ -79,8 +91,8 @@ const ConsultantDashboard = () => {
                         
                         </div>
                         </Link>
-                </div>
-            </div> */}
+                </div> */}
+            </div>
         </section>
         <br />
         <br />

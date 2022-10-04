@@ -109,7 +109,7 @@ function RosterIndividual() {
                 <TextField className='filter-bar' InputProps={{startAdornment: <InputAdornment position="start" style={{color:"blue" , backgroundColor: "blue"}}>
                     <FaCalendarAlt/></InputAdornment>}} id="filled-basic" label="Date" variant="outlined"  onChange={(e)=>{setSearchDate(e.target.value) ;handleSearch(e)}} />
                 {iserror && <Alert severity="warning" >{error}...</Alert>}
-                <Link className='requestButton' to='/shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
+                <Link className='requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
             </div>
             {searched && searchDate.length>0 && (
                 <div className='individual-rosterContainer'>

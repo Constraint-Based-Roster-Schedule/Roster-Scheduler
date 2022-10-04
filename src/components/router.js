@@ -24,6 +24,7 @@ import GenarateRoster from "../view/rosterGenerator";
 import RosterNotification from "./rosterNotification";
 import AddWorkSlots from "../view/leaveRequests"
 import ApproveRoster from "./approveRoster";
+import AdminProfile from "./adminProfile";
 function Router(props) {
   
   useEffect(()=>{}, [props.type])
@@ -60,6 +61,7 @@ function Router(props) {
               <Route path="notifications" element={<ProtectedRoute permissions={'2'}><Notifications /></ProtectedRoute>} />
               <Route path="generateRoster" element={<ProtectedRoute permissions={'2'}><GenarateRoster /></ProtectedRoute>} />
               <Route path="rosterNotification" element={<ProtectedRoute permissions={'2'}><RosterNotification /></ProtectedRoute>} />
+              <Route path="shiftRequest" element={<ProtectedRoute permissions={'2'}><ShiftRequest /></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Route>
          
@@ -67,6 +69,7 @@ function Router(props) {
               <Route exact path="" element={<ProtectedRoute permissions={'3'}><AdminDashboard /></ProtectedRoute>} />
               <Route path="signupForm" element={<ProtectedRoute permissions={'3'}><SignupForm /></ProtectedRoute>} />
               <Route path="approveRoster" element={<ProtectedRoute permissions={'3'}><ApproveRoster /></ProtectedRoute>} />
+              <Route path="adminProfile" element={<ProtectedRoute permissions={'3'}><AdminProfile/></ProtectedRoute>} />
               {/*  */}
               <Route path="*" element={<NotFound />} />
             </Route>
