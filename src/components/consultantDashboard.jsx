@@ -67,9 +67,9 @@ const ConsultantDashboard = () => {
                     </Link>
                 </div>
             </div>
-            <div className="testimanial-container">
+            {/* <div className="testimanial-container">
                 <div class="testimanial-col">
-                    <Link  to='../consultant/notifications' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../consultant/rosterNotification' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
@@ -80,7 +80,7 @@ const ConsultantDashboard = () => {
                         </div>
                         </Link>
                 </div>
-            </div>
+            </div> */}
         </section>
         <br />
         <br />

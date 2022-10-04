@@ -37,7 +37,7 @@ export default function DocotrProfile() {
 
 
   return (
-    <section style={{ backgroundColor: '#40d2e5' }}>
+    <section style={{ backgroundColor: '#40d2e5' ,marginTop:'-30px'}}>
 
       <MDBContainer className="py-5">
         

@@ -8,8 +8,9 @@ import Axios from 'axios';
 import Sidebar from './components/sidebar';
 import { useEffect } from 'react';
 import { useState } from 'react';
+import { ImportExportTwoTone } from '@mui/icons-material';
 
-
+import Footer from './components/footer'
 
 
 
@@ -32,7 +33,7 @@ function App() {
      
       <Router type={type}/>     
       
-      
+      {/* <Footer/> */}
 
     </>   
   );

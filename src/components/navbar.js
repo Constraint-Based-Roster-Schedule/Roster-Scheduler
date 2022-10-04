@@ -9,7 +9,7 @@ import { Outlet } from "react-router-dom";
 import authService from "../auth_service/auth_services";
 import { GrLogout } from "react-icons/gr";
 import { Navigate } from "react-router-dom";
-
+import {MdLogin} from "react-icons/md"
 
 import { Button } from 'react-bootstrap';
 
@@ -45,9 +45,9 @@ const Navbar = () => {
       <nav>
         <div className="nav-center">
           <div className="nav-header">
-            {/* <Link to=''>
+            {type==null && (<Link to=''>
               <img src={logo} className="logo" alt="logo" />
-            </Link> */}
+            </Link>)}
             {type == "1" && (
               <Link to="/doctor" style={linkstyle}>
                 <img src={logo} className="logo" alt="logo" />
@@ -79,7 +79,18 @@ const Navbar = () => {
                     Home
                     <HiHome
                       size={30}
-                      style={{ marginLeft: "15px", marginTop: "-8px" }}
+                      style={{ marginLeft: "15px", marginTop: "-4px" }}
+                    />
+                  </span>
+                </Link>
+              )}
+              {type == null && (
+                <Link className="navLink" to="/login" style={linkstyle}>
+                  <span>
+                    Login
+                    <MdLogin
+                      size={30}
+                      style={{ marginLeft: "15px", marginTop: "-4px" }}
                     />
                   </span>
                 </Link>
@@ -90,7 +101,7 @@ const Navbar = () => {
                     About
                     <HiInformationCircle
                       size={30}
-                      style={{ marginLeft: "15px", marginTop: "-8px" }}
+                      style={{ marginLeft: "15px", marginTop: "-4px" }}
                     />
                   </span>
                 </Link>

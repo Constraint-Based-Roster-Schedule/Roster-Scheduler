@@ -80,6 +80,18 @@ const DoctorDashboard = () => {
                         </div>
                         </Link>
                 </div>
+                <div class="testimanial-col">
+                    <Link  to='../doctor/addWorkSlots' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                PREFERABLE WORK SLOTS
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
             </div>
         </section>
         <br />
