@@ -32,9 +32,41 @@ const [isWardValid,setIsWardValid]=useState(true);
 
 const noOfWards=10;
 
-const handleSubmit=async(e)=>{
+const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"telephone":contact,"address":address,"emailaddress":email,"ward":ward,"specializedArea":specializedArea};
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":"6339b9cc79b089f956978b20","address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
+        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
+      console.log(res.data);
+
+    //   if (!res.data.success) {
+    //     console.log("insideError");
+    //     alert(res.data.msg);
+    //     // toast.error(res.data.msg,{position:toast.POSITION.TOP_RIGHT});
+    //   } else {
+    //     localStorage.setItem("user", res.data.token);
+    //     let decode = jwtDecode(res.data.token);
+    //     // console.log(decode);
+    //     if (decode.userType == "1") {
+    //         console.log(decode.userType);
+    //         navigate("/doctorDashboard");
+    //     //   window.location.herf = "../doctorDashboard";
+    //     } 
+    //     else if (decode.userType =="2") {
+    //       console.log(decode.userType);
+    //       navigate("/consultantDashboard");
+    //     } 
+    //     else if (decode.userType == "3") {
+    //       console.log(decode.userType);
+    //       navigate("/adminDashboard");
+    //     }
+    //   }
+    });
+    
+}
+
+const handleSubmitDoctor=async(e)=>{
+    e.preventDefault();
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":"6339b9cc79b089f956978b20","address":address,"emailaddress":email,"telephone":contact,"password":firstName};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
 
@@ -64,6 +96,7 @@ const handleSubmit=async(e)=>{
     });
     
 }
+
 
 const validateEmail=(e)=>{
     var email = e.target.value;
@@ -129,17 +162,17 @@ return (
                         <label htmlFor="userType" className="col-lg-6" style={{fontSize:"20px"}}><b>Select the user type:</b></label>
                         <select className="form-select col-lg-2" id='userType' aria-label="Default select example" value={userType} onChange={(e)=>{setUserType(e.target.value); setIsEmailValid(true);handleReset();}}>
                             <option value={"Default"} key={0}>Choose a user type</option>
-                            <option value={"Doctor"} key={1}>Doctor</option>
-                            <option value={"Consultant"} key={2}>Consultant</option>
+                            <option value={"1"} key={1}>Doctor</option>
+                            <option value={"2"} key={2}>Consultant</option>
                         </select>
                     </div>                   
                 </form>
             </div>
-            {userType==='Doctor' && (
+            {userType==='1' && (
             <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>                
                 <FaUserCircle className='addUserIcon' size={100}/>                
                 <h2 className='register-topic'>Registration form of a doctor</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitDoctor}>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
                         <Form.Label>First name :</Form.Label>
                         <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
@@ -163,7 +196,7 @@ return (
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value); validateEmail(e)}}/>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}}/>
                         {!isEmailValid && <Alert severity="warning" >{emailError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
@@ -187,11 +220,11 @@ return (
                 </form>
             </div>)}
 
-            {userType==='Consultant' && (
+            {userType==='2' && (
             <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)'}}>
                 <FaUserCircle className='addUserIcon' size={100}/>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmitConsultant}>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
                         <Form.Label>First name :</Form.Label>
                         <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
