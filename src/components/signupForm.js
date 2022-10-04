@@ -14,8 +14,11 @@ import Axios from "axios";
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
-const [name,setName]=useState('');
+const [firstName,setFirstName]=useState('');
+const [lastName,setLastName]=useState('');
+const [userName,setUserName]=useState('');
 const [contact,setContact]=useState('');
+const [address,setAddress]=useState('');
 const [email,setEmail]=useState('');
 const [ward,setWard]=useState('');
 const [specializedArea,setSpecializedArea]=useState('');
@@ -31,8 +34,8 @@ const noOfWards=10;
 
 const handleSubmit=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"name":name,"contact":contact,"email":email,"ward":ward,"specializedArea":specializedArea};
-        await Axios.post("http://localhost:5000/newUser", user).then((res) => {
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"telephone":contact,"address":address,"emailaddress":email,"ward":ward,"specializedArea":specializedArea};
+        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
 
     //   if (!res.data.success) {
@@ -59,12 +62,7 @@ const handleSubmit=async(e)=>{
     //     }
     //   }
     });
-    // try{
-    //     const response=await signup(user);       
-    // }catch{
-    //     console.log("error");
-    // }   
-    //console.log(user);
+    
 }
 
 const validateEmail=(e)=>{
@@ -107,8 +105,11 @@ const validateWard=(e)=>{
 }
 
 const handleReset=()=>{
-    setName('');
+    setFirstName('');
+    setLastName('');
+    setUserName('');
     setContact('');
+    setAddress('')
     setEmail('');
     setWard('');
     setSpecializedArea('');
@@ -139,14 +140,26 @@ return (
                 <FaUserCircle className='addUserIcon' size={100}/>                
                 <h2 className='register-topic'>Registration form of a doctor</h2>
                 <form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFullName">
-                        <Form.Label>Full name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter full name" value={name}  onChange={(e)=>setName(e.target.value)}/>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
+                        <Form.Label>First name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicLastName">
+                        <Form.Label>Last name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicUserName">
+                        <Form.Label>User name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
                         <Form.Label>Contact number : </Form.Label>
                         <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value); validateContact(e)}}/>
                         {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicAddress">
+                        <Form.Label>Address :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
@@ -179,14 +192,26 @@ return (
                 <FaUserCircle className='addUserIcon' size={100}/>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
                 <form onSubmit={handleSubmit}>
-                    <Form.Group className="mb-3 col-lg-8" controlId="formBasicFullName">
-                        <Form.Label>Full name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter full name" value={name}  onChange={(e)=>setName(e.target.value)}/>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
+                        <Form.Label>First name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicLastName">
+                        <Form.Label>Last name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicUserName">
+                        <Form.Label>User name :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
                         <Form.Label>Contact number : </Form.Label>
                         <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value);validateContact(e)}}/>
                         {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
+                    </Form.Group>
+                    <Form.Group className="mb-3 col-lg-8 " controlId="formBasicAddress">
+                        <Form.Label>Address :</Form.Label>
+                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)}/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
