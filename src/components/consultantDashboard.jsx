@@ -12,7 +12,7 @@ const ConsultantDashboard = () => {
             <p></p>
             <div class='testimanial-container'>
                 <div class="testimanial-col">
-                    <Link  to='../roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../consultant/roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/roster-icon.jpg")} alt=""></img>
                         <div>
@@ -26,7 +26,7 @@ const ConsultantDashboard = () => {
                 </div>
                        
                 <div class="testimanial-col">
-                    <Link  to='../wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../consultant/wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/ward-roster.webp")} alt=""></img>
                         <div>
@@ -43,7 +43,7 @@ const ConsultantDashboard = () => {
                                       
                         
                 <div class="testimanial-col">
-                <Link  to='../consultantProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../consultant/consultantProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     <img src={require("../assets/profile-icon.png")} alt=""></img>
                     <div>
                         <p>
@@ -55,7 +55,7 @@ const ConsultantDashboard = () => {
                 </div>
                 
                 <div class="testimanial-col">
-                <Link  to='' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../consultant/generateRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                 
                     <img src={require("../assets/doctor.png")} alt=""></img>
                     <div>
@@ -67,9 +67,9 @@ const ConsultantDashboard = () => {
                     </Link>
                 </div>
             </div>
-            <div className="testimanial-container">
+            {/* <div className="testimanial-container">
                 <div class="testimanial-col">
-                    <Link  to='' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../consultant/rosterNotification' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
@@ -80,7 +80,7 @@ const ConsultantDashboard = () => {
                         </div>
                         </Link>
                 </div>
-            </div>
+            </div> */}
         </section>
         <br />
         <br />

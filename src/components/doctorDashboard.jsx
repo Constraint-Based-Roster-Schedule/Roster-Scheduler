@@ -12,7 +12,7 @@ const DoctorDashboard = () => {
             <p></p>
             <row class='testimanial-container'>
                 <div class="testimanial-col">
-                    <Link  to='../roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../doctor/roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/roster-icon.jpg")} alt=""></img>
                         <div>
@@ -26,7 +26,7 @@ const DoctorDashboard = () => {
                 </div>
                        
                 <div class="testimanial-col">
-                    <Link  to='../wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../doctor/wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/ward-roster.webp")} alt=""></img>
                         <div>
@@ -43,7 +43,7 @@ const DoctorDashboard = () => {
                                       
                         
                 <div class="testimanial-col">
-                <Link  to='../doctorProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../doctor/doctorProfile' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     <img src={require("../assets/profile-icon.png")} alt=""></img>
                     <div>
                         <p>
@@ -55,7 +55,7 @@ const DoctorDashboard = () => {
                 </div>
                 
                 <div class="testimanial-col">
-                <Link  to='../shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../doctor/shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                 
                     <img src={require("../assets/doctor.png")} alt=""></img>
                     <div>
@@ -69,12 +69,24 @@ const DoctorDashboard = () => {
             </div>
             <div className="testimanial-container">
                 <div class="testimanial-col">
-                    <Link  to='../notifications' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../doctor/notifications' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
                             <p active={true} >
                                 NOTIFICATION
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
+                <div class="testimanial-col">
+                    <Link  to='../doctor/addWorkSlots' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                PREFERABLE WORK SLOTS
                             </p>
                         
                         </div>
