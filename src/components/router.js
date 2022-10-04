@@ -67,7 +67,7 @@ function Router(props) {
               <Route exact path="" element={<ProtectedRoute permissions={'3'}><AdminDashboard /></ProtectedRoute>} />
               <Route path="signupForm" element={<ProtectedRoute permissions={'3'}><SignupForm /></ProtectedRoute>} />
               <Route path="approveRoster" element={<ProtectedRoute permissions={'3'}><ApproveRoster /></ProtectedRoute>} />
-              
+              {/*  */}
               <Route path="*" element={<NotFound />} />
             </Route>
             
