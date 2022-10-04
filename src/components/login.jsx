@@ -51,17 +51,17 @@ function Login() {
         // console.log(decode);
         if (decode.userType == "1") {
             console.log(decode.userType);
-            navigate("/doctorDashboard");
+            navigate("/doctor");
         //   window.location.herf = "../doctorDashboard";
         } 
         else if (decode.userType =="2") {
           console.log(decode.userType);
-          navigate("/consultantDashboard");
+          navigate("/consultant");
           
         } 
         else if (decode.userType == "3") {
           console.log(decode.userType);
-          navigate("/adminDashboard");
+          navigate("/admin");
         }
       }
     });
@@ -95,11 +95,14 @@ function Login() {
               onChange={handleChange}
             />
             <label for="type">Type</label>
-            <select name="type" id="type" value={type} onChange={handleChange}>
-              
-              <option name="1" id="type"value="1"onClick={handleChange}>Doctor</option>
-              <option name="3" id="type"value="3"onClick={handleChange}>Admin</option>
-              <option name="2" id="type" value="2"onClick={handleChange}>Consultant</option>
+            <select name="type" id="type" value={type} onChange={handleChange} required>
+            <option selected disabled hidden value="">
+                      {" "}
+                      Select{" "}
+                    </option>{" "}
+              <option name="1" id="type"value="1">Doctor</option>
+              <option name="3" id="type"value="3">Admin</option>
+              <option name="2" id="type" value="2">Consultant</option>
               
             </select>
             {/* <input
