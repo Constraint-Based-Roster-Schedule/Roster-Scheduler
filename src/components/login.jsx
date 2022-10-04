@@ -84,6 +84,7 @@ function Login() {
               id="email"
               value={email}
               onChange={handleChange}
+              required
             />
             <label for="password">Password</label>
             <input
@@ -93,6 +94,7 @@ function Login() {
               id="password"
               value={password}
               onChange={handleChange}
+              required
             />
             <label for="type">Type</label>
             <select name="type" id="type" value={type} onChange={handleChange} required>
