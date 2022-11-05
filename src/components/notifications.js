@@ -59,7 +59,7 @@ function Notifications() {
           <p className='notify-text'>Your request to <b>Dr. {doctorName}</b>  for exchange the working slot <b>{notification.workingslot}</b> on <b>{notification.date}nd of March
           </b> to working slot <b>{notification.shiftwith}</b> on <b>{notification.datewith}th of March </b> has been {notification.state ? <b>accepted</b> : <b>declined</b>}</p>
           <span className='request-close-btns'>
-            {!notification.state && <Link className='shift-request-btn' to='/shiftRequest'><Button  variant='success' type='button'>Request again</Button></Link>}
+            {!notification.state && <Link className='shift-request-btn' to='../shiftRequest'><Button  variant='success' type='button'>Request again</Button></Link>}
             <Button className='close-btn' variant='outline-success' onClick={()=>closeSentNotify(notification.id)}><GiCheckMark size={25} style={{color:"rgb(1, 219, 0)"}}/></Button>
           </span>
         </div>

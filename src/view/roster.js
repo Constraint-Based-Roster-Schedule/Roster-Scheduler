@@ -1,10 +1,6 @@
 import React, { useState , useEffect} from 'react';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import '../CSS/roster.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import { Link } from 'react-router-dom';
 import TextField from '@mui/material/TextField';
@@ -105,42 +101,14 @@ function RosterIndividual() {
 
     return (
         <>
+            <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Dr. Harshani's Roster Schedule</h1>
             <div className='requestButton-filter' >
                 <TextField className='filter-bar' InputProps={{startAdornment: <InputAdornment position="start" style={{color:"blue" , backgroundColor: "blue"}}>
                     <FaCalendarAlt/></InputAdornment>}} id="filled-basic" label="Date" variant="outlined"  onChange={(e)=>{setSearchDate(e.target.value) ;handleSearch(e)}} />
                 {iserror && <Alert severity="warning" >{error}...</Alert>}
                 <Link className='requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
             </div>
-            {searched && searchDate.length>0 && (
-                <div className='individual-rosterContainer'>
-                    <Row>
-                        <Col className='roster-column'>Date</Col>
-                        <Col className='roster-column'>{searchDate}</Col>
-                    </Row>
-
-                    {/* {shiftNames.map((shift)=>{
-                        return(
-                            <Row>
-                                <Col className='roster-column'>Morning shift</Col>
-                                <Col className='roster-column'></Col>
-                            </Row>
-                        );
-                    })} */}
-                    <Row>
-                        <Col className='roster-column'>Morning shift</Col>
-                        <Col className='roster-column'></Col>
-                    </Row>
-                    <Row>
-                        <Col className='roster-column'>Evening Shift</Col>
-                        <Col className='roster-column'></Col>
-                    </Row>
-                    <Row>
-                        <Col className='roster-column'>Night shift</Col>
-                        <Col className='roster-column'></Col>
-                    </Row>
-                </div>
-            )}
-            <IndividualRoster numberOfDays={numberOfDays} myShifts={myShifts}/>
+            <IndividualRoster myShifts={myShifts}/>
         </>    
     )
 }

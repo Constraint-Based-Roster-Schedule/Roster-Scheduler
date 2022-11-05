@@ -43,7 +43,7 @@ function ShiftRequest() {
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
-    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":"633b93a2db2924265429f028","requestState":1}
+    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":"633be3ad645fd11f4252f925","requestState":1}
     await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})
     //console.log(shiftExchangeData);

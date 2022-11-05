@@ -25,7 +25,7 @@ const AdminDashboard = () => {
                 </div>
                        
                 <div class="testimanial-col">
-                    <Link  to='../wardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    <Link  to='../admin/searchWardRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/ward-roster.webp")} alt=""></img>
                         <div>
