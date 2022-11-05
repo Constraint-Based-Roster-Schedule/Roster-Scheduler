@@ -66,7 +66,7 @@ export default function DocotrProfile() {
         setEmail(res.data.email);
         setAddress(res.data.address);
         setTelephone(res.data.telephone);
-        setWardNumber(res.data.wardId);
+        setWardNumber(res.data.wardID);
         setWardName(res.data.wardName);
         setUserName(res.data.userName);
         return res.data;
@@ -82,9 +82,6 @@ export default function DocotrProfile() {
         <h1 className='mb-3' >Doctor Profile</h1>
        
       </div>
-      <MDBContainer>
-        <h1>profile</h1>
-      </MDBContainer>
       <MDBContainer className="py-4">
         {/* <button onClick={getUserDetails}></button> */}
 
