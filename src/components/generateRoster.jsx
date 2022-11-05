@@ -2,7 +2,12 @@ import React from 'react'
 
 export const GenarateRoster = () => {
   return (
-    <div>GenarateRoster</div>
+    <section>
+      <div>
+        <h1>GenarateRoster</h1>
+      </div>
+    </section>
+    
   )
 }
 export default GenarateRoster;

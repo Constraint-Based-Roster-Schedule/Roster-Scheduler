@@ -1,6 +1,10 @@
 import React from 'react'
 import welcomeimg from '../assets/doctor.png'
-
+import axios from 'axios';
+import {Link} from 'react-router-dom';
+import { border } from '@mui/system';
+import { useState } from 'react';
+import jwtDecode from 'jwt-decode';
 import {
   MDBCol,
   MDBContainer,
@@ -18,10 +22,45 @@ import {
   MDBListGroup,
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
-import { border } from '@mui/system';
+import { Telegram, ThreeK } from '@mui/icons-material';
+
 
 export default function AdminProfile() {
+  const [admin1, setAdmin1] = useState({});
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [address, setAddress] = useState("");
+  const [telephone, setTelephone] = useState("");
+  const [userName, setUserName] = useState("");
  
+  console.log(admin1);
+  const getUserDetails = async (e) => {
+    console.log(jwtDecode(localStorage.getItem("user")));
+    // e.preventDefault();
+    let user = null;
+    user = jwtDecode(localStorage.getItem("user"));
+    console.log(user.userName, user.userType);
+    const data = { userName: user.userName, type: user.userType };
+
+    await axios
+      .post("http://localhost:5000/user/admin/userDetails", data)
+      .then((res) => {
+        console.log("AAAAAAAAAAAaaaaaaaaaaa");
+        console.log(res.data.fullName);
+        setAdmin1(res.data);
+        setName(res.data.fullName);
+        setEmail(res.data.email);
+        setAddress(res.data.address);
+        setTelephone(res.data.telephone);
+        setUserName(res.data.userName);
+       
+        return res.data;
+      });
+  };
+
+  useState(() => {
+    getUserDetails();
+  });
   const admin = {name:"Harshani Bandara",
   position:'padiatric  surgeon',
   email:'harshanimadhushani51@gmail.com',
@@ -37,8 +76,11 @@ export default function AdminProfile() {
 
 
   return (
-    <section style={{ backgroundColor: '#40d2e5' ,marginTop:'-30px'}}>
-
+    <section style={{ backgroundColor: '#40d2e5' ,marginTop:'-5px'}}>
+      <div className='p-2 text-center' style={{marginBottom:'-35px'}} >
+        <h1 className='mb-3' >Admin Profile</h1>
+       
+      </div>
       <MDBContainer className="py-5">
         
 
@@ -52,34 +94,25 @@ export default function AdminProfile() {
                   className="rounded-circle"
                   style={{ width: '150px',borderWidth:'1px' }}
                   fluid />
-                <p className="text-muted mb-1">{admin.name}</p>
-                <p className="text-muted mb-4" style={{color:'#fffff'}}>{admin.position}</p>
+                <p className="text-muted mb-1">{name}</p>
+                <p className="text-muted mb-4" style={{color:'#fffff'}}>Admin</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <MDBBtn style={{color:'#1c0b7c',background:'#4ceded'}}>View Roster</MDBBtn>
-                  <MDBBtn outline className="ms-1" >Contact</MDBBtn>
+                  <Link className="requestButton" to="../roster">
+                      <MDBBtn outline className="ms-1">
+                        My Roster
+                      </MDBBtn>
+                    </Link>
+
+                    <Link className="requestButton" to="../wardRoster">
+                      <MDBBtn outline className="ms-1">
+                        Ward Roster
+                      </MDBBtn>
+                    </Link>
                 </div>
               </MDBCardBody>
             </MDBCard>
 
-            <MDBCard className="mb-4 ">
-              <MDBCardBody className="p-0">
-                <MDBListGroup flush className="rounded-3">
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-      
-                    <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Specialist area</MDBCardText>
-                  </MDBListGroupItem>
-                  
-                  
-                  {(admin.speciality).map((reptile) => 
-                  <MDBListGroupItem className="d-flex justify-content-between align-items-center p-3">
-                   
-                    
-                    <MDBCardText>{reptile}</MDBCardText>
-                  </MDBListGroupItem>)}
-                 
-                </MDBListGroup>
-              </MDBCardBody>
-            </MDBCard>
+            
           </MDBCol>
           <MDBCol lg="8">
             <MDBCard className="mb-4">
@@ -89,7 +122,7 @@ export default function AdminProfile() {
                     <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Full Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{admin.name}</MDBCardText>
+                    <MDBCardText className="text-muted">{name}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -98,7 +131,7 @@ export default function AdminProfile() {
                     <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Email</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{admin.email}</MDBCardText>
+                    <MDBCardText className="text-muted">{email}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -117,17 +150,17 @@ export default function AdminProfile() {
                     <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Phone</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{(admin.contact_number).map((reptile) => <li>{reptile}</li>)}
+                    <MDBCardText className="text-muted">{telephone}
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
                 <MDBRow>
                   <MDBCol sm="3">
-                    <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Land number</MDBCardText>
+                    <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>User Name</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{(admin.contact_number).map((reptile) => <li>{reptile}</li>)}</MDBCardText>
+                    <MDBCardText className="text-muted">{userName}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
@@ -136,18 +169,11 @@ export default function AdminProfile() {
                     <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Address</MDBCardText>
                   </MDBCol>
                   <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{admin.address}</MDBCardText>
+                    <MDBCardText className="text-muted">{address}</MDBCardText>
                   </MDBCol>
                 </MDBRow>
                 <hr />
-                {/* <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>Ward numbers</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">{(admin.wardNumbers).map((reptile) => <li>{reptile}</li>)}</MDBCardText>
-                  </MDBCol>
-                </MDBRow> */}
+                
               </MDBCardBody>
             </MDBCard>
 
