@@ -64,7 +64,6 @@ function Router(props) {
               <Route path="shiftRequest" element={<ProtectedRoute permissions={'2'}><ShiftRequest /></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Route>
-         
             <Route exact path="/admin" element={<Navbar />} >
               <Route exact path="" element={<ProtectedRoute permissions={'3'}><AdminDashboard /></ProtectedRoute>} />
               <Route path="signupForm" element={<ProtectedRoute permissions={'3'}><SignupForm /></ProtectedRoute>} />

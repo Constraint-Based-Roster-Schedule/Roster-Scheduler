@@ -23,8 +23,10 @@ function AddLeavesComponent() {
   const [slot,setSlot]=useState(null);
   const [isError,setIsError]=useState(false);
   const [error,setError]=useState('');
+  const [isDateValidate,setIsDateValidate]=useState(true);
+  const [Dateerror,setDateError]=useState('');
 
-  
+  const numberOfDays=31
 
   function deleteLeaves(dltDate,dltSlot){
     
@@ -58,9 +60,7 @@ function AddLeavesComponent() {
   const handleSubmit=async()=>{
     await Axios.post("http://localhost:5000/user/doctor/submitLeaveRequest", leaveRequests).then((res) => {
       console.log(res.data)})
-    setDate('');
-    setSlot('');
-    setLeaveRequests([]);
+    handleReset();
   }
 
   function handleReset(){
@@ -69,7 +69,22 @@ function AddLeavesComponent() {
     setLeaveRequests([]);
     setIsError(false);
     setError(false);
+    setDateError('');
+    setIsDateValidate(true)
   }
+
+  const validateDate=(e)=>{
+    var enter_date=e.target.value;
+    if(isNaN(enter_date)){
+        setIsDateValidate(false);
+        setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
+        setIsDateValidate(false);
+        setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
+    }else{
+        setIsDateValidate(true);
+    }
+}
 
   return (
     <div className='leaveRequestForm col-lg-5'>
@@ -77,7 +92,7 @@ function AddLeavesComponent() {
         <h1 className='add-text'>Add leave requests</h1>
       </div>
       <div className='input-row' >
-        <TextField className='text-field' label="Date" variant="outlined" value={leavedate} onChange={(e)=>setDate(e.target.value)} />
+        <TextField className='text-field' label="Date" variant="outlined" value={leavedate} onChange={(e)=>{setDate(e.target.value);validateDate(e)}} />
         <FormControl>
           <InputLabel id="demo-simple-select-label">Slot</InputLabel>
           <Select className='slot-select' label="slot" name="os" value={slot} onChange={(e)=>setSlot(e.target.value)} >
@@ -96,6 +111,7 @@ function AddLeavesComponent() {
         </ButtonGroup>
       </div>
       {isError && <Alert severity="warning"  style={{marginTop:"1rem", marginBottom:"1rem"}} >{error}...</Alert>}
+      {!isDateValidate && <Alert severity="warning"  style={{marginTop:"1rem", marginBottom:"1rem"}} >{Dateerror}...</Alert>}
       <Table className='table-leave'>
         <thead>
           <tr>

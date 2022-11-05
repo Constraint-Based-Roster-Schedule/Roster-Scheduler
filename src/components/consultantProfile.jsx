@@ -97,6 +97,7 @@ export const ConsultantProfile = () => {
                   {speciality}
                 </p>
                 <div className="d-flex justify-content-center mb-2">
+
                   <Link className="requestButton" to="../roster">
                     <MDBBtn outline className="ms-1">
                       My Roster
@@ -108,6 +109,7 @@ export const ConsultantProfile = () => {
                       Ward Roster
                     </MDBBtn>
                   </Link>
+
                 </div>
               </MDBCardBody>
             </MDBCard>
