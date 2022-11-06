@@ -3,6 +3,7 @@ import welcomeimg from "../assets/doctor.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import authService from "../auth_service/auth_services";
 import {
   MDBCol,
   MDBContainer,
@@ -55,9 +56,9 @@ export default function DocotrProfile() {
     user = jwtDecode(localStorage.getItem("user"));
     console.log(user.userName, user.userType);
     const data = { userName: user.userName, type: user.userType };
-
+    console.log(authService.getUserToken);
     await axios
-      .post("http://localhost:5000/user/doctor/userDetails", data)
+      .post("http://localhost:5000/user/doctor/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
