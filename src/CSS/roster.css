@@ -1,17 +1,5 @@
-.rosterContainer{
-    margin-top: 20px;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    padding: 3rem;
-    background-color: rgb(20, 20, 106);
-}
-
-.individual-rosterContainer{
-    margin-top: 20px;
-    margin-left: 30rem;
-    margin-right: 30rem;
-    padding: 3rem;
-    background-color: rgb(20, 20, 106);
+.roster_topic{
+    color: aqua;
 }
 
 .requestButton-filter{
@@ -27,98 +15,58 @@
     width:12rem;
 }
 
-.filter-bar{
-    width:12rem;
-}
-
-.roster-column{
-    background-color: white;
-    margin-bottom: 20px;
-    padding: 1.5rem;
-    margin-right: 0.3rem;
+.legend_roster{
     display: flex;
-    justify-content: center;
-    width: 5rem;
+    flex-direction: row;
+    margin-top: 0.5rem;
+}
+.legend-color{
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    margin-right: 0.7rem;
+    position: relative;
+    top: 0.3rem;
+}
+.legend-container{
+    display: flex;
+    flex-direction: row;
+    margin-right: 1.5rem;
 }
 
-@media screen and (max-width: 1400px){
-    .rosterContainer{
-        margin-left: 4rem;
-        margin-right: 4rem;
-    }
-
-    .individual-rosterContainer{
-        margin-left: 25rem;
-        margin-right: 25rem;
-    }
-}
-
-@media screen and (max-width: 1200px){
-    .individual-rosterContainer{
-        margin-left: 20rem;
-        margin-right: 20rem;
-    }
-}
-
-@media screen and (max-width: 1050px){
-    .rosterContainer{
-        margin-left: 3rem;
-        margin-right: 3rem;
-        padding: 2rem;
-    }
-
-    .individual-rosterContainer{
-        margin-left: 15rem;
-        margin-right: 15rem;
-    }
-}
-
-@media screen and (max-width: 900px){
-    .individual-rosterContainer{
-        margin-left: 10rem;
-        margin-right: 10rem;
-    }
-}
-
-@media screen and (max-width: 800px){
+@media screen and (max-width: 1100px){
     .requestButton-filter{
         flex-direction: column;
         justify-content: center;
-        
+    }
+    .legend_roster {
+        align-self: center;
+        margin-top: 1.5rem;
+        margin-bottom: -0.8rem;
     }
 
     .requestButton{
-        margin-top: 2rem;
         align-self: center;
+        margin-top: 0.5rem;
     }
+    
+}
 
-    .filter-bar{
-        align-self: center;
-    }
-
-    .individual-rosterContainer{
-        margin-left: 8rem;
-        margin-right: 8rem;
+@media screen and (max-width: 700px){
+    .legend-color {
+        width: 1rem;
+        height: 0.9rem;
+        border-radius: 0.5rem;
     }
 }
 
-@media screen and (max-width: 750px) {
-    .rosterContainer {
-        margin-left: 1rem;
-        margin-right: 1rem;
-        padding: 2rem;
-    }
-
-    .individual-rosterContainer{
-        margin-left: 5rem;
-        margin-right: 5rem;
+@media screen and (max-width: 650px) {
+    .legend-color {
+        width: 1rem;
+        height: 0.7rem;
+        border-radius: 0.5rem;
     }
 }
 
-@media screen and (max-width: 600px){
-    .individual-rosterContainer{
-        margin-left: 4rem;
-        margin-right: 4rem;
-    }
-}
+
 

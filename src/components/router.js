@@ -25,6 +25,9 @@ import RosterNotification from "./rosterNotification";
 import AddWorkSlots from "../view/leaveRequests"
 import ApproveRoster from "./approveRoster";
 import AdminProfile from "./adminProfile";
+import SearchWardRoster from "../view/searchWardRoster";
+
+
 function Router(props) {
   
   useEffect(()=>{}, [props.type])
@@ -49,7 +52,7 @@ function Router(props) {
               <Route path="notifications" element={<ProtectedRoute permissions={'1'}><Notifications /></ProtectedRoute>} />
               <Route path="leaveRequests" element={<ProtectedRoute permissions={'1'}><LeaveRequests /></ProtectedRoute>} />
               <Route path="doctorProfile" element={<ProtectedRoute permissions={'1'}><DocotrProfile /></ProtectedRoute>} />
-              <Route path="addWorkSlots" element={<ProtectedRoute permissions={'1'}><AddWorkSlots /></ProtectedRoute>} />
+              <Route path="addWorkSlots" element={<ProtectedRoute permissions={'1'}><AddWorkSlots /></ProtectedRoute>} />            
               <Route path="*" element={<NotFound />} />
             </Route>
           
@@ -69,6 +72,7 @@ function Router(props) {
               <Route path="signupForm" element={<ProtectedRoute permissions={'3'}><SignupForm /></ProtectedRoute>} />
               <Route path="approveRoster" element={<ProtectedRoute permissions={'3'}><ApproveRoster /></ProtectedRoute>} />
               <Route path="adminProfile" element={<ProtectedRoute permissions={'3'}><AdminProfile/></ProtectedRoute>} />
+              <Route path="searchWardRoster" element={<ProtectedRoute permissions={'3'}><SearchWardRoster/></ProtectedRoute>}/>
               {/*  */}
               <Route path="*" element={<NotFound />} />
             </Route>

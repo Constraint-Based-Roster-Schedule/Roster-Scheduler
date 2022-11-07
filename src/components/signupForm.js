@@ -38,7 +38,7 @@ const handleSubmitConsultant=async(e)=>{
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
     });
-    
+    handleReset();
 }
 
 const handleSubmitDoctor=async(e)=>{
@@ -48,7 +48,7 @@ const handleSubmitDoctor=async(e)=>{
       console.log(res.data);
 
     });
-    
+    handleReset();
 }
 
 
@@ -129,38 +129,38 @@ return (
                 <form onSubmit={handleSubmitDoctor}>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
                         <Form.Label>First name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicLastName">
                         <Form.Label>Last name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicUserName">
                         <Form.Label>User name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
                         <Form.Label>Contact number : </Form.Label>
-                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value); validateContact(e)}}/>
+                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value); validateContact(e)}} required/>
                         {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicAddress">
                         <Form.Label>Address :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}}/>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}} required/>
                         {!isEmailValid && <Alert severity="warning" >{emailError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}}/>
+                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}} required/>
                         {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)} required/>
                     </Form.Group>
                     <div className='d-flex flex-row justify-content-center col-lg-10'>
                         <Button className='sub-btn' variant="primary" type="submit"  >
@@ -181,38 +181,38 @@ return (
                 <form onSubmit={handleSubmitConsultant}>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicFirstName">
                         <Form.Label>First name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter first name" value={firstName}  onChange={(e)=>setFirstName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicLastName">
                         <Form.Label>Last name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter last name" value={lastName}  onChange={(e)=>setLastName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicUserName">
                         <Form.Label>User name :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter user name" value={userName}  onChange={(e)=>setUserName(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formcontact">
                         <Form.Label>Contact number : </Form.Label>
-                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value);validateContact(e)}}/>
+                        <Form.Control type="text" placeholder="Ex: 0718439534" value={contact}  onChange={(e)=>{setContact(e.target.value);validateContact(e)}} required/>
                         {!isContactValid && <Alert severity="warning" >{contactError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8 " controlId="formBasicAddress">
                         <Form.Label>Address :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter address" value={address}  onChange={(e)=>setAddress(e.target.value)} required/>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicEmail">
                         <Form.Label>Email address :</Form.Label>
-                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}}/>
+                        <Form.Control type="email" placeholder="Enter email" value={email} onChange={(e)=>{setEmail(e.target.value);validateEmail(e)}} required/>
                         {!isEmailValid && <Alert severity="warning" >{emailError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}}/>
+                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}} required/>
                         {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)}/>
+                        <Form.Control type="text" placeholder="Enter speciality of the doctor" value={specializedArea} onChange={(e)=>setSpecializedArea(e.target.value)} required/>
                     </Form.Group>
                     <div className='d-flex flex-row justify-content-center'>
                         <Button className='sub-btn' variant="primary" type="submit"  >
