@@ -5,6 +5,7 @@ import {Link} from 'react-router-dom';
 import { border } from '@mui/system';
 import { useState } from 'react';
 import jwtDecode from 'jwt-decode';
+import authService from '../auth_service/auth_services';
 import {
   MDBCol,
   MDBContainer,
@@ -43,7 +44,7 @@ export default function AdminProfile() {
     const data = { userName: user.userName, type: user.userType };
 
     await axios
-      .post("http://localhost:5000/user/admin/userDetails", data)
+      .post("http://localhost:5000/user/admin/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
