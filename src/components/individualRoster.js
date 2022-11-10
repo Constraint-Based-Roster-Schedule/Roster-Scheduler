@@ -12,35 +12,43 @@ import {
 
 import { appointments } from './data';
 import '../CSS/rosterIndividual.css';
+import { useState } from 'react';
 
-const currentDate = '2022-11-05';
+function IndividualRoster(props){
+  const currentDate = '2022-11-05';
 
-const Appointment = ({ children, style, data, ...restProps }) => (
-  <Appointments.Appointment
-    {...restProps}
-    style={{
-      ...style,
-      backgroundColor: data.color
-    }}
-  >
-    {children}
-  </Appointments.Appointment>
-);
-export default () => (
-  <div className='individual_roster_month_week'>
-    <Paper className='calender_individual_month'>
-      <Scheduler
-        data={appointments}
-      >
-        <ViewState
-          defaultCurrentDate={currentDate}
-        />
-        <MonthView />
-        <Toolbar />
-        <DateNavigator />
-        <TodayButton />
-        <Appointments appointmentComponent={Appointment} />
-      </Scheduler>
-    </Paper>
-  </div>  
-);
+
+  const Appointment = ({ children, style, data, ...restProps }) => (
+    <Appointments.Appointment
+      {...restProps}
+      style={{
+        ...style,
+        backgroundColor: data.color
+      }}
+    >
+      {children}
+    </Appointments.Appointment>
+  );
+  return (
+    <div className='individual_roster_month_week'>
+      <Paper className='calender_individual_month'>
+        <Scheduler
+          data={props.appointments}
+        >
+          <ViewState
+            defaultCurrentDate={currentDate}
+          />
+          <MonthView />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
+          <Appointments appointmentComponent={Appointment} />
+        </Scheduler>
+      </Paper>
+    </div>  
+  );
+
+}
+
+export default IndividualRoster;
+
