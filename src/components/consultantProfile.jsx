@@ -4,6 +4,7 @@ import { useState } from "react";
 import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
+import authService from "../auth_service/auth_services";
 import {
   MDBCol,
   MDBContainer,
@@ -42,7 +43,7 @@ export const ConsultantProfile = () => {
     const data = { userName: user.userName, type: user.userType };
 
     await axios
-      .post("http://localhost:5000/user/consultant/userDetails", data)
+      .post("http://localhost:5000/user/consultant/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);

@@ -1,12 +1,25 @@
 *{
-   /* background-color: #fff; */
+   
 }
-.topic{
-    /* align-items: center; */
-    /* align-content: center; */
-    text-align: center;
+.form-containner{
+   display: flex;
+   justify-content: space-between;
+   max-width: 100%;
+   margin:auto ;
+   padding-top: 10px;
+
+   border: 2px;
+   align-items: center;
 }
-h1{
-    color: rgb(11, 4, 160);
-    /* text-align: center; */
+.form{
+   justify-content: space-between;
+   max-width: 80%;
+   margin:auto ;
+   display: flex;
+   padding-left: 10%;
+}
+.row{
+   justify-content: space-between;
+   display: flex;
+   flex-direction: row;
 }

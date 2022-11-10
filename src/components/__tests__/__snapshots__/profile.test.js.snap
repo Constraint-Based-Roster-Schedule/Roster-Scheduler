@@ -1,0 +1,132 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches doctor profile snapshot 1`] = `
+<div
+  className="main-login"
+>
+  <br />
+  <div
+    className="login-container"
+  >
+    <div
+      className="left-side"
+    >
+      <div
+        className="img-class"
+      >
+        <img
+          alt=""
+          src="logo.png"
+        />
+      </div>
+      <form
+        onSubmit={[Function]}
+      >
+        <label
+          for="email"
+        >
+          Email
+        </label>
+        <input
+          id="email"
+          name="email"
+          onChange={[Function]}
+          placeholder="Enter your email.."
+          required={true}
+          type="email"
+          value=""
+        />
+        <label
+          for="password"
+        >
+          Password
+        </label>
+        <input
+          id="password"
+          name="password"
+          onChange={[Function]}
+          placeholder="Enter password"
+          required={true}
+          type="password"
+          value=""
+        />
+        <label
+          for="type"
+        >
+          Type
+        </label>
+        <select
+          id="type"
+          name="type"
+          onChange={[Function]}
+          required={true}
+          value=""
+        >
+          <option
+            disabled={true}
+            hidden={true}
+            selected={true}
+            value=""
+          >
+             
+            Select
+             
+          </option>
+           
+          <option
+            id="type"
+            name="1"
+            value="1"
+          >
+            Doctor
+          </option>
+          <option
+            id="type"
+            name="3"
+            value="3"
+          >
+            Admin
+          </option>
+          <option
+            id="type"
+            name="2"
+            value="2"
+          >
+            Consultant
+          </option>
+        </select>
+        <button
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+      <div
+        className="footer"
+      >
+        <h4 />
+      </div>
+    </div>
+    <div
+      className="right-side"
+    >
+      <div
+        className="welcome-note"
+      >
+        <h3>
+          ........Welcome Back........
+        </h3>
+      </div>
+      <div
+        className="welcome-img"
+      >
+        <img
+          alt=""
+          id="wel-img-id"
+          src="doctor.png"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

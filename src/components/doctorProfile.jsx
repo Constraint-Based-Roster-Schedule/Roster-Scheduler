@@ -3,6 +3,7 @@ import welcomeimg from "../assets/doctor.png";
 import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
+import authService from "../auth_service/auth_services";
 import {
   MDBCol,
   MDBContainer,
@@ -55,9 +56,9 @@ export default function DocotrProfile() {
     user = jwtDecode(localStorage.getItem("user"));
     console.log(user.userName, user.userType);
     const data = { userName: user.userName, type: user.userType };
-
+    console.log(authService.getUserToken);
     await axios
-      .post("http://localhost:5000/user/doctor/userDetails", data)
+      .post("http://localhost:5000/user/doctor/userDetails", data,{headers: { "x-auth-token": authService.getUserToken()}})
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
@@ -66,7 +67,7 @@ export default function DocotrProfile() {
         setEmail(res.data.email);
         setAddress(res.data.address);
         setTelephone(res.data.telephone);
-        setWardNumber(res.data.wardId);
+        setWardNumber(res.data.wardID);
         setWardName(res.data.wardName);
         setUserName(res.data.userName);
         return res.data;
@@ -82,9 +83,6 @@ export default function DocotrProfile() {
         <h1 className='mb-3' >Doctor Profile</h1>
        
       </div>
-      <MDBContainer>
-        <h1>profile</h1>
-      </MDBContainer>
       <MDBContainer className="py-4">
         {/* <button onClick={getUserDetails}></button> */}
 

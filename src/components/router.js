@@ -20,7 +20,7 @@ import { useEffect } from "react";
 import ProtectedRoute from "./protectedRoute";
 import Logout from "./logout";
 import NotFound from "./notFound";
-import GenarateRoster from "../view/rosterGenerator";
+import GenarateRoster from "./generateRoster";
 import RosterNotification from "./rosterNotification";
 import AddWorkSlots from "../view/leaveRequests"
 import ApproveRoster from "./approveRoster";
