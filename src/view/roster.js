@@ -16,85 +16,49 @@ function RosterIndividual() {
     const [iserror,setisError] =useState(false);
     const [error,setError]=useState('');
 
-    // const [shiftNames,setShiftNames]=useState({});
-    //const [myShifts,setMyShifts]=useState({})
-    const myShifts={
-        "1":[0,1,0],
-        "2":[1,0,0],
-        "3":[0,1,1],
-        "4":[1,1,0],
-        "5":[1,0,1],
-        "6":[1,1,0],
-        "7":[0,1,0],
-        "8":[0,1,1],
-        "9":[1,1,0],
-        "10":[0,1,1],
-        "11":[1,0,0],
-        "12":[1,1,0],
-        "13":[0,1,1],
-        "14":[0,1,0],
-        "15":[1,0,1],
-        "16":[1,1,0],
-        "17":[0,1,1],
-        "18":[1,0,0],
-        "19":[1,1,0],
-        "20":[1,0,1],
-        "21":[0,1,1],
-        "22":[0,1,1],
-        "23":[0,0,0],
-        "24":[0,1,0],
-        "25":[1,0,0],
-        "26":[0,1,1],
-        "27":[1,0,1],
-        "28":[0,1,1],
-        "29":[0,1,1],
-        "30":[0,1,0],
-        "31":[1,0,1],
-    };
+    
+    const [shiftNames,setShiftNames]=useState([]);
 
-    const shiftNames=[
-    ["Morning Shift","#33ccff"],
-    ["Evening Shift","#F58B44"],
-    ["Night Shift","#66ff66"],
-    ]
+    const [finalShifts,setFinalShifts]=useState([]);
 
-    // useEffect(()=>{
-    //     //fetchIndividualRoster();
-    //     // fetchShiftNames();
-    // },[])
+    
 
-    // const fetchIndividualRoster=async()=>{
-    //     await Axios.get("http://localhost:5000/user/doctor/getRosterObject").then((res) => {
-    //         setMyShifts(res.data.myShifts);
-    //         console.log(res.data.myShifts);
-    //     })
-    // }
+    useEffect(()=>{
+        
+        fetchIndividualRoster();
+        
+        
+    },[])
 
-    // const fetchShiftNames=async()=>{
-    //     await Axios.get("http://localhost:5000/user/doctor/getShiftNames").then((res) => {
-    //         setMyShifts(res.data.shiftNames);
-    //         console.log(shiftNames);
-    //     })
-    // }
+    const fetchIndividualRoster=async()=>{
+        
+        
+        await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+            params:{"month":"november","year":"2022"}
+        }).then((res) => {
+        const myShifts=res.data.myShifts;
+        const shiftNames=res.data.shiftNames
+        // console.log(shiftNames)
+        setShiftNames(shiftNames)
+        const data_to_send=[]
+        myShifts.forEach((day,date)=>{
+            day.forEach((shift,index)=>{
+                if(shift.includes("1")){
+                    const shift_detail={
+                        title: shiftNames[index][0],
+                        startDate: new Date(2022, 10, date+1, 13, 0),
+                        endDate: new Date(2022, 10, date+1, 19, 0),
+                        color:shiftNames[index][1],
+                    }
+                data_to_send.push(shift_detail)
+                }     
+            })
 
-    const handleSearch=(e)=>{         
-        var search=e.target.value;          
-        if(isNaN(search) && search.length!=0){
-            setisError(true);
-            setError(`You can only enter numbers from 1 to ${numberOfDays}`);
-            setSearched(false);
-        }else if((search<1 || search>numberOfDays) && search.length!=0){
-            setisError(true);
-            setError(`You can only enter numbers from 1 to ${numberOfDays}`);
-            setSearched(false);
-        }else{
-            setisError(false);
-            setSearched(true);
-            setError('');
-        }
+        });
+        setFinalShifts(data_to_send);
+        })
     }
 
-        
 
     return (
         <>
@@ -112,7 +76,7 @@ function RosterIndividual() {
                     }
                 </div>
             </div>
-            <IndividualRoster myShifts={myShifts}/>
+            <IndividualRoster appointments={finalShifts}/>
         </>    
     )
 }
