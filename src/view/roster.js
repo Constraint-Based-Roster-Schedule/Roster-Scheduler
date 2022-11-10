@@ -16,62 +16,48 @@ function RosterIndividual() {
     const [iserror,setisError] =useState(false);
     const [error,setError]=useState('');
 
-    //const [myShifts,setMyShifts]=useState({})
+    
+    const [shiftNames,setShiftNames]=useState([]);
 
     const [finalShifts,setFinalShifts]=useState([]);
 
-    const shiftNames=[
-            ["Morning Shift","#33ccff"],
-            ["Evening Shift","#F58B44"],
-            ["Night Shift","#66ff66"],
-        ]
+    
 
     useEffect(()=>{
+        
         fetchIndividualRoster();
         
-        // fetchShiftNames();
+        
     },[])
 
     const fetchIndividualRoster=async()=>{
-            await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
-                params:{"month":"october", "year":"2022"}
-            }).then((res) => {
-            const myShifts=res.data.myShifts;
-            const shiftNames=[
-                ["Morning Shift","#33ccff"],
-                ["Evening Shift","#F58B44"],
-                ["Night Shift","#66ff66"],
-            ]
-            const data_to_send=[]
-            myShifts.forEach((day,date)=>{
-                day.forEach((shift,index)=>{
-                    if(shift.includes("1")){
-                        const shift_detail={
-                            title: shiftNames[index][0],
-                            startDate: new Date(2022, 10, date+1, 13, 0),
-                            endDate: new Date(2022, 10, date+1, 19, 0),
-                            color:shiftNames[index][1],
-                        }
-                    data_to_send.push(shift_detail)
-                    }     
-                })
-
-            });
-            setFinalShifts(data_to_send);
-            //console.log(finalShifts);
-                //console.log(res.data.myShifts);
+        
+        
+        await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+            params:{"month":"november","year":"2022"}
+        }).then((res) => {
+        const myShifts=res.data.myShifts;
+        const shiftNames=res.data.shiftNames
+        // console.log(shiftNames)
+        setShiftNames(shiftNames)
+        const data_to_send=[]
+        myShifts.forEach((day,date)=>{
+            day.forEach((shift,index)=>{
+                if(shift.includes("1")){
+                    const shift_detail={
+                        title: shiftNames[index][0],
+                        startDate: new Date(2022, 10, date+1, 13, 0),
+                        endDate: new Date(2022, 10, date+1, 19, 0),
+                        color:shiftNames[index][1],
+                    }
+                data_to_send.push(shift_detail)
+                }     
             })
+
+        });
+        setFinalShifts(data_to_send);
+        })
     }
-
-
-    // const fetchShiftNames=async()=>{
-    //     await Axios.get("http://localhost:5000/user/doctor/getShiftNames").then((res) => {
-    //         setMyShifts(res.data.shiftNames);
-    //         console.log(shiftNames);
-    //     })
-    // }
-
-    
 
 
     return (
