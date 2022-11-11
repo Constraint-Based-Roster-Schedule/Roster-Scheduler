@@ -1,79 +1,88 @@
 import React from 'react'
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Carousel from 'react-bootstrap/Carousel';
 import Button from 'react-bootstrap/Button';
 import '../CSS/wardRoster.css';
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
-import TextField from '@mui/material/TextField';
-import InputAdornment from '@mui/material/InputAdornment';
-import {FaCalendarAlt} from 'react-icons/fa';
-import Alert from '@mui/material/Alert';
 import WardRosterComponent from '../components/wardRosterComponent';
-import rosterObject from '../components/rosterObject';
+import Axios from "axios";
+import Box from '@mui/material/Box';
 
 
 function  WardRoster() {
-    const wardShifts=rosterObject;
-    const numberOfDays=31;
 
-    const [searched,setSearched]=useState(false);
-    const [searchDate,setSearchDate]=useState('');
+    const [shiftNames,setShiftNames]=useState([]);
+    const [docID,setDocID]=useState("");
 
-    const [iserror,setisError] =useState(false);
-    const [error,setError]=useState('');
+    const [finalShifts,setFinalShifts]=useState([]);
 
-    const handleSearch=(e)=>{         
-            var search=e.target.value;          
-            if(isNaN(search) && search.length!=0){
-                setisError(true);
-                setError(`You can only enter numbers from 1 to ${numberOfDays}`);
-                setSearched(false);
-            }else if((search<1 || search>numberOfDays) && search.length!=0){
-                setisError(true);
-                setError(`You can only enter numbers from 1 to ${numberOfDays}`);
-                setSearched(false);
-            }else{
-                setisError(false);
-                setSearched(true);
-                setError('');
-            }
-        }
+    useEffect(()=>{
+        fetchIndividualRoster();       
+    },[])
+
+    const fetchIndividualRoster=async()=>{
+        
+        const monthNames = ["january", "february", "march", "april", "may", "june",
+                            "july", "august", "september", "october", "november", "december"
+                            ];
+        const current_month=new Date().getMonth();
+        const required_months=[]
+        required_months.push(monthNames[current_month-2]);
+        required_months.push(monthNames[current_month-1]);
+        required_months.push(monthNames[current_month]);
+        required_months.push(monthNames[current_month+1]);
+        
+        console.log(required_months); 
+
+        await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+            params:{"month":"november","year":"2022","months":required_months}
+        }).then((res) => {
+        const myShifts=res.data.myShifts;
+        const shiftNames=res.data.shiftNames
+        console.log(shiftNames)
+        setShiftNames(shiftNames)
+        const data_to_send=[]
+        myShifts.forEach((mon,month_index)=>{
+            mon.forEach((day,date)=>{
+                day.forEach((shift,index)=>{
+                    const shift_string=shift.join(" , ")
+                    //console.log(shift_string)
+                    const shift_detail={
+                        title: shift_string,
+                        startDate: new Date(2022, 10+month_index-2, date+1, shiftNames[index][2][0][0], shiftNames[index][2][0][1]),
+                        endDate: new Date(2022, 10+month_index-2,date+1, shiftNames[index][2][1][0], shiftNames[index][2][1][1]),
+                        color:shiftNames[index][1],
+                    }
+                    data_to_send.push(shift_detail)
+                        
+                })
+
+            });
+        })
+        
+        setFinalShifts(data_to_send);
+        })
+    }
 
 
     return (
         <>
-            <div className='ward-requestButton-filter' >
-                <TextField className='filter-bar' InputProps={{startAdornment: <InputAdornment position="start" style={{color:"blue" , backgroundColor: "blue"}}>
-                    <FaCalendarAlt/></InputAdornment>}} id="filled-basic" label="Date" variant="outlined"  onChange={(e)=>{setSearchDate(e.target.value) ;handleSearch(e)}} />
-                {iserror && <Alert severity="warning" >{error}...</Alert>}
+            <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Roster Schedule of ward number 1</h1>
+            <div className='ward-requestButton-filter' >                
                 <Link className='ward-requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
-            </div>
-            {searched && searchDate.length>0 && (
-                <div className='individual-ward-rosterContainer'>
-                    <Row>
-                        <Col className='ward-roster-column'>Date</Col>
-                        <Col className='ward-roster-column'>{searchDate}</Col>
-                    </Row>
-                    <Row>
-                        <Col className='ward-roster-column'>Morning shift</Col>
-                        <Col className='ward-roster-column'></Col>
-                    </Row>
-                    <Row>
-                        <Col className='ward-roster-column'>Evening Shift</Col>
-                        <Col className='ward-roster-column'></Col>
-                    </Row>
-                    <Row>
-                        <Col className='ward-roster-column'>Night shift</Col>
-                        <Col className='ward-roster-column'></Col>
-                    </Row>
+                <div className='legend_roster-ward'>
+                    {
+                        shiftNames.map((shift)=>{
+                            return <div className='legend-container-ward'>
+                                <Box className='legend-color-ward' sx={{backgroundColor:`${shift[1]}`}}></Box>
+                                <p>{shift[0]}</p>
+                            </div>
+                        })
+                    }
                 </div>
-            )}
-            <WardRosterComponent wardShifts={wardShifts} numberOfDays={numberOfDays}/>
-        </>
-        
+            </div>
+            <WardRosterComponent appointments={finalShifts}/>
+        </>        
     )
 }
 

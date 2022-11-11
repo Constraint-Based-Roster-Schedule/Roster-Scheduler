@@ -1,7 +1,7 @@
 export const appointments = [
 {
   title: 'Morning Shift',
-  startDate: new Date(2022, 10, 1, 8, 0),
+  startDate: new Date(2022, 10, 1, 7, 0),
   endDate: new Date(2022, 10, 1, 13, 0),
 }, 
 {
@@ -12,7 +12,7 @@ export const appointments = [
 },
 {title: 'Night Shift',
   startDate: new Date(2022, 10, 1, 19, 0),
-  endDate: new Date(2022, 10, 1, 23,59 ),
+  endDate: new Date(2022, 10, 2, 7,0 ),
   color:"#66ff66",
 },
 {
@@ -23,7 +23,7 @@ export const appointments = [
 },
 {title: 'Night Shift',
   startDate: new Date(2022, 10, 2, 19, 0),
-  endDate: new Date(2022, 10, 2, 23,59 ),
+  endDate: new Date(2022, 10, 3, 6,0 ),
   color:"#66ff66",
 },
 {title: 'Night Shift',
