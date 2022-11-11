@@ -17,6 +17,10 @@ import { useState } from 'react';
 function IndividualRoster(props){
   const currentDate = '2022-11-05';
 
+  const getMOnthYear=()=>{
+    console.log("click kara")
+  }
+
 
   const Appointment = ({ children, style, data, ...restProps }) => (
     <Appointments.Appointment
@@ -29,6 +33,8 @@ function IndividualRoster(props){
       {children}
     </Appointments.Appointment>
   );
+
+
   return (
     <div className='individual_roster_month_week'>
       <Paper className='calender_individual_month'>
@@ -40,7 +46,7 @@ function IndividualRoster(props){
           />
           <MonthView />
           <Toolbar />
-          <DateNavigator />
+          <DateNavigator onNavigate={()=>console.log("hello")}/>
           <TodayButton />
           <Appointments appointmentComponent={Appointment} />
         </Scheduler>
