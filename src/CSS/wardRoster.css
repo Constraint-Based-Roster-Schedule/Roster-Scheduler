@@ -1,24 +1,9 @@
-.ward-rosterContainer {
-    margin-top: 20px;
-    margin-left: 5rem;
-    margin-right: 5rem;
-    padding: 4rem;
-    background-color: rgb(20, 20, 106);
-}
-
-.individual-ward-rosterContainer {
-    margin-top: 20px;
-    margin-left: 30rem;
-    margin-right: 30rem;
-    padding: 3rem;
-    background-color: rgb(20, 20, 106);
-}
-
 .ward-requestButton-filter {
     margin-top: 20px;
     margin-right: 10rem;
     margin-left: 10rem;
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
@@ -26,113 +11,58 @@
     width: 12rem;
 }
 
-.filter-bar {
-    width: 12rem;
-}
-
-.ward-roster-column {
-    background-color: white;
-    margin-bottom: 20px;
-    padding: 2rem;
-    margin-right: 0.3rem;
+.legend_roster-ward {
     display: flex;
-    justify-content: center;
-    width: 3rem;
+    flex-direction: row;
+    margin-top: 0.5rem;
 }
 
-@media screen and (max-width: 1400px){
-    .individual-ward-rosterContainer{
-        margin-left: 25rem;
-        margin-right: 25rem;
-    }
+.legend-color-ward {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 1rem;
+    margin-right: 0.7rem;
+    position: relative;
+    top: 0.3rem;
+}
+.legend-container-ward {
+    display: flex;
+    flex-direction: row;
+    margin-right: 1.5rem;
 }
 
-@media screen and (max-width: 1300px){
-    .ward-rosterContainer{
-        padding: 3rem;
-        margin-left: 4rem;
-        margin-right: 4rem;
-    }
-    
-}
-
-@media screen and (max-width: 1200px) {
-    .individual-ward-rosterContainer {
-        margin-left: 20rem;
-        margin-right: 20rem;
-    }
-}
 
 @media screen and (max-width: 1100px) {
-    .ward-rosterContainer {
-        margin-left: 3rem;
-        margin-right: 3rem;
-    }
-
-    .individual-ward-rosterContainer{
-        margin-left: 15rem;
-        margin-right: 15rem;
-    }
-}
-
-@media screen and (max-width: 900px) {
-    .individual-ward-rosterContainer {
-        margin-left: 10rem;
-        margin-right: 10rem;
-    }
-}
-
-@media screen and (max-width: 800px) {
-    .ward-rosterContainer {
-        padding: 2rem;
-        margin-left: 2rem;
-        margin-right: 2rem;
-    }
-
-
-    .ward-requestButton{
-        margin-top: 2rem;
-        align-self: center;
-    }
-
-    .filter-bar{
-        align-self: center;
-    }
-
-    .ward-requestButton-filter{
+    .ward-requestButton-filter {
         flex-direction: column;
+        justify-content: center;
     }
 
-    .individual-ward-rosterContainer{
-        margin-left: 8rem;
-        margin-right: 8rem;
+    .legend_roster-ward {
+        align-self: center;
+        margin-top: 1.5rem;
+        margin-bottom: -0.8rem;
+    }
+
+    .ward-requestButton {
+        align-self: center;
+        margin-top: 0.5rem;
+    }
+
+}
+
+@media screen and (max-width: 700px) {
+    .legend-color-ward {
+        width: 1rem;
+        height: 0.9rem;
+        border-radius: 0.5rem;
     }
 }
 
-@media screen and (max-width: 600px){
-    .individual-ward-rosterContainer{
-        margin-left: 5rem;
-        margin-right: 5rem;
-    }
-}
-
-@media screen and (max-width: 600px) {
-    .ward-rosterContainer {
-        padding: 2rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
-    }
-
-    .individual-ward-rosterContainer{
-        margin-left: 4rem;
-        margin-right: 4rem;
-    }
-}
-
-@media screen and (max-width: 400px){
-    .ward-rosterContainer {
-        padding: 1rem;
-        margin-left: 1rem;
-        margin-right: 1rem;
+@media screen and (max-width: 650px) {
+    .legend-color-ward {
+        width: 1rem;
+        height: 0.7rem;
+        border-radius: 0.5rem;
     }
 }

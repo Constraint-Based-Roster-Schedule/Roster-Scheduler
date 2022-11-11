@@ -14,11 +14,8 @@ function RosterIndividual() {
     const [docID,setDocID]=useState("");
 
     const [finalShifts,setFinalShifts]=useState([]);
-    const [months,setMonths]=useState([]);
 
     useEffect(()=>{
-        // const userName=authService.getUserID();
-        // console.log(userName);
         fetchIndividualRoster();       
     },[])
 
