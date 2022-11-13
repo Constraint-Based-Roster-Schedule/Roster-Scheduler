@@ -104,6 +104,7 @@ const AddWard = () => {
       wardName: wardName,
       shiftsPerDay: shiftCount,
       shiftNames:getShiftNameInput(shiftCount) ,
+      consultantID:NaN
     };
     console.log(!isWardIdValidate | !isWardNameValidate);
     if(isWardIdValidate && isWardNameValidate){
