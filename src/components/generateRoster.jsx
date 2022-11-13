@@ -13,8 +13,9 @@ import {
 import { useState } from "react";
 import Axios from "axios";
 import axios from "axios";
-// import { Navigate } from "react-router-dom";
+import '../CSS/generateRoster.css'
 import { useNavigate } from "react-router-dom";
+import { display } from "@mui/system";
 export const GenarateRoster = () => {
   const [numOfDoctors, setNumOfDoctors] = useState();
   const [numOfMinimumDoctors, setNumOfMinimumDoctors] = useState();
@@ -143,16 +144,18 @@ export const GenarateRoster = () => {
   };
 
   return (
-    <MDBContainer>
+    <div className="generateRosterContainer">
+    <MDBContainer className="py-5"style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "0px" }}>
       <MDBRow>
         <h1 className="mb-3">Generate Roster</h1>
       </MDBRow>
 
-      <form onSubmit={handleSubmit}>
-        <MDBRow>
-          <MDBCol>
+      <form onSubmit={handleSubmit} style={{alignItems:"flex" ,display:'block'}}>
+        <MDBRow >
+          <MDBCol >
+            
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               label="Month"
               type="month"
               id="month"
@@ -161,10 +164,10 @@ export const GenarateRoster = () => {
               value={month}
             />
           </MDBCol>
-          <MDBCol>
+          <MDBCol >
             <MDBInput
-              className="mb-1"
-              label="Number of Doctors "
+              className="mb-3"
+              label="Number of Doctors           "
               type="number"
               min="0"
               max="10"
@@ -180,7 +183,7 @@ export const GenarateRoster = () => {
         <MDBRow>
           <MDBCol>
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               label="Number of Maximum doctor for shift"
               type="number"
               id="numOfMaxDoc"
@@ -194,7 +197,7 @@ export const GenarateRoster = () => {
           </MDBCol>
           <MDBCol>
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               type="number"
               label="Number of Minimum doctor for shift"
               min={1}
@@ -210,7 +213,7 @@ export const GenarateRoster = () => {
         <MDBRow>
           <MDBCol>
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               label="Maximum shifts per month"
               type="number"
               name="maxShiftPerMonth"
@@ -223,7 +226,7 @@ export const GenarateRoster = () => {
           </MDBCol>
           <MDBCol>
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               type="number"
               label="Minimum shifts per month"
               onChange={handleChange}
@@ -236,7 +239,7 @@ export const GenarateRoster = () => {
         <MDBRow>
           <MDBCol>
             <MDBInput
-              className="mb-1"
+              className="mb-3"
               label="Maximum night shifts per doctor"
               type="number"
               name="maxNightShifts"
@@ -249,7 +252,7 @@ export const GenarateRoster = () => {
         <MDBRow>
           <MDBCol>
             <MDBCheckbox
-              className="mb-1"
+              className="mb-3"
               type="checkbox"
               id="invalidCheck"
               label="Confirm all the conditions"
@@ -264,7 +267,7 @@ export const GenarateRoster = () => {
             </div>
           </MDBCol>
         </MDBRow>
-        <MDBRow>
+        <MDBRow style={{alignItems:'center', display:'flex'}}>
           <MDBCol>
             <MDBBtn type="submit">Generate</MDBBtn>
           </MDBCol>
@@ -276,6 +279,7 @@ export const GenarateRoster = () => {
         </MDBRow>
       </form>
     </MDBContainer>
+    </div>
   );
 };
 export default GenarateRoster;

@@ -91,6 +91,34 @@ const AdminDashboard = () => {
                         </div>
                         </Link>
                 </div>
+            
+            </div>
+           <div className="testimanial-container">
+                <div class="testimanial-col">
+                    <Link  to='../admin/addWard' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                Add Ward
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
+                <div class="testimanial-col">
+                    <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                    
+                        <img src={require("../assets/doctor.png")} alt=""></img>
+                        <div>
+                            <p active={true} >
+                                {/* ADD USER */}
+                            </p>
+                        
+                        </div>
+                        </Link>
+                </div>
+            
             </div>
         </section>
         <br />

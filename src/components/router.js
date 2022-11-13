@@ -26,6 +26,7 @@ import AddWorkSlots from "../view/leaveRequests"
 import ApproveRoster from "./approveRoster";
 import AdminProfile from "./adminProfile";
 import SearchWardRoster from "../view/searchWardRoster";
+import AddWard from "./addWard";
 
 
 function Router(props) {
@@ -73,6 +74,7 @@ function Router(props) {
               <Route path="approveRoster" element={<ProtectedRoute permissions={'3'}><ApproveRoster /></ProtectedRoute>} />
               <Route path="adminProfile" element={<ProtectedRoute permissions={'3'}><AdminProfile/></ProtectedRoute>} />
               <Route path="searchWardRoster" element={<ProtectedRoute permissions={'3'}><SearchWardRoster/></ProtectedRoute>}/>
+              <Route path="addWard" element={<ProtectedRoute permissions={'3'}><AddWard/></ProtectedRoute>}/>
               {/*  */}
               <Route path="*" element={<NotFound />} />
             </Route>
