@@ -19,9 +19,7 @@ function SearchWardRoster() {
   const [rosterType,setRosterType]=useState(false);
   const [wardID,setWardID]=useState(1);
   const [wards,setWards]=useState([]);
-  const [error,setError]=useState("");
-  const [isError,setIsError]=useState(false);
-
+  const [allDoctors,setAllDoctors]=useState([])
 
   const [wardOpen,setWardOpen] = useState(false);
   const ITEM_HEIGHT = 120;
@@ -32,6 +30,7 @@ function SearchWardRoster() {
 
   useEffect(()=>{
     fetchAvailableWards();
+    fetchAllDoctors();
   },[])
 
   const fetchAvailableWards=async()=>{
@@ -40,26 +39,10 @@ function SearchWardRoster() {
         })
   }
 
-  const handleSelectWard=(event)=>{
-    const id=event.target.value
-    if(id.length==0){
-      setWardID(1);
-      setIsError(false);
-      setError("")
-    }else{
-      if(wards.includes(+id)){
-        setWardID(id);
-        setIsError(false);
-        setError("")
-      }else{
-        setWardID(1);
-        setIsError(true);
-        setError("Enter a valid ward number")
-      }
-      
-    }
-    
-    //console.log(wardID);
+  const fetchAllDoctors=async()=>{
+    await Axios.get("http://localhost:5000/user/admin/getAllDoctors").then((res) => {
+          setAllDoctors(res.data.allDoctors)
+        })
   }
 
   const options = [
@@ -91,20 +74,26 @@ function SearchWardRoster() {
 
 
   const handleWardClick = (event) => {
-    setWardAnchorEl(event.currentTarget);
+    const enteredID=event.target.innerText;
+    if(enteredID.length>0){
+      setWardAnchorEl(event.currentTarget);
+    }   
     setWardOpen(true)
   };
   const handleWardClose = (event) => {
-    setWardID(event.target.innerText)
+    const enteredID=event.target.innerText;
+    if(enteredID.length>0){
+      setWardID(event.target.innerText)
+    }   
     setWardOpen(false)
   };
 
 
   return (
-    <>
+    <div className='search-ward-main-container' >
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Ward Rosters</h1>
       <div className='wardSearch'> 
-        <Button variant="primary" className='req-button-ward-search' style={{backgroundColor:"rgb(205, 37, 33)",height: "3rem",width:"13rem" }}
+        <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
           aria-label="more"
           id="long-button"
           aria-controls={open ? 'long-menu' : undefined}
@@ -125,19 +114,19 @@ function SearchWardRoster() {
         PaperProps={{
           style: {
             maxHeight: ITEM_HEIGHT * 4.5,
-            width: '60ch',
+            width: '30ch',
           },
         }}
       >
-        {options.map((option) => (
+        {allDoctors.map((option) => (
           <MenuItem key={option} value={option} selected={option === 'Pyxis'} onClick={handleClose}>
-            {option}
+            {option.join(" ")}
           </MenuItem>
         ))}
       </Menu>
 
 
-      <Button variant="primary" className='req-button-ward-search' style={{backgroundColor:"rgb(205, 37, 33)",height: "3rem",width:"13rem" }}
+      <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
           aria-label="more"
           id="long-button"
           aria-controls={wardOpen ? 'long-menu' : undefined}
@@ -146,46 +135,33 @@ function SearchWardRoster() {
           onClick={handleWardClick}>
             Show wards</Button> 
         <Menu
-        id="long-menu"
-        MenuListProps={{
-          'aria-labelledby': 'long-button',
-        }}
-        anchorEl={WardAnchorEl}
-        open={wardOpen}
-        onClose={handleWardClose}
-        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-        transformOrigin={{ vertical: "top", horizontal: "center" }}
-        PaperProps={{
-          style: {
-            maxHeight: ITEM_HEIGHT * 4.5,
-            width: '60ch',
-          },
-        }}
-      >
-        {wards.map((option) => (
-          <MenuItem key={option} value={option} selected={option === 'Pyxis'} onClick={handleWardClose}>
-            {option}
-          </MenuItem>
-        ))}
-      </Menu>
-
-
-        {/* <div className='alert-text'>
-                
-          <TextField className='filter-bar' InputProps={{startAdornment: <InputAdornment position="start" style={{color:"blue" , backgroundColor: "blue"}}>
-              <SingleBedIcon/></InputAdornment>}} id="filled-basic" label="Ward" variant="outlined" onChange={handleSelectWard}  />
-          {isError && <Alert className='wardNumber-alert' severity="warning">{error}...</Alert>}
-        </div> */}
+          id="long-menu"
+          MenuListProps={{
+            'aria-labelledby': 'long-button',
+          }}
+          anchorEl={WardAnchorEl}
+          open={wardOpen}
+          onClose={handleWardClose}
+          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+          transformOrigin={{ vertical: "top", horizontal: "center" }}
+          PaperProps={{
+            style: {
+              maxHeight: ITEM_HEIGHT * 4.5,
+              width: '20ch',
+            },
+          }}
+        >
+          {wards.map((option) => (
+            <MenuItem key={option} value={option} selected={option === 'Pyxis'} onClick={handleWardClose}>
+              {option}
+            </MenuItem>
+          ))}
+        </Menu>
         
       </div>
-      <div className="available-wards">
-        <p className='available-wards-label'><b>Available Wards : </b></p>
-        <p className='available-ward-list'><b>{wards.join(" , ")}</b></p>
-      </div>
-      
-      
+            
       <WardDetails wardID={wardID}/>
-    </>
+    </div>
   )
 }
 
