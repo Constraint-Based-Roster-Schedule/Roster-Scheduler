@@ -8,6 +8,12 @@ import logo from'../assets/logo.png'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import {
+  MDBFooter,
+  MDBContainer,
+  MDBCol,
+  MDBRow
+} from 'mdb-react-ui-kit';
 const Item = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.mode === 'light' ? '#2EC4F3' : '#aa1384',
   ...theme.typography.body2,
@@ -19,9 +25,13 @@ const Item = styled(Paper)(({ theme }) => ({
   
 }));
 
+
 export default function NestedGrid() {
   return (
-    <Box sx={{ flexGrow: 1,backgroundColor:'#2EC4F3' }}>
+    <Box sx={{ flexGrow: 1,backgroundColor:'#2EC4F3'
+    ,left: '0',
+    bottom: '0',
+    width: '100%'}}>
       <Grid container spacing={2}sx={{ flexGrow: 1,backgroundColor:red }}>
         <Grid xs={12} md={5} lg={3}>
           <div className="img-class">
@@ -102,5 +112,37 @@ export default function NestedGrid() {
         </Grid>
       </Grid>
     </Box>
+  //   <MDBFooter bgColor='light' className='text-center text-lg-left' style={{marginTop:'auto'}}>
+  //   <MDBContainer className='p-4'>
+  //     <MDBRow>
+  //       <MDBCol lg='6' md='12' className='mb-4 mb-md-0'>
+  //         <h5 className='text-uppercase'>Footer text</h5>
+
+  //         <p>
+  //           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias.
+  //           Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam,
+  //           est atque cumque eum delectus sint!
+  //         </p>
+  //       </MDBCol>
+
+  //       <MDBCol lg='6' md='12' className='mb-4 mb-md-0'>
+  //         <h5 className='text-uppercase'>Footer text</h5>
+
+  //         <p>
+  //           Lorem ipsum dolor sit amet consectetur, adipisicing elit. Iste atque ea quis molestias.
+  //           Fugiat pariatur maxime quis culpa corporis vitae repudiandae aliquam voluptatem veniam,
+  //           est atque cumque eum delectus sint!
+  //         </p>
+  //       </MDBCol>
+  //     </MDBRow>
+  //   </MDBContainer>
+
+  //   <div className='text-center p-3' style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+  //     &copy; {new Date().getFullYear()} Copyright:{' '}
+  //     <a className='text-dark' href='https://mdbootstrap.com/'>
+  //       MDBootstrap.com
+  //     </a>
+  //   </div>
+  // </MDBFooter>
   );
 }
