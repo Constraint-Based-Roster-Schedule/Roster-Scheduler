@@ -25,24 +25,6 @@ const getUserName = () => {
   }
 };
 
-const getFirstName = () => {
-  if (localStorage.getItem("user")) {
-    const { userFirstName } = jwtDecode(localStorage.user);
-    return userFirstName;
-  } else {
-    return null;
-  }
-};
-
-
-const getLastName = () => {
-  if (localStorage.getItem("user")) {
-    const { userLastName } = jwtDecode(localStorage.user);
-    return userLastName;
-  } else {
-    return null;
-  }
-};
 
 const getIntID = () => {
   if (localStorage.getItem("user")) {
@@ -88,7 +70,30 @@ const getUserToken = () => {
     return null;
   }
 };
-
+const getFirstName=()=>{
+  if(localStorage.getItem("user")){
+    const {firstName}=jwtDecode(localStorage.user);
+    return firstName
+  }else{
+    return null;
+  }
+}
+const getLastName=()=>{
+  if(localStorage.getItem("user")){
+    const {lastName}=jwtDecode(localStorage.user);
+    return lastName
+  }else{
+    return null;
+  }
+}
+const getWardInt=()=>{
+  if(localStorage.getItem("user")){
+    const {wardID}=jwtDecode(localStorage.user);
+    return wardID
+  }else{
+    return null;
+  }
+}
 const authService = {
   getCurrentUser,
   getUserToken,
@@ -101,6 +106,7 @@ const authService = {
   getIntID,
   getWardID,
   getUserID
+
 };
 
 export default authService;
