@@ -33,7 +33,7 @@ function App() {
      
       <Router type={type}/>     
       
-      {/* <Footer/> */}
+      <Footer/>
 
     </>   
   );
