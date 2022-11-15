@@ -80,22 +80,8 @@ const getUserToken = () => {
     return null;
   }
 };
-const getFirstName=()=>{
-  if(localStorage.getItem("user")){
-    const {firstName}=jwtDecode(localStorage.user);
-    return firstName
-  }else{
-    return null;
-  }
-}
-const getLastName=()=>{
-  if(localStorage.getItem("user")){
-    const {lastName}=jwtDecode(localStorage.user);
-    return lastName
-  }else{
-    return null;
-  }
-}
+
+
 const getWardInt=()=>{
   if(localStorage.getItem("user")){
     const {wardID}=jwtDecode(localStorage.user);
