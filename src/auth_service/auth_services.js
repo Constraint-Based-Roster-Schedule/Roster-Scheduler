@@ -24,6 +24,45 @@ const getUserName = () => {
     return null;
   }
 };
+
+const getFirstName = () => {
+  if (localStorage.getItem("user")) {
+    const { userFirstName } = jwtDecode(localStorage.user);
+    return userFirstName;
+  } else {
+    return null;
+  }
+};
+
+
+const getLastName = () => {
+  if (localStorage.getItem("user")) {
+    const { userLastName } = jwtDecode(localStorage.user);
+    return userLastName;
+  } else {
+    return null;
+  }
+};
+
+const getIntID = () => {
+  if (localStorage.getItem("user")) {
+    const { intId } = jwtDecode(localStorage.user);
+    return intId;
+  } else {
+    return null;
+  }
+};
+
+const getWardID = () => {
+  if (localStorage.getItem("user")) {
+    const { wardID } = jwtDecode(localStorage.user);
+    return wardID;
+  } else {
+    return null;
+  }
+};
+
+
 const logOut = () => {
   if (localStorage.getItem("user")) {
     localStorage.removeItem("user");
@@ -74,7 +113,8 @@ const authService = {
   getUserType,
   getFirstName,
   getLastName,
-  getWardInt
+  getIntID,
+  getWardID
 
 };
 
