@@ -68,6 +68,25 @@
     color: white;
 }
 
+.open-ward-details{
+    display: none;
+}
+.ward-modal-button{
+    background-color: white;
+}
+
+.modal-ward-det{
+    font-size: 1rem;
+}
+
+.modal-doc-det{
+    font-size: 1rem;
+    margin-top: -0.8rem;
+}
+.modal-doc{
+    margin-top: 2.5rem;
+}
+
 @media screen and (max-width: 1050px){
     .ward-det {
         margin-left: 6rem;
@@ -104,6 +123,11 @@
 @media screen and (max-width: 700px){
     .data-card {
         display: none;
+    }
+    .open-ward-details{
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
     }
 }
 
