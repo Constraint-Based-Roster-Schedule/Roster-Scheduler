@@ -27,7 +27,7 @@ import ApproveRoster from "./approveRoster";
 import AdminProfile from "./adminProfile";
 import SearchWardRoster from "../view/searchWardRoster";
 import AddWard from "./addWard";
-
+import ShiftsAdd from "./shiftsAdd";
 
 function Router(props) {
   
@@ -66,6 +66,7 @@ function Router(props) {
               <Route path="generateRoster" element={<ProtectedRoute permissions={'2'}><GenarateRoster /></ProtectedRoute>} />
               <Route path="rosterNotification" element={<ProtectedRoute permissions={'2'}><RosterNotification /></ProtectedRoute>} />
               <Route path="shiftRequest" element={<ProtectedRoute permissions={'2'}><ShiftRequest /></ProtectedRoute>} />
+              <Route path="shiftAdd" element={<ProtectedRoute permissions={'2'}><ShiftsAdd/></ProtectedRoute>} />
               <Route path="*" element={<NotFound />} />
             </Route>
             <Route exact path="/admin" element={<Navbar />} >

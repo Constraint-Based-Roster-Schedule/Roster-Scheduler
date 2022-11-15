@@ -80,18 +80,18 @@ const ConsultantDashboard = () => {
                         </div>
                         </Link>
                 </div>
-                {/* <div class="testimanial-col">
-                    <Link  to='../consultant/rosterNotification' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <div class="testimanial-col">
+                    <Link  to='../consultant/shiftAdd' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
                             <p active={true} >
-                                ROSTER NOTIFICATION
+                                Shifts adding
                             </p>
                         
                         </div>
                         </Link>
-                </div> */}
+                </div>
             </div>
         </section>
         <br />

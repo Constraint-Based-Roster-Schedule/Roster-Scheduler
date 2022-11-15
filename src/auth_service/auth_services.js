@@ -41,6 +41,7 @@ const getUserToken = () => {
     return null;
   }
 };
+
 const authService = {
   getCurrentUser,
   getUserToken,
