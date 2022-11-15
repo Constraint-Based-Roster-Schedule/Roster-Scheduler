@@ -62,6 +62,14 @@ const getWardID = () => {
   }
 };
 
+const getUserID= () => {
+  if (localStorage.getItem("user")) {
+    const { userID } = jwtDecode(localStorage.user);
+    return userID;
+  } else {
+    return null;
+  }
+};
 
 const logOut = () => {
   if (localStorage.getItem("user")) {
@@ -91,7 +99,8 @@ const authService = {
   getFirstName,
   getLastName,
   getIntID,
-  getWardID
+  getWardID,
+  getUserID
 };
 
 export default authService;
