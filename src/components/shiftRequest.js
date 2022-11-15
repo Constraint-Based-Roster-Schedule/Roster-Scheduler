@@ -41,7 +41,16 @@ function ShiftRequest() {
   },[])
 
   const fetchData=async()=>{
-    await Axios.get("http://localhost:5000/user/doctor/getData").then((res) => {
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    const ward_id=authService.getWardID();
+    const int_id=authService.getIntID();
+    await Axios.get("http://localhost:5000/user/doctor/getData",{
+      params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
+    }).then((res) => {
       setMyshifts(res.data.myShifts);
       //console.log(res.data.wardDoctors);
       //console.log(res.data.myShifts);
@@ -132,12 +141,12 @@ function ShiftRequest() {
 
   function renderMyShifts(myShifts){
     const rows=[]
-    for(var key in myShifts){
+    myShifts.forEach((shift,index) => {
       rows.push(<tr>
-        <td>{key}</td>
-        <td>{myShifts[key].join(" , ")}</td>
-      </tr>);     
-    }
+        <td>{index+1}</td>
+        <td>{shift.join(" , ")}</td>
+      </tr>);
+    });
     return rows;
   }
 
