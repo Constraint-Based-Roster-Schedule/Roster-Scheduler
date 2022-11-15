@@ -1,6 +1,7 @@
 import React from 'react';
 import '../CSS/searchWardRoster.css';
 import WardDetails from '../components/wardDetails';
+import Doc_details from '../components/doc_details';
 import Button from 'react-bootstrap/Button';
 import TextField from '@mui/material/TextField';
 import InputAdornment from '@mui/material/InputAdornment';
@@ -45,45 +46,33 @@ function SearchWardRoster() {
         })
   }
 
-  const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel',
-  ];
-
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
     setOpen(true)
   };
   const handleClose = (event) => {
-    setDocID(event.target.innerText)
+    const enteredID=event.target.innerText;
+    if(enteredID.length>0){
+      const doc_array=enteredID.split(" ");
+      setDocID(doc_array[0]);
+      //console.log(docID);
+      setRosterType(true);
+    }    
     setOpen(false)
   };
 
 
   const handleWardClick = (event) => {
     const enteredID=event.target.innerText;
-    if(enteredID.length>0){
-      setWardAnchorEl(event.currentTarget);
-    }   
+    setWardAnchorEl(event.currentTarget);
     setWardOpen(true)
   };
   const handleWardClose = (event) => {
     const enteredID=event.target.innerText;
     if(enteredID.length>0){
       setWardID(event.target.innerText)
+      setRosterType(false)
     }   
     setWardOpen(false)
   };
@@ -160,7 +149,7 @@ function SearchWardRoster() {
         
       </div>
             
-      <WardDetails wardID={wardID}/>
+      {rosterType==false ? <WardDetails wardID={wardID}/> : <Doc_details docID={docID}/>}
     </div>
   )
 }

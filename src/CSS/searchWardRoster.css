@@ -13,6 +13,13 @@
     margin-top: 3rem;
 }
 
+.doctor-detail-container{
+    background-color: rgb(8, 70, 213);
+    margin-right: 2rem;
+    margin-left: 2rem;
+    margin-top: 3rem;
+}
+
 .data-card{
     display: flex;
     flex-direction: row;
@@ -53,6 +60,14 @@
     margin-top: -1rem;
 }
 
+.individual-doc-details{
+    margin-left: 7rem;
+}
+
+.indivilual-doc-d{
+    color: white;
+}
+
 @media screen and (max-width: 1050px){
     .ward-det {
         margin-left: 6rem;
@@ -80,9 +95,32 @@
         margin-left: 0rem;
 
     }
+    .doctor-detail-container{
+        margin-right: 0rem;
+        margin-left: 0rem;
+    }
 }
 
 @media screen and (max-width: 700px){
-
+    .data-card {
+        display: none;
+    }
 }
 
+@media screen and (max-width: 550px){
+    .individual-doc-details {
+        margin-left: 1rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .wardSearch {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .req-button-ward-search{
+        align-self: center;
+        margin-top: 1rem;
+    }
+}
