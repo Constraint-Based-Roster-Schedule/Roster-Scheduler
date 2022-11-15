@@ -8,6 +8,7 @@ import FormGroup from '@mui/material/FormGroup';
 import { useEffect } from 'react';
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
+import authService from "../auth_service/auth_services";
 
 function ShiftRequest() {
   const id=2;
@@ -29,6 +30,7 @@ function ShiftRequest() {
   const numberOfDays=31
 
   useEffect(()=>{
+    console.log(authService.getUserName());
     fetchData();
   },[])
 
