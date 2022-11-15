@@ -27,11 +27,10 @@ export const GenarateRoster = () => {
   const [month, setMonth] = useState();
   const [d, setD] = useState();
   const [numOfShift, setNumOfShifts] = useState([]);
-  const [shiftArray,setShiftArray]=useState([
-  ]);
+  const [shiftArray,setShiftArray]=useState([]);
   const [shiftArrayData,setShiftArrayData]=useState([])
   const [confirm, setConfirm] = useState("off");
-
+  
   const wardID = "6339b9cc79b089f956978b20";
   const navigate = useNavigate();
 
@@ -64,7 +63,8 @@ export const GenarateRoster = () => {
       let x = Date.parse(month);
       console.log(x);
 
-      
+      // setM(month.substring(5));
+      // setY(month.substring(0, 4));
       // console.log(m, y);
     } else if (name == "numOfDoctors") {
       setNumOfDoctors(value);
@@ -150,11 +150,12 @@ export const GenarateRoster = () => {
         } else {
           console.log("no roster for this constraints");
           alert(res.data.msg);
-          refresh();
+          // refresh();
           navigate("../generateRoster");
         }
       });
   };
+  // to check the function
   const saveshift=async(e)=>{
     e.preventDefault();
     const details={
@@ -162,52 +163,12 @@ export const GenarateRoster = () => {
       year:'2022',
       wardID:1,
       shifts:{
-        0:{
-          0:'morning shift',
-          1:'#eeeeee',
-          2:{
-            0:{
-              0:2,
-              1:20
-            },
-            1:{
-              0:3,
-              1:30
-            }
-          }
-        },
-        1:{
-          0:'evening shift',
-          1:'#68e113',
-          2:{
-            0:{
-              0:2,
-              1:20
-            },
-            1:{
-              0:3,
-              1:30
-            }
-          }
-        },
-        2:{
-          0:'night shift',
-          1:'#ef0808',
-          2:{
-            0:{
-              0:2,
-              1:20
-            },
-            1:{
-              0:3,
-              1:30
-            }
-          }
-        }
+        0:{0:'morning shift',1:'#eeeeee',2:{0:{0:2,1:20},1:{0:3,1:30}}},
+        1:{0:'evening shift',1:'#68e113',2:{0:{0:2,1:20},1:{0:3,1:30}}},
+        2:{0:'night shift',1:'#ef0808',2:{0:{0:2,1:20},1:{0:3,1:30}}}
       }
-
+      }
     }
-  }
   const refresh = () => {
     console.log("wwwe");
     setConfirm("off");
