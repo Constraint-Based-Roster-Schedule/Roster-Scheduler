@@ -47,7 +47,7 @@ function RosterIndividual() {
                     }
                 </div>
             </div>
-            <IndividualRoster docID={"1"}/>
+            <IndividualRoster docID={authService.getIntID()}/>
         </>    
     )
 }
