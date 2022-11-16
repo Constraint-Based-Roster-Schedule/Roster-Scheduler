@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { display } from "@mui/system";
 import { Padding } from "@mui/icons-material";
 export const GenarateRoster = () => {
-  const [numOfDoctors, setNumOfDoctors] = useState();
+  const [numOfDoctors, setNumOfDoctors] = useState(4);
   const [numOfMinimumDoctors, setNumOfMinimumDoctors] = useState();
   const [numOfMaximumDoctors, setNumOfMaximumDoctors] = useState();
   const [numOfMinimumShifts, setNumOfMinimumShifts] = useState();
@@ -218,7 +218,7 @@ export const GenarateRoster = () => {
                 name="numOfDoctors"
                 onChange={handleChange}
                 required
-                readOnly
+
                 value={numOfDoctors}
               />
             </MDBCol>
