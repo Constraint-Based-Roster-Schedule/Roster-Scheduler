@@ -8,15 +8,20 @@ import Axios from "axios";
 import Box from '@mui/material/Box';
 import authService from '../auth_service/auth_services';
 
+
 function RosterIndividual() {
     
     const [shiftNames,setShiftNames]=useState([]);
+    const [myID,setMyID]=useState("");
     useEffect(()=>{
         fetchShiftnames();
+        
     },[])
 
 
     const fetchShiftnames=async()=>{
+        // const my_id =authService.getIntID();
+        // console.log(my_id)
         await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
             params:{"month":"november","year":"2022"}
         }).then((res) => {
@@ -42,7 +47,7 @@ function RosterIndividual() {
                     }
                 </div>
             </div>
-            <IndividualRoster />
+            <IndividualRoster docID={"1"}/>
         </>    
     )
 }

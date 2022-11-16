@@ -14,6 +14,7 @@ import { appointments } from './data';
 import '../CSS/rosterIndividual.css';
 import { useState,useEffect } from 'react';
 import Axios from "axios";
+import authService from '../auth_service/auth_services';
 
 
 
@@ -27,7 +28,17 @@ function IndividualRoster(){
       fetchIndividualRoster();       
   },[])
 
-  const fetchIndividualRoster=async()=>{
+  const fetchIndividualRoster=async(props)=>{
+      // const wardID=authService.getWardID();
+      //console.log(props.myID)
+      // const myID=props.docID;
+      // if(props.docID.length===0){
+      //   myID=authService.getIntID().toString();
+      // }else{
+      //   myID=props.myID
+      // }
+      
+      //console.log(myID)
       
       const monthNames = ["january", "february", "march", "april", "may", "june",
                           "july", "august", "september", "october", "november", "december"

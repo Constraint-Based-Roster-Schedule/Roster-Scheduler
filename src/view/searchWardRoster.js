@@ -55,7 +55,7 @@ function SearchWardRoster() {
     const enteredID=event.target.innerText;
     if(enteredID.length>0){
       const doc_array=enteredID.split(" ");
-      setDocID(doc_array[0]);
+      setDocID(+doc_array[0]);
       //console.log(docID);
       setRosterType(true);
     }    
