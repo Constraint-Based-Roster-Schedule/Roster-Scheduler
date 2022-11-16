@@ -11,6 +11,7 @@ import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { ConstructionOutlined } from '@mui/icons-material';
 import Axios from "axios";
+import authService from "../auth_service/auth_services";
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -27,14 +28,27 @@ const [emailError, setEmailError] = useState('');
 const [isEmailValid,setIsEmailValid]=useState(true);
 const [contactError, setContactError] = useState('');
 const [isContactValid,setIsContactValid]=useState(true);
-const [wardError, setwardError] = useState('');
-const [isWardValid,setIsWardValid]=useState(true);
+
+
+const [wards,setWards]=useState("")
 
 const noOfWards=10;
 
+useEffect(()=>{
+    fetchAvailableWards();
+},[])
+
+const fetchAvailableWards=async()=>{
+    await Axios.get("http://localhost:5000/user/admin/getAvailableWards").then((res) => {
+        //console.log(res.data.availableWards);
+        setWards(res.data.availableWards);
+        //console.log(wards)
+    })
+}
+
 const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":"6339b9cc79b089f956978b20","address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
     });
@@ -43,7 +57,7 @@ const handleSubmitConsultant=async(e)=>{
 
 const handleSubmitDoctor=async(e)=>{
     e.preventDefault();
-    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":"6339b9cc79b089f956978b20","address":address,"emailaddress":email,"telephone":contact,"password":firstName};
+    const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
 
@@ -78,18 +92,6 @@ const validateContact=(e)=>{
     }
 }
 
-const validateWard=(e)=>{
-    var ward=e.target.value;
-    if(isNaN(ward)){
-        setIsWardValid(false);
-        setwardError('Ward number should be a numeric value');
-    }else if((ward>noOfWards || ward<=0) && ward.length>0 ){
-        setIsWardValid(false);
-        setwardError(`Ward number should be between 0 and ${noOfWards +1}`);
-    }else{
-        setIsWardValid(true);
-    }
-}
 
 const handleReset=()=>{
     setFirstName('');
@@ -102,7 +104,7 @@ const handleReset=()=>{
     setSpecializedArea('');
     setIsEmailValid(true);
     setIsContactValid(true);
-    setIsWardValid(true);
+
 }
 
 
@@ -155,8 +157,11 @@ return (
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}} required/>
-                        {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
+                        <Form.Select className='formSelect' type="text" value={ward} onChange={(e)=>setWard(e.target.value)} required>
+                            {wards.map((ward)=>{
+                                return <option value={ward}>{ward}</option>
+                            })}
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
@@ -207,8 +212,11 @@ return (
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicWard">
                         <Form.Label>Ward number :</Form.Label>
-                        <Form.Control type="text" placeholder="Enter ward number" value={ward} onChange={(e)=>{setWard(e.target.value);validateWard(e)}} required/>
-                        {!isWardValid && <Alert severity="warning" >{wardError}...</Alert>}
+                        <Form.Select className='formSelect' type="text" value={ward} onChange={(e)=>setWard(e.target.value)} required>
+                            {wards.map((ward)=>{
+                                return <option value={ward}>{ward}</option>
+                            })}
+                        </Form.Select>
                     </Form.Group>
                     <Form.Group className="mb-3 col-lg-8" controlId="formBasicSpeciality">
                         <Form.Label>Speciality :</Form.Label>
