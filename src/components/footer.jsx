@@ -1,4 +1,4 @@
-import * as React from 'react';
+import  React from 'react';
 import { styled } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Paper from '@mui/material/Paper';
@@ -8,6 +8,7 @@ import logo from'../assets/logo.png'
 import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import './footer.css';
 import {
   MDBFooter,
   MDBContainer,
@@ -31,6 +32,7 @@ export default function NestedGrid() {
     <Box sx={{ flexGrow: 1,backgroundColor:'#2EC4F3'
     ,left: '0',
     bottom: '0',
+    position:'fixed',
     width: '100%'}}>
       <Grid container spacing={2}sx={{ flexGrow: 1,backgroundColor:red }}>
         <Grid xs={12} md={5} lg={3}>
