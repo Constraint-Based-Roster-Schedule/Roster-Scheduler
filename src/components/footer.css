@@ -1,12 +1,16 @@
-*{
-    background-color: rgb(245, 245, 252);
+body{
+    /* background-color: rgb(245, 245, 252);
+    position: fixed;
+    bottom: 0; */
+    min-height: 100vh;
+    height: 100%;
    
 }
 .Box{
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
-    bottom: 0;
+    
     width: 100%;
    
     color: white;

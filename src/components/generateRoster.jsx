@@ -184,7 +184,7 @@ export const GenarateRoster = () => {
     <div className="generateRosterContainer">
       <MDBContainer
         className="py-5"
-        style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "0px" }}
+        style={{ backgroundColor: "rgb(59, 130, 237)", marginTop: "0px" }}
       >
         <MDBRow>
           <h1 className="mb-3">Generate Roster</h1>
@@ -384,10 +384,10 @@ export const GenarateRoster = () => {
         <div className="slotsContainer">
           <MDBRow>
             <MDBCol>
-              <MDBBtn>get preferable working slots</MDBBtn>
+              {/* <MDBBtn>get preferable working slots</MDBBtn> */}
             </MDBCol>
             <MDBCol>
-              <MDBBtn>get vac working slots</MDBBtn>
+              {/* <MDBBtn>get vac working slots</MDBBtn> */}
             </MDBCol>
           </MDBRow>
         </div>

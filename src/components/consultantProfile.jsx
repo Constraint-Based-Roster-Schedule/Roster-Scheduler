@@ -5,6 +5,8 @@ import axios from "axios";
 import jwtDecode from "jwt-decode";
 import { Link } from "react-router-dom";
 import authService from "../auth_service/auth_services";
+import validator from "validator";
+import Alert from "@mui/material/Alert";
 import {
   MDBCol,
   MDBContainer,
@@ -21,7 +23,9 @@ import {
   MDBIcon,
   MDBListGroup,
   MDBListGroupItem,
+  MDBInput,
 } from "mdb-react-ui-kit";
+import { Construction } from "@mui/icons-material";
 
 export const ConsultantProfile = () => {
   const [consultant1, setConsultant1] = useState({});
@@ -33,6 +37,11 @@ export const ConsultantProfile = () => {
   const [telephone, setTelephone] = useState("");
   const [userName, setUserName] = useState("");
   const [speciality, setSpeciality] = useState("");
+  const [currentPassword, setCurrentPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [isValidNewPassword, setIsValidNewPassword] = useState(false);
+  const [validateNewPasswordError, setValidateNewPasswordError] = useState();
+  const [changed, setChanged] = useState(false);
   console.log(consultant1);
   const getUserDetails = async (e) => {
     console.log(jwtDecode(localStorage.getItem("user")));
@@ -43,7 +52,9 @@ export const ConsultantProfile = () => {
     const data = { userName: user.userName, type: user.userType };
 
     await axios
-      .post("http://localhost:5000/user/consultant/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
+      .post("http://localhost:5000/user/consultant/userDetails", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
@@ -59,7 +70,57 @@ export const ConsultantProfile = () => {
         return res.data;
       });
   };
-
+  const handleChange = (e) => {
+    // console.log("ddddddddd");
+    var value = e.target.value;
+    // console.log(e.target.name, e.target.value);
+    if (e.target.name == "currentPassword") {
+      setCurrentPassword(e.target.value);
+      console.log("current password", value);
+    } else if (e.target.name == "newPassword") {
+      setNewPassword(e.target.value);
+      setChanged(true);
+      console.log("new password", value);
+    }
+  };
+  const validataNewPassword22 = (e) => {
+    let value = e.target.value;
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      console.log("correct password");
+      setIsValidNewPassword(true);
+      setValidateNewPasswordError("Strong Password");
+    } else {
+      console.log("incorrect password");
+      setIsValidNewPassword(false);
+      setValidateNewPasswordError("Not Strong Password");
+    }
+  };
+  const handleSubmit = async (e) => {
+    console.log("in the handle submit");
+    e.preventDefault();
+    if (isValidNewPassword) {
+      const data = {currentPassword:currentPassword,newPassword:newPassword,email:email};
+      await axios.post("http://localhost:5000/user/consultant/changePassword", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
+      .then((res)=>{
+        console.log(res.data.msg,res.data.success)
+        alert(res.data.msg)
+        if(res.data.success){
+          setCurrentPassword('')
+          setNewPassword('')
+        }
+      })
+    }
+  };
   useState(() => {
     getUserDetails();
   });
@@ -77,11 +138,13 @@ export const ConsultantProfile = () => {
 
   return (
     <section style={{ backgroundColor: "#40d2e5", marginTop: "-5px" }}>
-      <div className='p-2 text-center' style={{marginBottom:'-35px'}} >
-        <h1 className='mb-3' >Consultant Profile</h1>
-       
+      <div className="p-2 text-center" style={{ marginBottom: "-35px" }}>
+        <h1 className="mb-3">Consultant Profile</h1>
       </div>
-      <MDBContainer className="py-5" style={{ backgroundColor: "#40d2e5", marginTop: "-5px" }} >
+      <MDBContainer
+        className="py-5"
+        style={{ backgroundColor: "#40d2e5", marginTop: "-5px" }}
+      >
         <MDBRow>
           <MDBCol lg="4">
             <MDBCard className="mb-4">
@@ -98,7 +161,6 @@ export const ConsultantProfile = () => {
                   {speciality}
                 </p>
                 <div className="d-flex justify-content-center mb-2">
-
                   <Link className="requestButton" to="../roster">
                     <MDBBtn outline className="ms-1">
                       My Roster
@@ -110,7 +172,6 @@ export const ConsultantProfile = () => {
                       Ward Roster
                     </MDBBtn>
                   </Link>
-
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -219,6 +280,7 @@ export const ConsultantProfile = () => {
                   </MDBCol>
                 </MDBRow>
                 <hr />
+                {/* password change part */}
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText
@@ -231,6 +293,45 @@ export const ConsultantProfile = () => {
                     <MDBCardText className="text-muted">{wardName}</MDBCardText>
                     {/* <MDBCardText className="text-muted">{(consultant.wardNumbers).map((reptile) => <li>{reptile}</li>)}</MDBCardText> */}
                   </MDBCol>
+                </MDBRow>
+                <hr />
+                <MDBRow>
+                  <MDBCardText className="text-muted">
+                    Change Password
+                  </MDBCardText>
+                  <form onSubmit={handleSubmit}>
+                    <MDBCol>
+                      <MDBInput
+                        name="currentPassword"
+                        required
+                        type="password"
+                        label="current password"
+                        onChange={handleChange}
+                        value={currentPassword}
+                      />
+                    </MDBCol>
+                    <MDBCol>
+                      <MDBInput
+                        name="newPassword"
+                        required
+                        value={newPassword}
+                        type="password"
+                        label="new password"
+                        onChange={(e) => {
+                          handleChange(e);
+                          validataNewPassword22(e);
+                        }}
+                      />
+                      {!isValidNewPassword && changed && (
+                        <Alert severity="warning">
+                          {validateNewPasswordError}...
+                        </Alert>
+                      )}
+                    </MDBCol>
+                    <MDBRow>
+                      <MDBBtn type="submit">Change Password</MDBBtn>
+                    </MDBRow>
+                  </form>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
