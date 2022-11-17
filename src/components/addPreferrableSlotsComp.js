@@ -14,8 +14,9 @@ import { useState } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
 import Axios from "axios";
+import authService from "../auth_service/auth_services";
 
-function AddPreferrableSlotsComp() {
+function AddPreferrableSlotsComp(props) {
   const [preferrableSlotRequests,setpreferrableSlotRequests]=useState([]);
   const [slotdate,setSlotDate]=useState('');
   const [slot,setSlot]=useState(null);
@@ -23,12 +24,13 @@ function AddPreferrableSlotsComp() {
   const [error,setError]=useState('');
   const [isDateValidate,setIsDateValidate]=useState(true);
   const [Dateerror,setDateError]=useState('');
+  
 
   const numberOfDays=31
 
   function deleteSlots(sltDate,sltSlot){   
     var filteredNumbers = preferrableSlotRequests.filter(function (currentElement) {
-      return currentElement.date ===sltDate  && currentElement.slot===sltSlot;
+      return currentElement[0] ===sltDate  && currentElement[1]===sltSlot;
     });
     var temp=preferrableSlotRequests;
     var filtered = temp.filter(
@@ -46,7 +48,7 @@ function AddPreferrableSlotsComp() {
     }else{
       setIsError(false);
       setError('');
-      setpreferrableSlotRequests([...preferrableSlotRequests,{"date":slotdate,"slot":slot}])
+      setpreferrableSlotRequests([...preferrableSlotRequests,[slotdate,slot]])
       setSlotDate('');
       setSlot(null);
       //console.log(leaveRequests);
@@ -55,7 +57,23 @@ function AddPreferrableSlotsComp() {
   }
 
   const handleSubmit=async()=>{
-    await Axios.post("http://localhost:5000/user/doctor/submitPrefferableSlots", preferrableSlotRequests).then((res) => {
+    const monthNames = ["january", "february", "march", "april", "may", "june",
+      "july", "august", "september", "october", "november", "december"
+    ];
+    const month=monthNames[new Date().getMonth()+1].toLowerCase();
+    let year=''
+    if(month==="january"){
+      const current_year=new Date().getFullYear();
+      year=(+current_year+1).toString();
+    }else{
+      year=new Date().getFullYear();
+    }
+    const doc_id=authService.getUserID().toString();
+    const wardID=authService.getWardID().toString();
+    //console.log(month)
+    await Axios.get("http://localhost:5000/user/doctor/submitPrefferableSlots", {
+      params:{"prefferableSlots":preferrableSlotRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
+    }).then((res) => {
       console.log(res.data)})
     handleReset();
   }
@@ -93,12 +111,11 @@ function AddPreferrableSlotsComp() {
         <FormControl>
           <InputLabel id="demo-simple-select-label">Slot</InputLabel>
           <Select className='slot-select' label="slot" name="os" value={slot} onChange={(e)=>setSlot(e.target.value)} >
-              <MenuItem value="">
-              <em>select the working slot</em>
-              </MenuItem>
-              <MenuItem key="1" value="1">1</MenuItem>
-              <MenuItem key="2" value="2">2</MenuItem>
-              <MenuItem key="3" value="3">3</MenuItem>
+
+
+              {props.shiftNames.map((shift,index)=>{
+                return <MenuItem key={index} value={index}>{shift[0]}</MenuItem>
+              })}
           </Select>
         </FormControl>
         <ButtonGroup>
@@ -120,10 +137,10 @@ function AddPreferrableSlotsComp() {
         <tbody>
           {preferrableSlotRequests.map((req)=>{
             return (<tr>
-              <td>{req.date}</td>
-              <td>{req.slot}</td>
+              <td>{req[0]}</td>
+              <td>{req[1]}</td>
               <td >
-                <AiOutlineDelete className='delete-btn' onClick={()=>deleteSlots(req.date,req.slot)}  >
+                <AiOutlineDelete className='delete-btn' onClick={()=>deleteSlots(req[0],req[1])}  >
                   <IoMdAddCircle className='delete-icon' />
                 </AiOutlineDelete>
               </td>

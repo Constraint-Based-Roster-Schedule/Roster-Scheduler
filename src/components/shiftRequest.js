@@ -11,16 +11,20 @@ import Alert from '@mui/material/Alert';
 import authService from "../auth_service/auth_services";
 
 function ShiftRequest() {
-  const id=2;
+  const [id,setID]=useState("")
+  const [wardID,setWardID]=useState("");
+
   const [date,setDate]=useState("");
-  const [shift,setShift]=useState("");
+  const [shift,setShift]=useState(0);
   const [datewith,setDatewith]=useState("");
-  const [shiftwith,setShiftwith]=useState("");
+  const [shiftwith,setShiftwith]=useState(0);
   const [docID,setDocID]=useState("");
   const [showDoctorList,setShowDoctorList]=useState(false);
   const [showShiftList,setShowShiftList]=useState(false);
   const [wardDoctors,setWardDoctors]=useState([])
   const [myShifts,setMyshifts]=useState({});
+
+  const [shiftNames,setShiftNames]=useState([])
 
   const [isDateValidate,setIsDateValidate]=useState(true);
   const [Dateerror,setDateError]=useState('');
@@ -30,33 +34,71 @@ function ShiftRequest() {
   const numberOfDays=31
 
   useEffect(()=>{
-    console.log(authService.getUserName());
+    setID(authService.getIntID());
+    fetchShiftnames();
     fetchData();
+    fetchWardDoctors();
   },[])
 
   const fetchData=async()=>{
-    await Axios.get("http://localhost:5000/user/doctor/getData").then((res) => {
-      setWardDoctors(res.data.wardDoctors);
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    const ward_id=authService.getWardID();
+    const int_id=authService.getIntID();
+    await Axios.get("http://localhost:5000/user/doctor/getData",{
+      params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
+    }).then((res) => {
       setMyshifts(res.data.myShifts);
-      console.log(res.data.wardDoctors);
-      console.log(res.data.myShifts);
+      //console.log(res.data.wardDoctors);
+      //console.log(res.data.myShifts);
+    })
+  }
+
+  const fetchWardDoctors=async()=>{
+    const ward_id=authService.getWardID();
+    await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+      params:{"wardID":ward_id}
+    }).then((res) => {
+      setWardDoctors(res.data.doctorDetails);
+    })
+  }
+
+  const fetchShiftnames=async()=>{
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+      params:{"month":month,"year":year}
+    }).then((res) => {
+
+      setShiftNames(res.data.shiftNames)
     })
   }
 
   const handleSubmit=async(e)=>{
     e.preventDefault();
-    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":"633be3ad645fd11f4252f925","requestState":1}
+    const myId=authService.getUserID().toString();
+    let default_toID=docID;
+    if(default_toID.length===0){
+      default_toID=wardDoctors[0][3]
+    }
+    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
+    console.log(shiftExchangeData);
     await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})
-    //console.log(shiftExchangeData);
     handleReset();
   }
 
   const handleReset=()=>{
     setDate("");
-    setShift("");
+    setShift(0);
     setDatewith("");
-    setShiftwith("");
+    setShiftwith(0);
     setDocID("");
   }
 
@@ -91,7 +133,7 @@ function ShiftRequest() {
     for(var i=0;i<wardDoctors.length;i++){
       rows.push(<tr>
         <td>{wardDoctors[i][0]}</td>
-        <td>{wardDoctors[i][1]}</td>
+        <td>{wardDoctors[i][1]} {wardDoctors[i][2]}</td>
       </tr>);     
     }
     return rows;
@@ -99,14 +141,16 @@ function ShiftRequest() {
 
   function renderMyShifts(myShifts){
     const rows=[]
-    for(var key in myShifts){
+    myShifts.forEach((shift,index) => {
       rows.push(<tr>
-        <td>{key}</td>
-        <td>{myShifts[key].join(" , ")}</td>
-      </tr>);     
-    }
+        <td>{index+1}</td>
+        <td>{shift.join(" , ")}</td>
+      </tr>);
+    });
     return rows;
   }
+
+
 
   return (
     <>
@@ -119,11 +163,10 @@ function ShiftRequest() {
               <Form.Label className='formLabel' >Slot to exchange:</Form.Label> 
               <Form.Group className='inner-formGrp'>
                 <Form.Control className='formControlDate' type="text" placeholder="Date" value={date} onChange={(e)=>{setDate(e.target.value);validateDate(e);}}  required/>
-                <Form.Select className='formSelect' id="workingSlot" value={shift} onChange={(e)=>setShift(e.target.value)} required>
-                  <option value={"default"}>Slot</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
+                <Form.Select className='formSelect' id="workingSlot" value={shift} onChange={(e)=>setShift(+(e.target.value))}>
+                  {shiftNames.map((shift,index)=>{
+                    return <option value={index}>{shift[0]}</option>
+                  })}
               </Form.Select>
               </Form.Group>                    
             </Form.Group>
@@ -132,11 +175,10 @@ function ShiftRequest() {
               <Form.Label className='formLabel'>Slot to exchange with:</Form.Label>    
               <Form.Group className='inner-formGrp'>
                 <Form.Control className='formControlDate' type="text" placeholder="Date" value={datewith} onChange={(e)=>{setDatewith(e.target.value);validateDateWith(e);}}  required/>
-                <Form.Select className='formSelect' id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(e.target.value)} required>
-                  <option value={"default"}>Slot</option>
-                  <option value={1}>1</option>
-                  <option value={2}>2</option>
-                  <option value={3}>3</option>
+                <Form.Select className='formSelect' id="workingSlot" value={shiftwith} onChange={(e)=>setShiftwith(+(e.target.value))}>
+                  {shiftNames.map((shift,index)=>{
+                    return <option value={index}>{shift[0]}</option>
+                  })}
                 </Form.Select>
               </Form.Group>
               
@@ -145,7 +187,12 @@ function ShiftRequest() {
             
             <Form.Group className="formGrp  col-lg-8" controlId="requestingDoctor">
               <Form.Label className='formLabel'>Requesting Doctor:</Form.Label>
-              <Form.Control className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/>
+                <Form.Select className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required>
+                  { wardDoctors.map((doc,index)=>{
+                    return <option value={doc[3]}>{doc[0]} {doc[1]} {doc[2]}</option>
+                  })}
+                </Form.Select>
+              {/* <Form.Control className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/> */}
             </Form.Group>
             <Form.Group className="formGrp-btn mb-3 col-lg-8 d-flex flex-row justify-content-center px-0">
               <Button className='req-sub-btn' variant="primary" type="submit" >

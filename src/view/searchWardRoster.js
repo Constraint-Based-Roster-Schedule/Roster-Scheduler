@@ -29,6 +29,8 @@ function SearchWardRoster() {
   const [anchorEl, setAnchorEl] = useState(false)
   const [WardAnchorEl, setWardAnchorEl] = useState(false)
 
+  const [doctorDetails,setDoctorDetails]=useState([])
+
   useEffect(()=>{
     fetchAvailableWards();
     fetchAllDoctors();
@@ -42,7 +44,17 @@ function SearchWardRoster() {
 
   const fetchAllDoctors=async()=>{
     await Axios.get("http://localhost:5000/user/admin/getAllDoctors").then((res) => {
-          setAllDoctors(res.data.allDoctors)
+          setAllDoctors(res.data.allDoctors);
+          //setDocID(+allDoctors[0][0])
+          //console.log(allDoctors)
+        })
+  }
+
+  const fetchDoctorDetails=async(id)=>{
+    await Axios.get("http://localhost:5000/user/admin/getDoctorDetails",{
+      params:{"docID":id}
+    }).then((res) => {
+          setDoctorDetails(res.data.doctorDetails);
         })
   }
 
@@ -52,12 +64,17 @@ function SearchWardRoster() {
     setOpen(true)
   };
   const handleClose = (event) => {
+    
     const enteredID=event.target.innerText;
-    if(enteredID.length>0){
+    //console.log(enteredID)
+    if(enteredID.length>0){      
+
       const doc_array=enteredID.split(" ");
-      setDocID(doc_array[0]);
-      //console.log(docID);
+      setDocID(+doc_array[0]);
       setRosterType(true);
+      fetchDoctorDetails(+doc_array[0])
+      //console.log(docID);
+
     }    
     setOpen(false)
   };
@@ -149,7 +166,7 @@ function SearchWardRoster() {
         
       </div>
             
-      {rosterType==false ? <WardDetails wardID={wardID}/> : <Doc_details docID={docID}/>}
+      {rosterType==false ? <WardDetails wardID={wardID}/> : <Doc_details docID={docID} doctorDetails={doctorDetails}/>}
     </div>
   )
 }

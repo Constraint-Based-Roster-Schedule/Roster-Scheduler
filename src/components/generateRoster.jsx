@@ -218,7 +218,7 @@ export const GenarateRoster = () => {
                 name="numOfDoctors"
                 onChange={handleChange}
                 required
-                
+
                 value={numOfDoctors}
               />
             </MDBCol>

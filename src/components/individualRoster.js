@@ -14,20 +14,27 @@ import { appointments } from './data';
 import '../CSS/rosterIndividual.css';
 import { useState,useEffect } from 'react';
 import Axios from "axios";
+import authService from '../auth_service/auth_services';
 
 
 
-function IndividualRoster(){
+function IndividualRoster(props){
   const currentDate = '2022-11-05';
   const [docID,setDocID]=useState("");
   const [shiftNames,setShiftNames]=useState([]);
   const [finalShifts,setFinalShifts]=useState([]);
 
   useEffect(()=>{
-      fetchIndividualRoster();       
+      fetchIndividualRoster();     
+      //console.log(props.docID)  
   },[])
 
   const fetchIndividualRoster=async()=>{
+      // const wardID=authService.getWardID();
+      //console.log(props.myID)
+      const myID=props.docID.toString();
+      
+      //console.log(myID)
       
       const monthNames = ["january", "february", "march", "april", "may", "june",
                           "july", "august", "september", "october", "november", "december"
@@ -39,20 +46,20 @@ function IndividualRoster(){
       required_months.push(monthNames[current_month]);
       required_months.push(monthNames[current_month+1]);
       
-      console.log(required_months); 
+      //console.log(required_months); 
 
       await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
           params:{"month":"november","year":"2022","months":required_months}
       }).then((res) => {
       const myShifts=res.data.myShifts;
       const shiftNames=res.data.shiftNames
-      console.log(myShifts)
+      //console.log(myShifts)
       setShiftNames(shiftNames)
       const data_to_send=[]
       myShifts.forEach((mon,month_index)=>{
           mon.forEach((day,date)=>{
               day.forEach((shift,index)=>{
-                  if(shift.includes("1")){
+                  if(shift.includes(myID)){
                       const shift_detail={
                           title: shiftNames[index][0],
                           startDate: new Date(2022, 10+month_index-2, date+1, 13, 0),

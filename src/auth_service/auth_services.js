@@ -34,7 +34,6 @@ const getFirstName = () => {
   }
 };
 
-
 const getLastName = () => {
   if (localStorage.getItem("user")) {
     const { userLastName } = jwtDecode(localStorage.user);
@@ -62,6 +61,14 @@ const getWardID = () => {
   }
 };
 
+const getUserID= () => {
+  if (localStorage.getItem("user")) {
+    const { userID } = jwtDecode(localStorage.user);
+    return userID;
+  } else {
+    return null;
+  }
+};
 
 const logOut = () => {
   if (localStorage.getItem("user")) {
@@ -82,14 +89,6 @@ const getUserToken = () => {
 };
 
 
-const getWardInt=()=>{
-  if(localStorage.getItem("user")){
-    const {wardID}=jwtDecode(localStorage.user);
-    return wardID
-  }else{
-    return null;
-  }
-}
 const authService = {
   getCurrentUser,
   getUserToken,
@@ -100,7 +99,8 @@ const authService = {
   getFirstName,
   getLastName,
   getIntID,
-  getWardID
+  getWardID,
+  getUserID
 
 };
 
