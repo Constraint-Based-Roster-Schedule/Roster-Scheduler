@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { TextField } from '@mui/material';
 import { FormControl } from '@mui/material';
 import { MenuItem } from '@mui/material';
@@ -10,13 +10,14 @@ import '../CSS/leaveRequest.css';
 import { IconButton } from '@mui/material';
 import {AiOutlineDelete} from 'react-icons/ai';
 import {IoMdAddCircle} from 'react-icons/io';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
 import Axios from "axios";
+import authService from "../auth_service/auth_services";
 
 
-function AddLeavesComponent() {
+function AddLeavesComponent(props) {
   const [leaveRequests,setLeaveRequests]=useState([]);
 
   const [leavedate,setDate]=useState('');
@@ -29,9 +30,10 @@ function AddLeavesComponent() {
   const numberOfDays=31
 
   function deleteLeaves(dltDate,dltSlot){
-    
+    //console.log(dltDate,dltSlot)
+    //console.log(leaveRequests);
     var filteredNumbers = leaveRequests.filter(function (currentElement) {
-      return currentElement.date ===dltDate  && currentElement.slot===dltSlot;
+      return currentElement[0] ===dltDate  && currentElement[1]===dltSlot;
     });
     var temp=leaveRequests;
     var filtered = temp.filter(
@@ -39,6 +41,7 @@ function AddLeavesComponent() {
       return this.indexOf(e) < 0;
     },filteredNumbers
     );
+    //console.log(filteredNumbers)
     setLeaveRequests(filtered);
   }
 
@@ -49,7 +52,7 @@ function AddLeavesComponent() {
     }else{
       setIsError(false);
       setError('');
-      setLeaveRequests([...leaveRequests,{"date":leavedate,"slot":slot}])
+      setLeaveRequests([...leaveRequests,[+leavedate,+slot]])
       setDate('');
       setSlot(null);
       //console.log(leaveRequests);
@@ -58,9 +61,26 @@ function AddLeavesComponent() {
   }
 
   const handleSubmit=async()=>{
-    await Axios.post("http://localhost:5000/user/doctor/submitLeaveRequest", leaveRequests).then((res) => {
+    const monthNames = ["january", "february", "march", "april", "may", "june",
+      "july", "august", "september", "october", "november", "december"
+    ];
+    const month=monthNames[new Date().getMonth()+1].toLowerCase();
+    let year=''
+    if(month==="january"){
+      const current_year=new Date().getFullYear();
+      year=(+current_year+1).toString();
+    }else{
+      year=new Date().getFullYear();
+    }
+    
+    const doc_id=authService.getUserID().toString();
+    const wardID=authService.getWardID().toString();
+    //console.log(leaveRequests)
+    await Axios.get("http://localhost:5000/user/doctor/submitLeaveRequest", {
+      params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
+    }).then((res) => {
       console.log(res.data)})
-    handleReset();
+      handleReset();
   }
 
   function handleReset(){
@@ -96,12 +116,11 @@ function AddLeavesComponent() {
         <FormControl>
           <InputLabel id="demo-simple-select-label">Slot</InputLabel>
           <Select className='slot-select' label="slot" name="os" value={slot} onChange={(e)=>setSlot(e.target.value)} >
-              <MenuItem value="">
-              <em>select the working slot</em>
-              </MenuItem>
-              <MenuItem key="1" value="1">1</MenuItem>
-              <MenuItem key="2" value="2">2</MenuItem>
-              <MenuItem key="3" value="3">3</MenuItem>
+
+
+              {props.shiftNames.map((shift,index)=>{
+                return <MenuItem key={index} value={index}>{shift[0]}</MenuItem>
+              })}
           </Select>
         </FormControl>
         <ButtonGroup>
@@ -123,10 +142,10 @@ function AddLeavesComponent() {
         <tbody>
           {leaveRequests.map((req)=>{
             return (<tr>
-              <td>{req.date}</td>
-              <td>{req.slot}</td>
+              <td>{req[0]}</td>
+              <td>{req[1]}</td>
               <td >
-                <AiOutlineDelete className='delete-btn' onClick={()=>deleteLeaves(req.date,req.slot)}  >
+                <AiOutlineDelete className='delete-btn' onClick={()=>deleteLeaves(req[0],req[1])}  >
                   <IoMdAddCircle className='delete-icon' />
                 </AiOutlineDelete>
               </td>
