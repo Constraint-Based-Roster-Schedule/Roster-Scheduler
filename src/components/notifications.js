@@ -61,6 +61,7 @@ function Notifications() {
     await Axios.get("http://localhost:5000/user/doctor/acceptRequest",{
       params:{"notifID":i}
     }).then((res) => {
+      console.log(res.data);
       setRecNotifications(current =>
         current.filter(notification => {
           return notification.id !== i;
@@ -74,6 +75,7 @@ function Notifications() {
     await Axios.get("http://localhost:5000/user/doctor/declineRequest",{
       params:{"notifID":i}
     }).then((res) => {
+      console.log(res.data)
       setRecNotifications(current =>
         current.filter(notification => {
           return notification.id !== i;
@@ -86,6 +88,7 @@ function Notifications() {
     await Axios.get("http://localhost:5000/user/doctor/closeNotification",{
       params:{"notifID":i}
     }).then((res) => {
+      console.log(res.data)
       setSentNotifications(current =>
         current.filter(notification => {
           return notification.id !== i;
