@@ -12,7 +12,7 @@ import Axios from "axios";
 
 function Notifications() {
   const [recNotifications,setRecNotifications]=useState([]);
-  const [sentNotifications,setSentNotifications]=useState([{"id":1,"date":1, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":2,"date":2, "workingslot":1,"datewith":10,"shiftwith":3,"doctorID":9,"state":false,"checked":false},{"id":3,"date":3, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":4,"date":4, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":5,"date":5, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false}]);
+  const [sentNotifications,setSentNotifications]=useState([])
   const doctorName="Thinira Genuka";
   const recNotifyNum=recNotifications.length;
   const sentNotifyNum=sentNotifications.length;
@@ -24,6 +24,8 @@ function Notifications() {
     fetchNotifications();
     fetchShiftnames();
   },[])
+
+
 
   const fetchNotifications=async()=>{
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -37,6 +39,7 @@ function Notifications() {
       params:{"docID":doc_id,"month":month,"year":year,"date":+date}
     }).then((res) => {
       setRecNotifications(res.data.received);
+      setSentNotifications(res.data.sent)
     })
   }
 
@@ -58,6 +61,7 @@ function Notifications() {
     await Axios.get("http://localhost:5000/user/doctor/acceptRequest",{
       params:{"notifID":i}
     }).then((res) => {
+      console.log(res.data);
       setRecNotifications(current =>
         current.filter(notification => {
           return notification.id !== i;
@@ -71,6 +75,7 @@ function Notifications() {
     await Axios.get("http://localhost:5000/user/doctor/declineRequest",{
       params:{"notifID":i}
     }).then((res) => {
+      console.log(res.data)
       setRecNotifications(current =>
         current.filter(notification => {
           return notification.id !== i;
@@ -79,12 +84,17 @@ function Notifications() {
     })
   } 
 
-  function closeSentNotify(i){
-    setSentNotifications(current =>
-      current.filter(notification => {
-        return notification.id !== i;
-      }),
-    );
+  const closeSentNotify=async(i)=>{
+    await Axios.get("http://localhost:5000/user/doctor/closeNotification",{
+      params:{"notifID":i}
+    }).then((res) => {
+      console.log(res.data)
+      setSentNotifications(current =>
+        current.filter(notification => {
+          return notification.id !== i;
+        }),
+      );
+    })
   } 
 
   return (
@@ -108,10 +118,10 @@ function Notifications() {
 
         {showSentReq && sentNotifications.map((notification)=>{ 
         return <div className='requestsSent mt-5 pb-3 pt-3'>
-          <p className='notify-text'>Your request to <b>Dr. {doctorName}</b>  for exchange the working slot <b>{notification.workingslot}</b> on <b>{notification.date}nd of March
-          </b> to working slot <b>{notification.shiftwith}</b> on <b>{notification.datewith}th of March </b> has been {notification.state ? <b>accepted</b> : <b>declined</b>}</p>
+          <p className='notify-text'>Your request to <b>Dr. {notification.doctorName}</b>  for exchange the <b>{shiftNames[notification.workingslot][0]}</b> on <b>{notification.date}nd of March
+          </b> to <b>{shiftNames[notification.shiftwith][0]}</b> on <b>{notification.datewith}th of March </b> has been {notification.state===2 ? <b>accepted</b> : <b>declined</b>}</p>
           <span className='request-close-btns'>
-            {!notification.state && <Link className='shift-request-btn' to='../shiftRequest'><Button  variant='success' type='button'>Request again</Button></Link>}
+            {notification.state===3 && <Link className='shift-request-btn' to='../shiftRequest'><Button  variant='success' type='button'>Request again</Button></Link>}
             <Button className='close-btn' variant='outline-success' onClick={()=>closeSentNotify(notification.id)}><GiCheckMark size={25} style={{color:"rgb(1, 219, 0)"}}/></Button>
           </span>
         </div>
