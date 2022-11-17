@@ -87,7 +87,12 @@ function ShiftRequest() {
     if(default_toID.length===0){
       default_toID=wardDoctors[0][3]
     }
-    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    const shiftExchangeData={"currentDate":+date,"month": month,"year":year,"currentShift":shift,"requestedDate":+datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
     console.log(shiftExchangeData);
     await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {TbExchange} from 'react-icons/tb';
 import {MdNotifications} from 'react-icons/md';
 import {GiCheckMark} from 'react-icons/gi';
@@ -6,25 +6,77 @@ import Badge from 'react-bootstrap/Badge';
 import Button from 'react-bootstrap/Button';
 import '../CSS/notifications.css';
 import { Link } from 'react-router-dom';
-
+import authService from "../auth_service/auth_services";
+import Axios from "axios";
 
 
 function Notifications() {
-  const [recNotifications,setRecNotifications]=useState([{"id":1,"date":2, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"checked":false},{"id":2,"date":6, "workingslot":1,"datewith":10,"shiftwith":3,"doctorID":9,"checked":false}]);
+  const [recNotifications,setRecNotifications]=useState([]);
   const [sentNotifications,setSentNotifications]=useState([{"id":1,"date":1, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":2,"date":2, "workingslot":1,"datewith":10,"shiftwith":3,"doctorID":9,"state":false,"checked":false},{"id":3,"date":3, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":4,"date":4, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false},{"id":5,"date":5, "workingslot":1,"datewith":4,"shiftwith":2,"doctorID":1,"state":true,"checked":false}]);
   const doctorName="Thinira Genuka";
   const recNotifyNum=recNotifications.length;
   const sentNotifyNum=sentNotifications.length;
-
+  const [shiftNames,setShiftNames]=useState([])
   const [showReceivedReq, setShowReceivedReq]=useState(true);
   const [showSentReq,setShowSentReq]=useState(false);
 
-  function closeRecNotify(i){
-    setRecNotifications(current =>
-      current.filter(notification => {
-        return notification.id !== i;
-      }),
-    );
+  useEffect(()=>{
+    fetchNotifications();
+    fetchShiftnames();
+  },[])
+
+  const fetchNotifications=async()=>{
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    const date=new Date().getDate();
+    const doc_id=authService.getUserID().toString();
+    await Axios.get("http://localhost:5000/user/doctor/getOutNotif",{
+      params:{"docID":doc_id,"month":month,"year":year,"date":+date}
+    }).then((res) => {
+      setRecNotifications(res.data.received);
+    })
+  }
+
+  const fetchShiftnames=async()=>{
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+      params:{"month":month,"year":year}
+    }).then((res) => {
+
+      setShiftNames(res.data.shiftNames)
+    })
+  }
+
+  const acceptRecNotify=async(i)=>{
+    await Axios.get("http://localhost:5000/user/doctor/acceptRequest",{
+      params:{"notifID":i}
+    }).then((res) => {
+      setRecNotifications(current =>
+        current.filter(notification => {
+          return notification.id !== i;
+        }),
+      );
+    })
+    
+  } 
+
+  const declineRecNotify=async(i)=>{
+    await Axios.get("http://localhost:5000/user/doctor/declineRequest",{
+      params:{"notifID":i}
+    }).then((res) => {
+      setRecNotifications(current =>
+        current.filter(notification => {
+          return notification.id !== i;
+        }),
+      );
+    })
   } 
 
   function closeSentNotify(i){
@@ -44,11 +96,11 @@ function Notifications() {
       <div className='notification-container' >
         {showReceivedReq && recNotifications.map((notification)=>{
           return <div className='requestsReceived mt-5 pb-1 pt-3'>
-          <p className='notify-text'>You have a request from <b>Dr. {doctorName}</b>  to exchange the working slot <b>{notification.workingslot}</b> on <b>{notification.date}nd of March
-          </b> to working slot <b>{notification.shiftwith}</b> on <b>{notification.datewith}th of March</b></p>
+          <p className='notify-text'>You have a request from <b>Dr. {notification.doctorName}</b>  to exchange the <b>{shiftNames[notification.workingslot][0]}</b> on <b>{notification.date}nd of March
+          </b> to <b>{shiftNames[notification.shiftwith][0]}</b> on <b>{notification.datewith}th of March</b></p>
           <span className='accept-decline-btns'>
-            <Button className='accept-btn' variant='success' type='button' onClick={()=>closeRecNotify(notification.id)}>Accept</Button>
-            <Button className='decline-btn' variant='danger' type='button' onClick={()=>closeRecNotify(notification.id)}>Decline</Button>
+            <Button className='accept-btn' variant='success' type='button' onClick={()=>acceptRecNotify(notification.id)}>Accept</Button>
+            <Button className='decline-btn' variant='danger' type='button' onClick={()=>declineRecNotify(notification.id)}>Decline</Button>
           </span>
         </div>
         })}
