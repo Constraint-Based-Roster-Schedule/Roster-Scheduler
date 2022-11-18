@@ -11,9 +11,10 @@ import authService from '../auth_service/auth_services';
 
 function  WardRoster() {
     const [shiftNames,setShiftNames]=useState([]);
-
+    const [wardName,setWardName]=useState("")
     useEffect(()=>{
         fetchShiftnames();
+        getWardName()
     },[])
 
 
@@ -23,17 +24,27 @@ function  WardRoster() {
     ];
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
+    console.log(authService.getWardID().toString())
         await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-            params:{"month":month,"year":year}
+            params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
         }).then((res) => {
 
             setShiftNames(res.data.shiftNames)
         })
     }
 
+    const getWardName=async()=>{
+        await Axios.get("http://localhost:5000/user/doctor/getWardNamebyID",{
+            params:{"wardID":authService.getWardID().toString()}
+        }).then((res) => {
+
+            setWardName(res.data.wardNumber)
+        })
+    }
+
     return (
         <>
-            <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Roster Schedule of ward number 1</h1>
+            <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Roster Schedule of ward number {wardName}</h1>
             <div className='ward-requestButton-filter' >                
                 <Link className='ward-requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
                 <div className='legend_roster-ward'>

@@ -92,7 +92,7 @@ function ShiftRequest() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-      params:{"month":month,"year":year}
+      params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
       setShiftNames(res.data.shiftNames)

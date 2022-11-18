@@ -3,6 +3,7 @@ import AddLeavesComponent from '../components/addLeavesComponent';
 import AddPreferrableSlotsComp from '../components/addPreferrableSlotsComp';
 import '../CSS/leaveRequest.css';
 import Axios from "axios";
+import authService from '../auth_service/auth_services';
 
 
 function LeaveRequests() {
@@ -20,7 +21,7 @@ function LeaveRequests() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-      params:{"month":month,"year":year}
+      params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
       setShiftNames(res.data.shiftNames)
