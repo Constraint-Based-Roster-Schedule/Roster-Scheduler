@@ -23,6 +23,7 @@ export const ShiftsAdd = () => {
   const [year, setYear] = useState();
   const [ssss, setssss] = useState();
   const wardID = authService.getWardID();
+  console.log(wardID)
   const d = new Date();
   const navigate = useNavigate();
   const months = [
