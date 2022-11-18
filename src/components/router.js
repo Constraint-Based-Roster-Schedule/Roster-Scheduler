@@ -28,12 +28,13 @@ import AdminProfile from "./adminProfile";
 import SearchWardRoster from "../view/searchWardRoster";
 import AddWard from "./addWard";
 import ShiftsAdd from "./shiftsAdd";
-
+import Footer from "./footer"
 function Router(props) {
   
   useEffect(()=>{}, [props.type])
 
   return (
+    <>
     <BrowserRouter>
       <>
         <Routes>
@@ -89,6 +90,8 @@ function Router(props) {
         </Routes>
       </>
     </BrowserRouter>
+    {/* <Footer/> */}
+    </>
   );
 }
 

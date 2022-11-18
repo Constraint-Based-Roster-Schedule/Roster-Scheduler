@@ -6,6 +6,8 @@ import { border } from '@mui/system';
 import { useState } from 'react';
 import jwtDecode from 'jwt-decode';
 import authService from '../auth_service/auth_services';
+import validator from "validator";
+import Alert from "@mui/material/Alert";
 import {
   MDBCol,
   MDBContainer,
@@ -15,7 +17,7 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBBtn,
-  MDBBreadcrumb,
+  MDBInput,
   MDBBreadcrumbItem,
   MDBProgress,
   MDBProgressBar,
@@ -33,7 +35,11 @@ export default function AdminProfile() {
   const [address, setAddress] = useState("");
   const [telephone, setTelephone] = useState("");
   const [userName, setUserName] = useState("");
- 
+  const [currentPassword, setCurrentPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [isValidNewPassword, setIsValidNewPassword] = useState(false);
+  const [validateNewPasswordError, setValidateNewPasswordError] = useState();
+  const [changed, setChanged] = useState(false);
   console.log(admin1);
   const getUserDetails = async (e) => {
     console.log(jwtDecode(localStorage.getItem("user")));
@@ -59,9 +65,61 @@ export default function AdminProfile() {
       });
   };
 
+  const handleChange = (e) => {
+    // console.log("ddddddddd");
+    var value = e.target.value;
+    // console.log(e.target.name, e.target.value);
+    if (e.target.name == "currentPassword") {
+      setCurrentPassword(e.target.value);
+      console.log("current password", value);
+    } else if (e.target.name == "newPassword") {
+      setNewPassword(e.target.value);
+      setChanged(true);
+      console.log("new password", value);
+    }
+  };
+  const validataNewPassword22 = (e) => {
+    let value = e.target.value;
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      console.log("correct password");
+      setIsValidNewPassword(true);
+      setValidateNewPasswordError("Strong Password");
+    } else {
+      console.log("incorrect password");
+      setIsValidNewPassword(false);
+      setValidateNewPasswordError("Not Strong Password");
+    }
+  };
+  const handleSubmit = async (e) => {
+    console.log("in the handle submit");
+    e.preventDefault();
+    if (isValidNewPassword) {
+      const data = {currentPassword:currentPassword,newPassword:newPassword,email:email};
+      await axios.post("http://localhost:5000/user/admin/changePassword", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
+      .then((res)=>{
+        console.log(res.data.msg,res.data.success)
+        alert(res.data.msg)
+        if(res.data.success){
+          setCurrentPassword('')
+          setNewPassword('')
+        }
+      })
+    }
+  };
   useState(() => {
     getUserDetails();
   });
+
   const admin = {name:"Harshani Bandara",
   position:'padiatric  surgeon',
   email:'harshanimadhushani51@gmail.com',
@@ -98,15 +156,15 @@ export default function AdminProfile() {
                 <p className="text-muted mb-1">{name}</p>
                 <p className="text-muted mb-4" style={{color:'#fffff'}}>Admin</p>
                 <div className="d-flex justify-content-center mb-2">
-                  <Link className="requestButton" to="../roster">
+                  {/* <Link className="requestButton" to="../roster">
                       <MDBBtn outline className="ms-1">
-                        My Roster
+                        Contact
                       </MDBBtn>
-                    </Link>
+                    </Link> */}
 
                     <Link className="requestButton" to="../wardRoster">
                       <MDBBtn outline className="ms-1">
-                        Ward Roster
+                        Ward Rosters
                       </MDBBtn>
                     </Link>
                 </div>
@@ -174,7 +232,45 @@ export default function AdminProfile() {
                   </MDBCol>
                 </MDBRow>
                 <hr />
-                
+               {/* password section */}
+                <MDBRow>
+                  <MDBCardText  style={{ color: '#11289c',fontWeight:'bold' }}>
+                    Change Password
+                  </MDBCardText>
+                  <form onSubmit={handleSubmit}>
+                    <MDBCol>
+                      <MDBInput
+                        name="currentPassword"
+                        required
+                        type="password"
+                        label="current password"
+                        onChange={handleChange}
+                        value={currentPassword}
+                      />
+                    </MDBCol>
+                    <MDBCol>
+                      <MDBInput
+                        name="newPassword"
+                        required
+                        value={newPassword}
+                        type="password"
+                        label="new password"
+                        onChange={(e) => {
+                          handleChange(e);
+                          validataNewPassword22(e);
+                        }}
+                      />
+                      {!isValidNewPassword && changed && (
+                        <Alert severity="warning">
+                          {validateNewPasswordError}...
+                        </Alert>
+                      )}
+                    </MDBCol>
+                    <MDBRow>
+                      <MDBBtn type="submit">Change Password</MDBBtn>
+                    </MDBRow>
+                  </form>
+                </MDBRow>
               </MDBCardBody>
             </MDBCard>
 

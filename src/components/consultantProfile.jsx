@@ -169,7 +169,7 @@ export const ConsultantProfile = () => {
 
                   <Link className="requestButton" to="../wardRoster">
                     <MDBBtn outline className="ms-1">
-                      Ward Roster
+                      Contact
                     </MDBBtn>
                   </Link>
                 </div>
@@ -296,7 +296,7 @@ export const ConsultantProfile = () => {
                 </MDBRow>
                 <hr />
                 <MDBRow>
-                  <MDBCardText className="text-muted">
+                  <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>
                     Change Password
                   </MDBCardText>
                   <form onSubmit={handleSubmit}>

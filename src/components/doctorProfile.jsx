@@ -4,6 +4,8 @@ import axios from "axios";
 import { Link } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import authService from "../auth_service/auth_services";
+import validator from "validator";
+import Alert from "@mui/material/Alert";
 import {
   MDBCol,
   MDBContainer,
@@ -13,7 +15,7 @@ import {
   MDBCardBody,
   MDBCardImage,
   MDBBtn,
-  MDBBreadcrumb,
+  MDBInput,
   MDBBreadcrumbItem,
   MDBProgress,
   MDBProgressBar,
@@ -33,9 +35,14 @@ export default function DocotrProfile() {
   const [wardName, setWardName] = useState("");
   const [telephone, setTelephone] = useState("");
   const [userName, setUserName] = useState("");
-
+  const [currentPassword, setCurrentPassword] = useState();
+  const [newPassword, setNewPassword] = useState();
+  const [isValidNewPassword, setIsValidNewPassword] = useState(false);
+  const [validateNewPasswordError, setValidateNewPasswordError] = useState();
+  const [changed, setChanged] = useState(false);
   console.log(doctor1);
   // useEffect
+
   const doctor = {
     name: "Harshani Bandara",
     position: "padiatric  surgeon",
@@ -58,7 +65,9 @@ export default function DocotrProfile() {
     const data = { userName: user.userName, type: user.userType };
     console.log(authService.getUserToken);
     await axios
-      .post("http://localhost:5000/user/doctor/userDetails", data,{headers: { "x-auth-token": authService.getUserToken()}})
+      .post("http://localhost:5000/user/doctor/userDetails", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
@@ -73,15 +82,69 @@ export default function DocotrProfile() {
         return res.data;
       });
   };
-
+  const handleChange = (e) => {
+    // console.log("ddddddddd");
+    var value = e.target.value;
+    // console.log(e.target.name, e.target.value);
+    if (e.target.name == "currentPassword") {
+      setCurrentPassword(e.target.value);
+      console.log("current password", value);
+    } else if (e.target.name == "newPassword") {
+      setNewPassword(e.target.value);
+      setChanged(true);
+      console.log("new password", value);
+    }
+  };
+  const validataNewPassword22 = (e) => {
+    let value = e.target.value;
+    if (
+      validator.isStrongPassword(value, {
+        minLength: 8,
+        minLowercase: 1,
+        minUppercase: 1,
+        minNumbers: 1,
+        minSymbols: 1,
+      })
+    ) {
+      console.log("correct password");
+      setIsValidNewPassword(true);
+      setValidateNewPasswordError("Strong Password");
+    } else {
+      console.log("incorrect password");
+      setIsValidNewPassword(false);
+      setValidateNewPasswordError("Not Strong Password");
+    }
+  };
+  const handleSubmit = async (e) => {
+    console.log("in the handle submit");
+    e.preventDefault();
+    if (isValidNewPassword) {
+      const data = {
+        currentPassword: currentPassword,
+        newPassword: newPassword,
+        email: email,
+      };
+      await axios
+        .post("http://localhost:5000/user/doctor/changePassword", data, {
+          headers: { "x-auth-token": authService.getUserToken() },
+        })
+        .then((res) => {
+          console.log(res.data.msg, res.data.success);
+          alert(res.data.msg);
+          if (res.data.success) {
+            setCurrentPassword("");
+            setNewPassword("");
+          }
+        });
+    }
+  };
   useState(() => {
     getUserDetails();
   });
   return (
     <section style={{ backgroundColor: "#40d2e5", marginTop: "-5px" }}>
-      <div className='p-2 text-center' style={{marginBottom:'-35px'}} >
-        <h1 className='mb-3' >Doctor Profile</h1>
-       
+      <div className="p-2 text-center" style={{ marginBottom: "-35px" }}>
+        <h1 className="mb-3">Doctor Profile</h1>
       </div>
       <MDBContainer className="py-4">
         {/* <button onClick={getUserDetails}></button> */}
@@ -102,7 +165,6 @@ export default function DocotrProfile() {
                   {doctor.position}
                 </p>
                 <div className="d-flex justify-content-center mb-2">
-
                   <Link className="requestButton" to="../roster">
                     <MDBBtn outline className="ms-1">
                       My Roster
@@ -114,7 +176,6 @@ export default function DocotrProfile() {
                       Ward Roster
                     </MDBBtn>
                   </Link>
-
                 </div>
               </MDBCardBody>
             </MDBCard>
@@ -250,6 +311,45 @@ export default function DocotrProfile() {
                       {wardNumber}
                     </MDBCardText>
                   </MDBCol>
+                </MDBRow>
+                <hr />
+                <MDBRow>
+                  <MDBCardText style={{ color: '#11289c',fontWeight:'bold' }}>
+                    Change Password
+                  </MDBCardText>
+                  <form onSubmit={handleSubmit}>
+                    <MDBCol>
+                      <MDBInput
+                        name="currentPassword"
+                        required
+                        type="password"
+                        label="current password"
+                        onChange={handleChange}
+                        value={currentPassword}
+                      />
+                    </MDBCol>
+                    <MDBCol>
+                      <MDBInput
+                        name="newPassword"
+                        required
+                        value={newPassword}
+                        type="password"
+                        label="new password"
+                        onChange={(e) => {
+                          handleChange(e);
+                          validataNewPassword22(e);
+                        }}
+                      />
+                      {!isValidNewPassword && changed && (
+                        <Alert severity="warning">
+                          {validateNewPasswordError}...
+                        </Alert>
+                      )}
+                    </MDBCol>
+                    <MDBRow>
+                      <MDBBtn type="submit">Change Password</MDBBtn>
+                    </MDBRow>
+                  </form>
                 </MDBRow>
               </MDBCardBody>
             </MDBCard>
