@@ -21,15 +21,14 @@ function SearchWardRoster() {
   const [wardID,setWardID]=useState(1);
   const [wards,setWards]=useState([]);
   const [allDoctors,setAllDoctors]=useState([])
-
+  const [wardObj,setWardObj]=useState("");
   const [wardOpen,setWardOpen] = useState(false);
   const ITEM_HEIGHT = 120;
-  const [docID, setDocID] = React.useState(null);
+  const [docID, setDocID] = React.useState(1);
   const [open,setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false)
   const [WardAnchorEl, setWardAnchorEl] = useState(false)
 
-  const [doctorDetails,setDoctorDetails]=useState([])
 
   useEffect(()=>{
     fetchAvailableWards();
@@ -50,13 +49,6 @@ function SearchWardRoster() {
         })
   }
 
-  const fetchDoctorDetails=async(id)=>{
-    await Axios.get("http://localhost:5000/user/admin/getDoctorDetails",{
-      params:{"docID":id}
-    }).then((res) => {
-          setDoctorDetails(res.data.doctorDetails);
-        })
-  }
 
 
   const handleClick = (event) => {
@@ -71,8 +63,7 @@ function SearchWardRoster() {
 
       const doc_array=enteredID.split(" ");
       setDocID(+doc_array[0]);
-      setRosterType(true);
-      fetchDoctorDetails(+doc_array[0])
+      //setRosterType(true);
       //console.log(docID);
 
     }    
@@ -85,11 +76,11 @@ function SearchWardRoster() {
     setWardAnchorEl(event.currentTarget);
     setWardOpen(true)
   };
-  const handleWardClose = (event) => {
+  const handleWardClose = async(event) => {
     const enteredID=event.target.innerText;
     if(enteredID.length>0){
       setWardID(event.target.innerText)
-      setRosterType(false)
+      //setRosterType(false)
     }   
     setWardOpen(false)
   };
@@ -99,14 +90,15 @@ function SearchWardRoster() {
     <div className='search-ward-main-container' >
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Ward Rosters</h1>
       <div className='wardSearch'> 
-        <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
+        <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"15rem",backgroundColor:"rgb(22, 198, 106)" }} onClick={()=>setRosterType(!rosterType)}>{rosterType ? "show ward rosters":"show individividual rosters"}</Button>
+        { rosterType && (<Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
           aria-label="more"
           id="long-button"
           aria-controls={open ? 'long-menu' : undefined}
           aria-expanded={open ? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleClick}>
-            Show doctors</Button> 
+            Select doctors</Button> )}
         <Menu
         id="long-menu"
         MenuListProps={{
@@ -132,14 +124,14 @@ function SearchWardRoster() {
       </Menu>
 
 
-      <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
+      {!rosterType && (<Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"13rem" }}
           aria-label="more"
           id="long-button"
           aria-controls={wardOpen ? 'long-menu' : undefined}
           aria-expanded={wardOpen? 'true' : undefined}
           aria-haspopup="true"
           onClick={handleWardClick}>
-            Show wards</Button> 
+            Select wards</Button> )}
         <Menu
           id="long-menu"
           MenuListProps={{
@@ -166,7 +158,7 @@ function SearchWardRoster() {
         
       </div>
             
-      {rosterType==false ? <WardDetails wardID={wardID}/> : <Doc_details docID={docID} doctorDetails={doctorDetails}/>}
+      {rosterType==false ? <WardDetails wardID={wardID}/> : <Doc_details docID={docID}/>}
     </div>
   )
 }
