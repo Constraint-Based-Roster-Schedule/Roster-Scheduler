@@ -70,7 +70,7 @@ function AddPreferrableSlotsComp(props) {
       setpreferrableSlotRequests([...preferrableSlotRequests,[+slotdate,+slot]])
       setSlotDate('');
       setSlot(null);
-      //console.log(leaveRequests);
+
     }
     
   }

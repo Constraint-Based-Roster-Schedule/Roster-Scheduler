@@ -40,8 +40,7 @@ const ConsultantWardRoster = () => {
 
         const doc_array=enteredID.split(" ");
         setSearched(+doc_array[0]);
-        //setRosterType(true);
-        //console.log(docID);
+
 
         }    
         setOpen(false)

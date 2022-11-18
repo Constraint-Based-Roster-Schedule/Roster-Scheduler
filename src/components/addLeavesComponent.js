@@ -47,8 +47,7 @@ function AddLeavesComponent(props) {
     };
 
   function deleteLeaves(dltDate,dltSlot){
-    //console.log(dltDate,dltSlot)
-    //console.log(leaveRequests);
+
     var filteredNumbers = leaveRequests.filter(function (currentElement) {
       return currentElement[0] ===dltDate  && currentElement[1]===dltSlot;
     });
@@ -58,7 +57,7 @@ function AddLeavesComponent(props) {
       return this.indexOf(e) < 0;
     },filteredNumbers
     );
-    //console.log(filteredNumbers)
+
     setLeaveRequests(filtered);
   }
 
@@ -71,10 +70,10 @@ function AddLeavesComponent(props) {
       setError('');
 
       setLeaveRequests([...leaveRequests,[+leavedate,+slot]])
-      //console.log(leaveRequests)
+
       setDate('');
       setSlot(null);
-      //console.log(leaveRequests);
+
     }
     
   }
@@ -94,7 +93,7 @@ function AddLeavesComponent(props) {
     
     const doc_id=authService.getUserID().toString();
     const wardID=authService.getWardID().toString();
-    //console.log(leaveRequests)
+
     await Axios.get("http://localhost:5000/user/doctor/submitLeaveRequest", {
       params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
