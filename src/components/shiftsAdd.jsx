@@ -14,6 +14,7 @@ import authService from "../auth_service/auth_services";
 import { useEffect } from "react";
 import { Refresh } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+
 export const ShiftsAdd = () => {
   let [shiftArrayData, setShiftArrayData] = useState([]);
   const [shiftArray, setShiftArray] = useState([]);
@@ -21,13 +22,27 @@ export const ShiftsAdd = () => {
   const [month, setMonth] = useState();
   const [year, setYear] = useState();
   const [ssss, setssss] = useState();
+  const wardID = authService.getWardID();
   const d = new Date();
   const navigate = useNavigate();
-  const months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+  const months = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
   const [currentMonth, setCurrentMonth] = useState(
     d.getFullYear() + "-" + (d.getMonth() + 2)
   );
-  console.log("current month", currentMonth);
+  console.log("current month", currentMonth, authService.getWardID());
   const shiftsChange = (e) => {
     console.log(e);
     let value = e;
@@ -50,12 +65,12 @@ export const ShiftsAdd = () => {
     if (name == "month") {
       let month = e.target.value;
       console.log(typeof value);
-      setMonth(months[parseInt(month.substring(5))-1]);
+      setMonth(months[parseInt(month.substring(5)) - 1]);
       setYear(month.substring(0, 4));
     }
   };
   const getNumberOfShift = () => {
-    let data = { wardId: "6370d5691d751c5aeb235fb1" };
+    let data = { wardId: wardID };
     axios
       .post("http://localhost:5000/user/consultant/getShiftCount", data, {
         headers: { "x-auth-token": authService.getUserToken() },
@@ -70,7 +85,7 @@ export const ShiftsAdd = () => {
           shiftsChange(res.data.shiftCountOfWard);
         }
       });
-  };
+  }; 
 
   const shiftchange = (e) => {
     console.log(e.target.value, e.target.name);
@@ -98,45 +113,61 @@ export const ShiftsAdd = () => {
       year: "2022",
       wardID: 12,
       shifts: {
-        0:{0:'morning shift',1:'#eeeeee',2:{0:{0:2,1:20},1:{0:3,1:30}}},
-        1:{0:'evening shift',1:'#68e113',2:{0:{0:2,1:20},1:{0:3,1:30}}},
-        2:{0:'night shift',1:'#ef0808',2:{0:{0:2,1:20},1:{0:3,1:30}}}
+        0: {
+          0: "morning shift",
+          1: "#eeeeee",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
+        1: {
+          0: "evening shift",
+          1: "#68e113",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
+        2: {
+          0: "night shift",
+          1: "#ef0808",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
       },
     };
     axios
       .post(
         "http://localhost:5000/user/consultant/addShift",
-         {month:month,wardID:3,year:year,shifts:getShiftDeails(shiftArrayData)},
+        {
+          month: month,
+          wardID: wardID,
+          year: year,
+          shifts: getShiftDeails(shiftArrayData),
+        },
         {
           headers: { "x-auth-token": authService.getUserToken() },
         }
       )
       .then((res) => {
-
         alert(res.data.msg);
-        if(res.data.success){
-            window.location.reload(false);
-            navigate("../shiftsAdd");
+        if (res.data.success) {
+          window.location.reload(false);
+          navigate("../shiftsAdd");
         }
       });
 
     console.log(shiftArrayData, numOfShift, month);
   };
-  
+
   const getCurrentMonth = () => {
     const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
+      "january",
+      "february",
+      "march",
+      "april",
+      "may",
+      "june",
+      "july",
+      "august",
+      "september",
+      "october",
+      "november",
+      "december",
     ];
 
     const d = new Date();
@@ -164,19 +195,27 @@ export const ShiftsAdd = () => {
     const dumyshiftdetails = curentInputs;
     let li = Object.keys(dumyshiftdetails);
     console.log(Object.keys(dumyshiftdetails));
-    for (var i = 0; i < li.length; i = i + 4) {
+    for (var i = 0; i < li.length; i = i + 3) {
       var name = li[i];
       var color = li[i + 1];
+      console.log("i", i);
       console.log(dumyshiftdetails[li[i + 2]].split(":")[0]);
       var startingTime1 = parseInt(dumyshiftdetails[li[i + 2]].split(":")[0]);
       var startingTime2 = parseInt(dumyshiftdetails[li[i + 2]].split(":")[1]);
-      var endingTime1 = parseInt(dumyshiftdetails[li[i + 3]].split(":")[0]);
-      var endingTime2 = parseInt(dumyshiftdetails[li[i + 3]].split(":")[1]);
+      if (i == Object.keys(dumyshiftdetails).length - 3) {
+        console.log("yesss");
+        var endingTime1 = 23;
+        var endingTime2 = 59;
+      } else {
+        console.log("nooooo", dumyshiftdetails.length);
+        var endingTime1 = parseInt(dumyshiftdetails[li[i + 5]].split(":")[0]);
+        var endingTime2 = parseInt(dumyshiftdetails[li[i + 5]].split(":")[1]);
+      }
       console.log(name);
       let xli = name.split(" ");
       console.log(xli);
       console.log("ddd harshani");
-      details[i / 4] = {
+      details[i / 3] = {
         0: dumyshiftdetails[li[i]],
         1: dumyshiftdetails[li[i + 1]],
         2: {
@@ -200,7 +239,7 @@ export const ShiftsAdd = () => {
   };
 
   return (
-    <div className="shiftDetailsContainer" >
+    <div className="shiftDetailsContainer">
       <MDBContainer
         className="py-5"
         style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "25px" }}
@@ -277,7 +316,7 @@ export const ShiftsAdd = () => {
                     required
                   ></MDBInput>
                 </MDBCol>
-                <MDBCol>
+                {/* <MDBCol>
                   <MDBInput
                     label="Ending time"
                     type="time"
@@ -286,7 +325,7 @@ export const ShiftsAdd = () => {
                     key={arr.key + " shift ending time"}
                     required
                   ></MDBInput>
-                </MDBCol>
+                </MDBCol> */}
               </MDBRow>
             ))}
           </MDBRow>
