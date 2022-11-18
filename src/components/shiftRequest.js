@@ -71,8 +71,6 @@ function ShiftRequest() {
       params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
     }).then((res) => {
       setMyshifts(res.data.myShifts);
-      //console.log(res.data.wardDoctors);
-      //console.log(res.data.myShifts);
     })
   }
 
@@ -222,7 +220,6 @@ function ShiftRequest() {
                     return <option value={doc[3]}>{doc[0]} {doc[1]} {doc[2]}</option>
                   })}
                 </Form.Select>
-              {/* <Form.Control className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/> */}
             </Form.Group>
             <Form.Group className="formGrp-btn mb-3 col-lg-8 d-flex flex-row justify-content-center px-0">
               <Button className='req-sub-btn' variant="primary" type="submit" >
