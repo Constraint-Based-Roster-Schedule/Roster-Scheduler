@@ -25,24 +25,40 @@ export const GenarateRoster = () => {
   const [numOfMaximumShifts, setNumOfMaximumShifts] = useState();
   const [numOfMaxNightShifts, setNumOfMaxNightShifts] = useState();
   const [month, setMonth] = useState();
+  const [year, setYear] = useState();
   const [d, setD] = useState();
-  const [numOfShift, setNumOfShifts] = useState([]);
-  const [shiftArray,setShiftArray]=useState([]);
-  const [shiftArrayData,setShiftArrayData]=useState([])
+  const [numOfShift, setNumOfShifts] = useState();
+  const [shiftArray, setShiftArray] = useState([]);
+  const [shiftArrayData, setShiftArrayData] = useState([]);
   const [confirm, setConfirm] = useState("off");
-  
-  const wardID = "6339b9cc79b089f956978b20";
+  const [isLeave, setIsLeave] = useState(false);
+  const [isPreferable, setIsPreferable] = useState(false);
+  const wardID = authService.getWardID();
   const navigate = useNavigate();
+  const monthNames = [
+    "january",
+    "february",
+    "march",
+    "april",
+    "may",
+    "june",
+    "july",
+    "august",
+    "september",
+    "october",
+    "november",
+    "december",
+  ];
 
   const getNumOfDoctors = async () => {
     let number = 0;
-    let data = { wardID: "6339b9cc79b089f956978b20" };
+    let data = { wardID: wardID };
     await Axios.post(
       "http://localhost:5000/user/consultant/doctorsCount",
       data,
       { headers: { "x-auth-token": authService.getUserToken() } }
     ).then((res) => {
-      console.log('doctor count',res.data.doctorCount);
+      console.log("doctor count", res.data.doctorCount);
       setNumOfDoctors(res.data.doctorCount);
     });
     return number;
@@ -60,9 +76,6 @@ export const GenarateRoster = () => {
 
     if (name == "month") {
       setMonth(value);
-      let x = Date.parse(month);
-      console.log(x);
-
       // setM(month.substring(5));
       // setY(month.substring(0, 4));
       // console.log(m, y);
@@ -87,25 +100,42 @@ export const GenarateRoster = () => {
     } else if (name == "confirm") {
       setConfirm(value);
       console.log(name, value);
-    } else if(name=="numOfShift"){
+    } else if (name == "numOfShift") {
       setNumOfShifts(value);
-      var arr=[]
-      for(var i=0;i<value;i++){
-        arr.push({key:i,value:i})
+      var arr = [];
+      for (var i = 0; i < value; i++) {
+        arr.push({ key: i, value: i });
       }
-      setShiftArray(arr)
+      setShiftArray(arr);
+    } else if (name == "preferable") {
+      if (e.target.checked) {
+        setIsPreferable(true);
+        console.log(name, e.target.checked);
+      }else{
+        setIsPreferable(false)
+        console.log(name,e.target.checked)
+      }
+    } else if (name == "leaves") {
+      if (e.target.checked) {
+        setIsLeave(true);
+        console.log(name, e.target.checked);
+      }
+      else{
+        setIsLeave(false)
+        console.log(name, e.target.checked);
+      }
     }
   };
 
   useEffect(() => {
     getNumOfDoctors();
+    getNumberOfShift();
   });
-  const shiftchange = (e) =>{
+  const shiftchange = (e) => {
     console.log(e.target.value);
-    setShiftArrayData(
-    ...shiftArrayData,[1],e.target.value)
+    setShiftArrayData(...shiftArrayData, [1], e.target.value);
     console.log(shiftArrayData);
-  }
+  };
   const array1 = [
     { key: 1, value: 1 },
     { key: 2, value: 2 },
@@ -117,7 +147,8 @@ export const GenarateRoster = () => {
     console.log("ddddddddddddddddddddddd");
 
     const rosterConstraints = {
-      month: month,
+      month: monthNames[parseInt(month.substring(5)) - 1],
+      year: month.substring(0, 4),
       numOfDays: getDaysInMonth(month.substring(5), month.substring(0, 4)),
       numOfDoctors: numOfDoctors,
       numOfMaxNightShifts: numOfMaxNightShifts,
@@ -125,6 +156,10 @@ export const GenarateRoster = () => {
       numOfMaximumShifts: numOfMaximumShifts,
       numOfMinimumDoctors: numOfMaximumDoctors,
       numOfMinimumShifts: numOfMinimumShifts,
+      wardID: wardID,
+      numOfShift: numOfShift,
+      isPreferable: isPreferable,
+      isLeave: isLeave,
     };
 
     axios
@@ -156,19 +191,31 @@ export const GenarateRoster = () => {
       });
   };
   // to check the function
-  const saveshift=async(e)=>{
+  const saveshift = async (e) => {
     e.preventDefault();
-    const details={
-      month:'november',
-      year:'2022',
-      wardID:1,
-      shifts:{
-        0:{0:'morning shift',1:'#eeeeee',2:{0:{0:2,1:20},1:{0:3,1:30}}},
-        1:{0:'evening shift',1:'#68e113',2:{0:{0:2,1:20},1:{0:3,1:30}}},
-        2:{0:'night shift',1:'#ef0808',2:{0:{0:2,1:20},1:{0:3,1:30}}}
-      }
-      }
-    }
+    const details = {
+      month: "november",
+      year: "2022",
+      wardID: 1,
+      shifts: {
+        0: {
+          0: "morning shift",
+          1: "#eeeeee",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
+        1: {
+          0: "evening shift",
+          1: "#68e113",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
+        2: {
+          0: "night shift",
+          1: "#ef0808",
+          2: { 0: { 0: 2, 1: 20 }, 1: { 0: 3, 1: 30 } },
+        },
+      },
+    };
+  };
   const refresh = () => {
     console.log("wwwe");
     setConfirm("off");
@@ -179,7 +226,22 @@ export const GenarateRoster = () => {
     setNumOfMinimumDoctors("");
     setNumOfMinimumShifts("");
   };
-
+  const getNumberOfShift = () => {
+    let data = { wardId: wardID };
+    axios
+      .post("http://localhost:5000/user/consultant/getShiftCount", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (!res.data.success) {
+          console.log("no founded shift count");
+        } else {
+          console.log("shift count", res.data.shiftCountOfWard);
+          setNumOfShifts(res.data.shiftCountOfWard);
+        }
+      });
+  };
   return (
     <div className="generateRosterContainer">
       <MDBContainer
@@ -205,6 +267,7 @@ export const GenarateRoster = () => {
                 name="month"
                 onChange={handleChange}
                 value={month}
+                required
               />
             </MDBCol>
             <MDBCol>
@@ -218,7 +281,6 @@ export const GenarateRoster = () => {
                 name="numOfDoctors"
                 onChange={handleChange}
                 required
-
                 value={numOfDoctors}
               />
             </MDBCol>
@@ -310,6 +372,28 @@ export const GenarateRoster = () => {
               </div>
             </MDBCol>
           </MDBRow>
+          <MDBRow>
+            <MDBCol>
+              <input
+                type="checkbox"
+                value="option1"
+                name="preferable"
+                label="With preferble work slots"
+                onClick={handleChange}
+              />
+              With Preferable
+            </MDBCol>
+            <MDBCol>
+              <input
+                type="checkbox"
+                value="option1"
+                name="leaves"
+                label="With leaving "
+                onClick={handleChange}
+              />
+              With Leaves
+            </MDBCol>
+          </MDBRow>
           <MDBRow
             style={{
               alignItems: "center",
@@ -326,68 +410,28 @@ export const GenarateRoster = () => {
               </MDBBtn>
             </MDBCol>
           </MDBRow>
-          {/* <div className="shiftDetailsContainer">
-            <MDBRow>
-              <MDBCol>
-                <MDBInput
-                  type="number"
-                  label="shift count per day"
-                  required
-                  className="mb-3"
-                  min='1'
-                 
-                  name='numOfShift'
-                  value={numOfShift}
-                  onChange={handleChange}
-                ></MDBInput>
-              </MDBCol>
-            </MDBRow>
-
-            
-         
-            <MDBRow>
-              
-              {shiftArray.map((arr,index) => (
-                <MDBRow>
-                  <MDBCol>
-                    <MDBInput
-                      label={'shift '+arr.value}
-                      key={arr.key}
-                      type="text"
-                      onChange={shiftchange}
-                    ></MDBInput>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBInput
-                      label={arr.value}
-                      key={arr.key}
-                      type="color"
-                      onChange={shiftchange}
-                      style={{
-                       
-                        display: "block",
-                        height: "38px",
-                      }}
-                    ></MDBInput>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBInput label='starting time' type='time'onChange={shiftchange}></MDBInput>
-                  </MDBCol>
-                  <MDBCol>
-                    <MDBInput label='Ending time' type='time'onChange={shiftchange}></MDBInput>
-                  </MDBCol>
-                </MDBRow>
-              ))}
-            </MDBRow>
-          </div> */}
         </form>
         <div className="slotsContainer">
           <MDBRow>
             <MDBCol>
               {/* <MDBBtn>get preferable working slots</MDBBtn> */}
             </MDBCol>
+            <MDBCol>{/* <MDBBtn>get vac working slots</MDBBtn> */}</MDBCol>
+          </MDBRow>
+          <MDBRow>
             <MDBCol>
-              {/* <MDBBtn>get vac working slots</MDBBtn> */}
+              <h3>preferable work slots</h3>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
+            </MDBCol>
+            <MDBCol>
+              <h3>leaving working slots</h3>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
+              <MDBRow>x</MDBRow>
             </MDBCol>
           </MDBRow>
         </div>
