@@ -144,7 +144,7 @@ export const GenarateRoster = () => {
   ];
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("ddddddddddddddddddddddd");
+    // console.log("ddddddddddddddddddddddd");
 
     const rosterConstraints = {
       month: monthNames[parseInt(month.substring(5)) - 1],
@@ -157,8 +157,8 @@ export const GenarateRoster = () => {
       numOfMinimumDoctors: numOfMaximumDoctors,
       numOfMinimumShifts: numOfMinimumShifts,
       wardID: wardID,
-      numOfShift: numOfShift,
-      isPreferable: isPreferable,
+      shiftNum: numOfShift,
+      isPref: isPreferable,
       isLeave: isLeave,
     };
 
@@ -170,24 +170,18 @@ export const GenarateRoster = () => {
       )
       .then((res) => {
         console.log(
-          month,
-          numOfDoctors,
-          numOfMaxNightShifts,
-          numOfMaximumDoctors,
-          numOfMaximumShifts,
-          numOfMinimumDoctors,
-          numOfMinimumShifts
+          res
         );
 
-        if (res.data.success) {
-          alert(res.data.msg);
-          navigate("../wardRoster");
-        } else {
-          console.log("no roster for this constraints");
-          alert(res.data.msg);
-          refresh();
-          navigate("../generateRoster");
-        }
+        // if (res.data.success) {
+        //   alert(res.data.msg);
+        //   navigate("../wardRoster");
+        // } else {
+        //   console.log("no roster for this constraints");
+        //   alert(res.data.msg);
+        //   refresh();
+        //   navigate("../generateRoster");
+        // }
       });
   };
   // to check the function
