@@ -32,7 +32,7 @@ export default function NestedGrid() {
     <Box sx={{ flexGrow: 1,backgroundColor:'#2EC4F3'
     ,left: '0',
     bottom: '0',
-    position:'fixed',
+    // position:'fixed',
     width: '100%'}}>
       <Grid container spacing={2}sx={{ flexGrow: 1,backgroundColor:red }}>
         <Grid xs={12} md={5} lg={3}>
