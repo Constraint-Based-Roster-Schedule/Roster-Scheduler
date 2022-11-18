@@ -27,7 +27,7 @@ function IndividualRoster(props){
   useEffect(()=>{
       fetchIndividualRoster();     
       //console.log(props.docID)  
-  },[])
+  },[props.docID])
 
   const fetchIndividualRoster=async()=>{
       // const wardID=authService.getWardID();
@@ -49,11 +49,11 @@ function IndividualRoster(props){
       //console.log(required_months); 
 
       await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
-          params:{"month":"november","year":"2022","months":required_months}
+          params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
       }).then((res) => {
       const myShifts=res.data.myShifts;
       const shiftNames=res.data.shiftNames
-      //console.log(myShifts)
+      console.log(myShifts)
       setShiftNames(shiftNames)
       const data_to_send=[]
       myShifts.forEach((mon,month_index)=>{

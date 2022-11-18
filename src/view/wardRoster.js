@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import WardRosterComponent from '../components/wardRosterComponent';
 import Box from '@mui/material/Box';
 import Axios from "axios";
-
+import authService from '../auth_service/auth_services';
 
 function  WardRoster() {
     const [shiftNames,setShiftNames]=useState([]);
@@ -18,8 +18,13 @@ function  WardRoster() {
 
 
     const fetchShiftnames=async()=>{
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
         await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-            params:{"month":"november","year":"2022"}
+            params:{"month":month,"year":year}
         }).then((res) => {
 
             setShiftNames(res.data.shiftNames)
@@ -42,7 +47,7 @@ function  WardRoster() {
                     }
                 </div>
             </div>
-            <WardRosterComponent/>
+            <WardRosterComponent wardID={authService.getWardID().toString()}/>
         </>        
     )
 }

@@ -17,10 +17,11 @@ function WardDetails(props) {
   const [wardName,setwardName]=useState('');
   const [docDetails,setDocDetails]=useState([]);
   const [consultantDetails,setConsultantDetails]=useState([]);
+  const [wardObj,setWardObj]=useState("6371a53b963e2cb4f2f65a0c");
 
   useEffect(()=>{
     fetchWardDetails();
-  },[])
+  },[props.wardID])
 
   const fetchWardDetails=async()=>{
     const ward=props.wardID;
@@ -32,6 +33,8 @@ function WardDetails(props) {
           setwardName(res.data.wardName);
           setDocDetails(res.data.docData);
           setConsultantDetails(res.data.consultantData);
+          setWardObj(res.data.wardObj.toString())
+          console.log(wardObj)
         })
   }
 
@@ -130,7 +133,7 @@ function WardDetails(props) {
         </DialogActions>
       </Dialog>
     </div>
-        <WardRosterComponent/>
+        <WardRosterComponent wardID={wardObj}/>
     </Box>
   )
 }

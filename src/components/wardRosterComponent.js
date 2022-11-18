@@ -19,7 +19,7 @@ import Axios from "axios";
 
 
 
-function WardRosterComponent() {
+function WardRosterComponent(props) {
     const [windowSize,setWindowSize]=useState(getWindowSize());
     const currentDate = '2022-11-05';
     const [shiftNames,setShiftNames]=useState([]);
@@ -41,7 +41,7 @@ function WardRosterComponent() {
 
     useEffect(()=>{
         fetchIndividualRoster();
-    },[])
+    },[props.wardID])
 
 
     const fetchIndividualRoster=async()=>{
@@ -59,7 +59,7 @@ function WardRosterComponent() {
         console.log(required_months); 
 
         await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
-            params:{"month":"november","year":"2022","months":required_months}
+            params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
         }).then((res) => {
             const myShifts=res.data.myShifts;
             const shiftNames=res.data.shiftNames

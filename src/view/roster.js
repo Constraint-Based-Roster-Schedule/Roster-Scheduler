@@ -47,7 +47,7 @@ function RosterIndividual() {
                     }
                 </div>
             </div>
-            <IndividualRoster docID={authService.getIntID()}/>
+            <IndividualRoster docID={authService.getIntID()} wardID={authService.getWardID().toString()}/>
         </>    
     )
 }
