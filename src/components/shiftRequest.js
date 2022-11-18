@@ -9,6 +9,8 @@ import { useEffect } from 'react';
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import authService from "../auth_service/auth_services";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function ShiftRequest() {
   const [id,setID]=useState("")
@@ -33,12 +35,29 @@ function ShiftRequest() {
 
   const numberOfDays=31
 
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
   useEffect(()=>{
     setID(authService.getIntID());
     fetchShiftnames();
     fetchData();
     fetchWardDoctors();
   },[])
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+  };
 
   const fetchData=async()=>{
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -96,7 +115,8 @@ function ShiftRequest() {
     console.log(shiftExchangeData);
     await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
       console.log(res.data)})
-    handleReset();
+      handleClick();
+      handleReset();
   }
 
   const handleReset=()=>{
@@ -159,6 +179,11 @@ function ShiftRequest() {
 
   return (
     <>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                This is a success message!
+            </Alert>
+      </Snackbar>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request for a Shift Exchange</h1>
       <div className='main-container col-lg-10'>
         <div className='form-container col-lg-2 '>          

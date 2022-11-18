@@ -52,7 +52,9 @@ function AddLeavesComponent(props) {
     }else{
       setIsError(false);
       setError('');
+
       setLeaveRequests([...leaveRequests,[+leavedate,+slot]])
+      //console.log(leaveRequests)
       setDate('');
       setSlot(null);
       //console.log(leaveRequests);
