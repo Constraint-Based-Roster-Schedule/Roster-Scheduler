@@ -15,11 +15,28 @@
     width:12rem;
 }
 
+.select-rosterType{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .legend_roster{
     display: flex;
     flex-direction: row;
     margin-top: 0.5rem;
 }
+
+.isMyRoster-button{
+    margin-right: 4rem;
+    width: 13rem;
+}
+
+.doctor-search-roster-button{
+    margin-left: 4rem;
+    width: 13rem;
+}
+
 .legend-color{
     width: 1rem;
     height: 1rem;
@@ -65,6 +82,15 @@
         width: 1rem;
         height: 0.7rem;
         border-radius: 0.5rem;
+    }
+    .isMyRoster-button {
+        margin-right: 1rem;
+        width: 10rem;
+    }
+
+    .doctor-search-roster-button {
+        margin-left: 1rem;
+        width: 10rem;
     }
 }
 
