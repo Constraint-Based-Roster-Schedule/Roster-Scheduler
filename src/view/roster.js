@@ -84,7 +84,7 @@ function RosterIndividual() {
                 </div>
             </div>
             <div className='select-rosterType'>
-                <Button variant="primary" className='isMyRoster-button' style={{height: "3rem",backgroundColor:"rgb(22, 198, 106)" }} onClick={()=>setIsMyRoster(!isMyroster)}>{isMyroster ? "Search other rosters":"Show my roster"}</Button>
+                <Button variant="primary" className='isMyRoster-button' style={{height: "3rem" }} onClick={()=>setIsMyRoster(!isMyroster)}>{isMyroster ? "Search other rosters":"Show my roster"}</Button>
                 { !isMyroster && (<Button variant="primary" className='doctor-search-roster-button' style={{height: "3rem" }}
                     aria-label="more"
                     id="long-button"
