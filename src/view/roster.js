@@ -49,7 +49,7 @@ function RosterIndividual() {
         // const my_id =authService.getIntID();
         // console.log(my_id)
         await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-            params:{"month":"november","year":"2022"}
+            params:{"month":"november","year":"2022","wardID":authService.getWardID().toString()}
         }).then((res) => {
 
             setShiftNames(res.data.shiftNames)
