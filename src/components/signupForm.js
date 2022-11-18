@@ -12,6 +12,8 @@ import PhoneInput from 'react-phone-number-input'
 import { ConstructionOutlined } from '@mui/icons-material';
 import Axios from "axios";
 import authService from "../auth_service/auth_services";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -29,28 +31,54 @@ const [isEmailValid,setIsEmailValid]=useState(true);
 const [contactError, setContactError] = useState('');
 const [isContactValid,setIsContactValid]=useState(true);
 
-
-const [wards,setWards]=useState("")
-
-const noOfWards=10;
+const [takenDoctorEmails,setTakenDoctorEmails]=useState([]);
+const [takenConsEmails,setTakenConsEmails]=useState([]);
+const [wards,setWards]=useState("");
+// const [isSuccess,setIsSuccess]=useState(false)
+const [open, setOpen] = React.useState(false);
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 useEffect(()=>{
     fetchAvailableWards();
+    fetchtakenEmails();
 },[])
+
+
+const handleClick = () => {
+    setOpen(true);
+    };
+
+const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+    };
+
 
 const fetchAvailableWards=async()=>{
     await Axios.get("http://localhost:5000/user/admin/getAvailableWards").then((res) => {
         //console.log(res.data.availableWards);
         setWards(res.data.availableWards);
+        setWard(wards[0])
         //console.log(wards)
     })
 }
-
+const fetchtakenEmails=async()=>{
+    await Axios.get("http://localhost:5000/user/admin/getTakenEmails").then((res) => {
+        setTakenDoctorEmails(res.data.doctorEmails);
+        setTakenConsEmails(res.data.constEmails);
+    })
+}
 const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
+      handleClick()
     });
     handleReset();
 }
@@ -60,7 +88,7 @@ const handleSubmitDoctor=async(e)=>{
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName};
         await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
       console.log(res.data);
-
+      handleClick()
     });
     handleReset();
 }
@@ -71,7 +99,14 @@ const validateEmail=(e)=>{
     if (!validator.isEmail(email) && email.length>0) {
         setIsEmailValid(false);
         setEmailError('Enter a Valid Email')
-    } else{
+    } else if(userType==="1" && takenDoctorEmails.includes(email)){
+        setIsEmailValid(false);
+        setEmailError('This email is already used by someone')
+    } else if(userType==="2" && takenConsEmails.includes(email)){
+        setIsEmailValid(false);
+        setEmailError('This email is already used by someone')
+    }   
+    else{
         setIsEmailValid(true);
     }
 }
@@ -100,7 +135,7 @@ const handleReset=()=>{
     setContact('');
     setAddress('')
     setEmail('');
-    setWard('');
+    setWard(wards[0]);
     setSpecializedArea('');
     setIsEmailValid(true);
     setIsContactValid(true);
@@ -110,6 +145,11 @@ const handleReset=()=>{
 
 return (
     <>
+        <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                This is a success message!
+            </Alert>
+        </Snackbar>
         <div className='container col-lg d-flex flex-column'>
             <h1 className='font-monospace mb-4' style={{textAlign:"center"}}>Add User</h1>
             <div className='userSelector col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>
