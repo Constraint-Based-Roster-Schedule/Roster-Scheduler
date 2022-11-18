@@ -111,17 +111,16 @@ export const GenarateRoster = () => {
       if (e.target.checked) {
         setIsPreferable(true);
         console.log(name, e.target.checked);
-      }else{
-        setIsPreferable(false)
-        console.log(name,e.target.checked)
+      } else {
+        setIsPreferable(false);
+        console.log(name, e.target.checked);
       }
     } else if (name == "leaves") {
       if (e.target.checked) {
         setIsLeave(true);
         console.log(name, e.target.checked);
-      }
-      else{
-        setIsLeave(false)
+      } else {
+        setIsLeave(false);
         console.log(name, e.target.checked);
       }
     }
@@ -150,12 +149,12 @@ export const GenarateRoster = () => {
       month: monthNames[parseInt(month.substring(5)) - 1],
       year: month.substring(0, 4),
       numOfDays: getDaysInMonth(month.substring(5), month.substring(0, 4)),
-      numOfDoctors: numOfDoctors,
-      numOfMaxNightShifts: numOfMaxNightShifts,
-      numOfMaximumDoctors: numOfMaximumDoctors,
-      numOfMaximumShifts: numOfMaximumShifts,
-      numOfMinimumDoctors: numOfMaximumDoctors,
-      numOfMinimumShifts: numOfMinimumShifts,
+      numOfDoctors: parseInt(numOfDoctors),
+      numOfMaxNightShifts: parseInt(numOfMaxNightShifts),
+      numOfMaximumDoctors: parseInt(numOfMaximumDoctors),
+      numOfMaximumShifts: parseInt(numOfMaximumShifts),
+      numOfMinimumDoctors: parseInt(numOfMaximumDoctors),
+      numOfMinimumShifts: parseInt(numOfMinimumShifts),
       wardID: wardID,
       shiftNum: numOfShift,
       isPref: isPreferable,
@@ -169,9 +168,7 @@ export const GenarateRoster = () => {
         { headers: { "x-auth-token": authService.getUserToken() } }
       )
       .then((res) => {
-        console.log(
-          res
-        );
+        console.log(res);
 
         // if (res.data.success) {
         //   alert(res.data.msg);
