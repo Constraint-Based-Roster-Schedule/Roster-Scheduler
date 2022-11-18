@@ -29,6 +29,7 @@ import SearchWardRoster from "../view/searchWardRoster";
 import AddWard from "./addWard";
 import ShiftsAdd from "./shiftsAdd";
 import Footer from "./footer"
+import ConsultantWardRoster from './consultantWardRoster'
 function Router(props) {
   
   useEffect(()=>{}, [props.type])
@@ -62,7 +63,7 @@ function Router(props) {
               <Route path="" element={<ProtectedRoute permissions={'2'}><ConsultantDashboard /></ProtectedRoute>} />
               <Route path="consultantProfile" element={<ProtectedRoute permissions={'2'}><ConsultantProfile /></ProtectedRoute>} />
               <Route path="wardRoster" element={<ProtectedRoute permissions={'2'}><WardRoster /></ProtectedRoute>} />
-              <Route path="roster" element={<ProtectedRoute permissions={'2'}><RosterIndividual /></ProtectedRoute>} />
+              <Route path="roster" element={<ProtectedRoute permissions={'2'}><ConsultantWardRoster /></ProtectedRoute>} />
               <Route path="notifications" element={<ProtectedRoute permissions={'2'}><Notifications /></ProtectedRoute>} />
               <Route path="generateRoster" element={<ProtectedRoute permissions={'2'}><GenarateRoster /></ProtectedRoute>} />
               <Route path="rosterNotification" element={<ProtectedRoute permissions={'2'}><RosterNotification /></ProtectedRoute>} />
