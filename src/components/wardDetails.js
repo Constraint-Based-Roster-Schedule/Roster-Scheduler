@@ -25,11 +25,11 @@ function WardDetails(props) {
 
   const fetchWardDetails=async()=>{
     const ward=props.wardID;
-    //console.log(ward)
+
     await Axios.get("http://localhost:5000/user/admin/getWardDetails",{
             params:{"wardID":ward}
         }).then((res) => {
-          //console.log(res.data);
+
           setwardName(res.data.wardName);
           setDocDetails(res.data.docData);
           setConsultantDetails(res.data.consultantData);

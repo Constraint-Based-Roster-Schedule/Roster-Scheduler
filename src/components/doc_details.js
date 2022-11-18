@@ -12,7 +12,6 @@ function Doc_details(props) {
   const [docId,setDocID]=useState()
 
   useEffect(()=>{
-    //setDocID(props.docID)
     fetchDoctorDetails();
 
   },[props.docID])
@@ -23,7 +22,6 @@ function Doc_details(props) {
       params:{"docID":+doc_id}
     }).then((res) => {
           setDoctorDetails(res.data.doctorDetails);
-          //console.log(props.docID);
           setDocID(res.data.docID)
         })
   }

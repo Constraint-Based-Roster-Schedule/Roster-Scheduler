@@ -44,8 +44,7 @@ function SearchWardRoster() {
   const fetchAllDoctors=async()=>{
     await Axios.get("http://localhost:5000/user/admin/getAllDoctors").then((res) => {
           setAllDoctors(res.data.allDoctors);
-          //setDocID(+allDoctors[0][0])
-          //console.log(allDoctors)
+
         })
   }
 
@@ -58,13 +57,11 @@ function SearchWardRoster() {
   const handleClose = (event) => {
     
     const enteredID=event.target.innerText;
-    //console.log(enteredID)
+
     if(enteredID.length>0){      
 
       const doc_array=enteredID.split(" ");
       setDocID(+doc_array[0]);
-      //setRosterType(true);
-      //console.log(docID);
 
     }    
     setOpen(false)
@@ -80,7 +77,6 @@ function SearchWardRoster() {
     const enteredID=event.target.innerText;
     if(enteredID.length>0){
       setWardID(event.target.innerText)
-      //setRosterType(false)
     }   
     setWardOpen(false)
   };
