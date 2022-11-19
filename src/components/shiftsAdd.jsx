@@ -216,18 +216,19 @@ export const ShiftsAdd = () => {
       let xli = name.split(" ");
       console.log(xli);
       console.log("ddd harshani");
-      details[i / 3] = {
-        0: dumyshiftdetails[li[i]],
-        1: dumyshiftdetails[li[i + 1]],
-        2: {
-          0: startingTime1,
-          1: startingTime2,
-        },
-        3: {
-          0: endingTime1,
-          1: endingTime2,
-        },
-      };
+      // details[i / 3] = {
+      //   0: dumyshiftdetails[li[i]],
+      //   1: dumyshiftdetails[li[i + 1]],
+      //   2: {
+      //     0: startingTime1,
+      //     1: startingTime2,
+      //   },
+      //   3: {
+      //     0: endingTime1,
+      //     1: endingTime2,
+      //   },
+      details.push([dumyshiftdetails[li[i]],dumyshiftdetails[li[i + 1]],[startingTime1,startingTime2],[endingTime1,endingTime2]])
+      // };
       // details.(i)={
       //         0:dumyshiftdetails.{name},
       //         1:dumyshiftdetails.color,

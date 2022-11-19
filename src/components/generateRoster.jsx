@@ -261,20 +261,20 @@ export const GenarateRoster = () => {
     // navigate('../wardRoster')
   }
   const saveRoster = async () => {
-    let data = { wardID: wardID, month: month1, year: year, roster: [[1,2]] };
+    let data = { wardID: wardID, month: month1, year: year, roster: roster };
     axios
       .post("http://localhost:5000/user/consultant/saveRoster", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
         console.log(res.data);
-        if (res.data.success){
+        if (!res.data.success){
           console.log("can not save the roster");
-          alert("can noot save the roster");
+          alert("can not save the roster");
         } else {
           console.log("save the roster");
           alert("Save the roster");
-          navigate('./wardRoster')
+          navigate('../wardRoster')
         }
       });
   };
@@ -356,7 +356,7 @@ export const GenarateRoster = () => {
             <MDBCol>
               <MDBInput
                 className="mb-3"
-                label="Maximum shifts per month"
+                label="Maximum shifts per day"
                 type="number"
                 name="maxShiftPerMonth"
                 onChange={handleChange}
@@ -370,7 +370,7 @@ export const GenarateRoster = () => {
               <MDBInput
                 className="mb-3"
                 type="number"
-                label="Minimum shifts per month"
+                label="Minimum shifts per day"
                 onChange={handleChange}
                 name="minShiftPerMonth"
                 value={numOfMinimumShifts}
@@ -474,7 +474,7 @@ export const GenarateRoster = () => {
           </MDBRow> */}
         </div>
 
-        {true && (
+        {isRosterCreated && (
           <div>
             {/* <WardRosterTestComponent
               month={month1}
@@ -483,11 +483,11 @@ export const GenarateRoster = () => {
               roster={roster}
             /> */}
             <div>
-              <MDBRow>
-                <MDBCol>
+              <MDBRow style={{alignItems:'center'}}>
+                <MDBCol style={{alignItems:'center'}}>
                  
-                  <MDBBtn onClick={e=>{sendtoward();
-                  saveRoster()}}>View Roster</MDBBtn>
+                  <MDBBtn onClick={e=>{
+                  saveRoster();sendtoward();}}>View Roster</MDBBtn>
                 </MDBCol>
               </MDBRow>
             </div>
