@@ -63,6 +63,7 @@ function IndividualRoster(props){
                           "july", "august", "september", "october", "november", "december"
                           ];
       const current_month=new Date().getMonth();
+      const current_year=new Date().getFullYear();
       const required_months=[]
       required_months.push(monthNames[current_month-2]);
       required_months.push(monthNames[current_month-1]);
@@ -86,8 +87,8 @@ function IndividualRoster(props){
                   if(shift.includes(myID)){
                       const shift_detail={
                           title: shiftNames[index][0],
-                          startDate: new Date(2022, 10+month_index-2, date+1, 13, 0),
-                          endDate: new Date(2022, 10+month_index-2, date+1, 19, 0),
+                          startDate: new Date(+current_year, current_month+month_index-2, date+1, 13, 0),
+                          endDate: new Date(+current_year, current_month+month_index-2, date+1, 19, 0),
                           color:shiftNames[index][1],
                       }
                       data_to_send.push(shift_detail)

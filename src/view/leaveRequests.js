@@ -31,13 +31,13 @@ function LeaveRequests() {
 
   return (
     
-    <>
+    <section style={{marginTop:"6rem"}}>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request leaves and preferrable working slots for next month</h1>
       <div className='leave-request-container'>
           <AddLeavesComponent shiftNames={shiftNames}/>
           <AddPreferrableSlotsComp shiftNames={shiftNames}/>
       </div>
-    </>
+    </section>
     
   )
 }
