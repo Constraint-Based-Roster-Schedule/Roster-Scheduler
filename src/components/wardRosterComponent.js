@@ -67,6 +67,7 @@ function WardRosterComponent(props) {
                             "july", "august", "september", "october", "november", "december"
                             ];
         const current_month=new Date().getMonth();
+        const current_year=new Date().getFullYear();
         const required_months=[]
         required_months.push(monthNames[current_month-2]);
         required_months.push(monthNames[current_month-1]);
@@ -91,8 +92,8 @@ function WardRosterComponent(props) {
                         //console.log(shift_string)
                         const shift_detail={
                             title: shift_string,
-                            startDate: new Date(2022, 10+month_index-2, date+1, shiftNames[index][2][0][0], shiftNames[index][2][0][1]),
-                            endDate: new Date(2022, 10+month_index-2,date+1, shiftNames[index][2][1][0], shiftNames[index][2][1][1]),
+                            startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[index][2][0][0], shiftNames[index][2][0][1]),
+                            endDate: new Date(+current_year, current_month+month_index-2,date+1, shiftNames[index][2][1][0], shiftNames[index][2][1][1]),
                             color:shiftNames[index][1],
                         }
                         data_to_send.push(shift_detail)
