@@ -68,7 +68,7 @@ function WardDetails(props) {
   }, [open]);
 
   return (
-    <Box className='ward-detail-container'>
+    <Box data-testid="ward-details" className='ward-detail-container'>
         <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem",fontSize:"2em", color:"white"}}>Ward number {props.wardID}</h1>
         <div className='data-card'>
           <div className='ward-det'>
