@@ -9,6 +9,8 @@
     flex-direction: row; 
     align-self: center;  
     margin-left: 3rem;
+    margin-bottom: 3rem;
+    
 }
 
 .form-container{
