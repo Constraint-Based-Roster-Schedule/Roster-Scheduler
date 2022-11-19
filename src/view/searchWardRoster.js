@@ -14,6 +14,7 @@ import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import authService from '../auth_service/auth_services';
 
 function SearchWardRoster() {
 
@@ -36,13 +37,17 @@ function SearchWardRoster() {
   },[])
 
   const fetchAvailableWards=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAvailableWards").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getAvailableWards",{
+      headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
           setWards(res.data.availableWards);
         })
   }
 
   const fetchAllDoctors=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAllDoctors").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getAllDoctors",{
+      headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
           setAllDoctors(res.data.allDoctors);
 
         })

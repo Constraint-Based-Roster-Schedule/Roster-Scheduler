@@ -60,7 +60,9 @@ const handleClose = (event, reason) => {
 
 
 const fetchAvailableWards=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAvailableWards").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getAvailableWards",{
+        headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
         //console.log(res.data.availableWards);
         setWards(res.data.availableWards);
         setWard(wards[0])
@@ -68,7 +70,9 @@ const fetchAvailableWards=async()=>{
     })
 }
 const fetchtakenEmails=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getTakenEmails").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getTakenEmails",{
+        headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
         setTakenDoctorEmails(res.data.doctorEmails);
         setTakenConsEmails(res.data.constEmails);
     })
@@ -76,7 +80,9 @@ const fetchtakenEmails=async()=>{
 const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
+        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+            headers: { "x-auth-token": authService.getUserToken() },
+        }).then((res) => {
       console.log(res.data);
       handleClick()
     });
@@ -86,7 +92,9 @@ const handleSubmitConsultant=async(e)=>{
 const handleSubmitDoctor=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
+        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+            headers: { "x-auth-token": authService.getUserToken() },
+        }).then((res) => {
       console.log(res.data);
       handleClick()
     });
@@ -144,7 +152,7 @@ const handleReset=()=>{
 
 
 return (
-    <>
+    <section>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!
@@ -165,7 +173,7 @@ return (
                 </form>
             </div>
             {userType==='1' && (
-            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>                
+            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px",marginBottom:'15px'}}>                
                 <FaUserCircle className='addUserIcon' size={100}/>                
                 <h2 className='register-topic'>Registration form of a doctor</h2>
                 <form onSubmit={handleSubmitDoctor}>
@@ -220,7 +228,7 @@ return (
             </div>)}
 
             {userType==='2' && (
-            <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)'}}>
+            <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)',marginBottom:'15px'}}>
                 <FaUserCircle className='addUserIcon' size={100}/>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
                 <form onSubmit={handleSubmitConsultant}>
@@ -275,7 +283,7 @@ return (
             </div>)}
             
         </div>
-    </>
+    </section>
 )
 }
 

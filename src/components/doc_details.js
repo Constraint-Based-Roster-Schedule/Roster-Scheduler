@@ -5,6 +5,7 @@ import Axios from "axios";
 import { useEffect, useState } from 'react';
 import IndividualRoster from './individualRoster';
 import { ConstructionOutlined } from '@mui/icons-material';
+import authService from '../auth_service/auth_services';
 
 function Doc_details(props) {
 
@@ -19,6 +20,7 @@ function Doc_details(props) {
   const fetchDoctorDetails=async(id)=>{
     const doc_id=props.docID
     await Axios.get("http://localhost:5000/user/admin/getDoctorDetails",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"docID":+doc_id}
     }).then((res) => {
           setDoctorDetails(res.data.doctorDetails);

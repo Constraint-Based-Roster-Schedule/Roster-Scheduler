@@ -10,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import authService from '../auth_service/auth_services';
 
 function WardDetails(props) {
 
@@ -27,6 +27,7 @@ function WardDetails(props) {
     const ward=props.wardID;
 
     await Axios.get("http://localhost:5000/user/admin/getWardDetails",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward}
         }).then((res) => {
 
@@ -67,9 +68,13 @@ function WardDetails(props) {
           <div className='ward-det'>
             <p className='ward-detail-p'>ward name     :  {wardName}</p>
             <p className='ward-detail-p'>Consultant details</p>
-            <p className='const-detail-p'>Consultant name   :  {consultantDetails[0]} {consultantDetails[1]} </p>
-            <p className='const-detail-p'>Consultant email   :  {consultantDetails[2]} </p>
-            <p className='const-detail-p'>Consultant contact number  :  {consultantDetails[3]} </p>
+            {consultantDetails.map((cons)=>{
+              return <div>
+                <p className='const-detail-p'>Name   :  {cons[0]} {cons[1]} </p>
+                <p className='const-detail-par'>Email   :  {cons[2]} </p>
+                <p className='const-detail-par'>Contact number  :  {cons[3]} </p>
+              </div>
+            })}
           </div>
           <div className='doc-det'>
             <h1 className='doc-topic'>Ward doctors</h1>

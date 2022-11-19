@@ -3,7 +3,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../CSS/shiftRequest.css';
 import Table from 'react-bootstrap/Table';
-import doctor from '../public/doctor1.jpg'; 
+import doctor from '../assets/doctor_illustration.png'; 
 import FormGroup from '@mui/material/FormGroup';
 import { useEffect } from 'react';
 import Axios from "axios";
@@ -68,6 +68,7 @@ function ShiftRequest() {
     const ward_id=authService.getWardID();
     const int_id=authService.getIntID();
     await Axios.get("http://localhost:5000/user/doctor/getData",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
     }).then((res) => {
       setMyshifts(res.data.myShifts);
@@ -77,6 +78,7 @@ function ShiftRequest() {
   const fetchWardDoctors=async()=>{
     const ward_id=authService.getWardID();
     await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"wardID":ward_id}
     }).then((res) => {
       setWardDoctors(res.data.doctorDetails);
@@ -90,6 +92,7 @@ function ShiftRequest() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
@@ -111,7 +114,9 @@ function ShiftRequest() {
     const year=new Date().getFullYear();
     const shiftExchangeData={"currentDate":+date,"month": month,"year":year,"currentShift":shift,"requestedDate":+datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
     console.log(shiftExchangeData);
-    await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
+    await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData,{
+      headers: { "x-auth-token": authService.getUserToken() }
+    }).then((res) => {
       console.log(res.data)})
       handleClick();
       handleReset();

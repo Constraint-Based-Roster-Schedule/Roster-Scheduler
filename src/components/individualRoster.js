@@ -23,11 +23,34 @@ function IndividualRoster(props){
   const [docID,setDocID]=useState("");
   const [shiftNames,setShiftNames]=useState([]);
   const [finalShifts,setFinalShifts]=useState([]);
+  const [current,setCurrent]=useState('')
 
   useEffect(()=>{
-      fetchIndividualRoster();     
+      fetchIndividualRoster();  
+      
       //console.log(props.docID)  
   },[props.docID])
+
+  useEffect(()=>{
+    getCurrentDate();
+  },[])
+
+  const getCurrentDate=()=>{
+        const d=new Date();
+        const day=''+d.getDate();
+        const month=''+d.getMonth()+1;
+        const year=''+d.getFullYear();
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+            
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        console.log([year, month, day].join('-'))
+        setCurrent([year, month, day].join('-'))
+    }
 
   const fetchIndividualRoster=async()=>{
       // const wardID=authService.getWardID();
@@ -49,8 +72,9 @@ function IndividualRoster(props){
       //console.log(required_months); 
 
       await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+          headers: { "x-auth-token": authService.getUserToken() },
           params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
-      }).then((res) => {
+      },).then((res) => {
       const myShifts=res.data.myShifts;
       const shiftNames=res.data.shiftNames
       console.log(myShifts)

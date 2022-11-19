@@ -35,6 +35,7 @@ function Notifications() {
     const date=new Date().getDate();
     const doc_id=authService.getUserID().toString();
     await Axios.get("http://localhost:5000/user/doctor/getOutNotif",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"docID":doc_id,"month":month,"year":year,"date":+date}
     }).then((res) => {
       setRecNotifications(res.data.received);
@@ -49,6 +50,7 @@ function Notifications() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
@@ -58,6 +60,7 @@ function Notifications() {
 
   const acceptRecNotify=async(i)=>{
     await Axios.get("http://localhost:5000/user/doctor/acceptRequest",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
 
@@ -72,6 +75,7 @@ function Notifications() {
 
   const declineRecNotify=async(i)=>{
     await Axios.get("http://localhost:5000/user/doctor/declineRequest",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
 
@@ -85,6 +89,7 @@ function Notifications() {
 
   const closeSentNotify=async(i)=>{
     await Axios.get("http://localhost:5000/user/doctor/closeNotification",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
 

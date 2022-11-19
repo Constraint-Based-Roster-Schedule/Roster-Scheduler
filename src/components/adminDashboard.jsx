@@ -54,33 +54,7 @@ const AdminDashboard = () => {
                 </div>
                 
                 <div class="testimanial-col">
-                <Link  to='../admin/approveRoster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
-                
-                    <img src={require("../assets/doctor.png")} alt=""></img>
-                    <div>
-                        <p active={true} >
-                            ROSTER APPROVEL NOTIFICATIONS
-                        </p>
-                       
-                    </div>
-                    </Link>
-                </div>
-            </div>
-            <div className="testimanial-container">
-                <div class="testimanial-col">
-                    <Link  to='../notifications' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
-                    
-                        <img src={require("../assets/doctor.png")} alt=""></img>
-                        <div>
-                            <p active={true} >
-                                NOTIFICATION
-                            </p>
-                        
-                        </div>
-                        </Link>
-                </div>
-                <div class="testimanial-col">
-                    <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
@@ -91,35 +65,35 @@ const AdminDashboard = () => {
                         </div>
                         </Link>
                 </div>
-            
             </div>
-           <div className="testimanial-container">
+            <div className="testimanial-container">
                 <div class="testimanial-col">
-                    <Link  to='../admin/addWard' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../admin/addWard' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
-                        <img src={require("../assets/doctor.png")} alt=""></img>
-                        <div>
-                            <p active={true} >
-                                Add Ward
-                            </p>
-                        
-                        </div>
-                        </Link>
+                    <img src={require("../assets/doctor.png")} alt=""></img>
+                    <div>
+                        <p active={true} >
+                            Add Ward
+                        </p>
+                    
+                    </div>
+                    </Link>
                 </div>
-                <div class="testimanial-col">
+                {/* <div class="testimanial-col">
                     <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
                         <div>
                             <p active={true} >
-                                {/* ADD USER */}
+                                ADD USER
                             </p>
                         
                         </div>
                         </Link>
-                </div>
+                </div> */}
             
             </div>
+          
         </section>
         <br />
         <br />
