@@ -240,7 +240,7 @@ export const ShiftsAdd = () => {
   };
 
   return (
-    <div className="shiftDetailsContainer">
+    <div className="shiftDetailsContainer" style={{marginTop:"5rem"}}>
       <MDBContainer
         className="py-5"
         style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "25px" }}

@@ -181,7 +181,7 @@ function ShiftRequest() {
 
 
   return (
-    <>
+    <section style={{marginTop:"5rem"}}>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!
@@ -270,7 +270,7 @@ function ShiftRequest() {
             )}
         </div>
       </div>    
-    </>
+    </section>
   )
 }
 
