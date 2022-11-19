@@ -144,7 +144,7 @@ const handleReset=()=>{
 
 
 return (
-    <>
+    <section>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!
@@ -165,7 +165,7 @@ return (
                 </form>
             </div>
             {userType==='1' && (
-            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px"}}>                
+            <div className='form d-flex justify-content col-lg' style={{backgroundColor:'rgb(230, 230, 230)', borderRadius:"7px",marginBottom:'15px'}}>                
                 <FaUserCircle className='addUserIcon' size={100}/>                
                 <h2 className='register-topic'>Registration form of a doctor</h2>
                 <form onSubmit={handleSubmitDoctor}>
@@ -220,7 +220,7 @@ return (
             </div>)}
 
             {userType==='2' && (
-            <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)'}}>
+            <div className='form d-flex justify-content' style={{backgroundColor:'rgb(230, 230, 230)',marginBottom:'15px'}}>
                 <FaUserCircle className='addUserIcon' size={100}/>
                 <h2 className='m-auto'>Registration form of a consultant</h2>
                 <form onSubmit={handleSubmitConsultant}>
@@ -275,7 +275,7 @@ return (
             </div>)}
             
         </div>
-    </>
+    </section>
 )
 }
 
