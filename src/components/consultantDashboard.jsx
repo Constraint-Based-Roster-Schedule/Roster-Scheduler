@@ -69,18 +69,18 @@ const ConsultantDashboard = () => {
             </div>
             <div className="testimanial-container">
                 <div class="testimanial-col">
-                    <Link  to='../consultant/shiftRequest' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+                <Link  to='../consultant/shiftAdd' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
-                        <img src={require("../assets/doctor.png")} alt=""></img>
-                        <div>
-                            <p active={true} >
-                                Shift Request
-                            </p>
-                        
-                        </div>
-                        </Link>
+                    <img src={require("../assets/doctor.png")} alt=""></img>
+                    <div>
+                        <p active={true} >
+                            Shifts adding
+                        </p>
+                    
+                    </div>
+                    </Link>
                 </div>
-                <div class="testimanial-col">
+                {/* <div class="testimanial-col">
                     <Link  to='../consultant/shiftAdd' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
                         <img src={require("../assets/doctor.png")} alt=""></img>
@@ -91,7 +91,7 @@ const ConsultantDashboard = () => {
                         
                         </div>
                         </Link>
-                </div>
+                </div> */}
             </div>
         </section>
         <br />

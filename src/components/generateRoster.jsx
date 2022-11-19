@@ -284,7 +284,7 @@ export const GenarateRoster = () => {
       <MDBContainer
         className="py-5"
 
-        style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "0px",border:'solid',width:'50%' }}
+        style={{ backgroundColor: "rgb(254, 255, 255)", marginTop: "100px",width:'50%' }}
 
       >
         <MDBRow>

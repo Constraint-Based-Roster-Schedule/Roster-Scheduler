@@ -102,7 +102,10 @@ function Notifications() {
   } 
 
   return (
-    <div className='container col-lg-12'>
+    <div className='container1 col-lg-12'>
+      <div>
+        <h1>Notifications</h1>
+      </div>
       <div className='btn-container col-lg-10'>
         <Button className='requestReceived-btn' variant='primary' type='button'  onClick={()=>{setShowReceivedReq(true); setShowSentReq(false)}}>Requests Received <Badge bg= {recNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{size:"3rem",marginLeft:"1rem"}}>{recNotifyNum}</Badge></Button>
         <Button className='requestSent-btn' variant='primary' onClick={()=>{setShowReceivedReq(false); setShowSentReq(true)}}>Requests Sent <Badge bg={sentNotifyNum>0 ? "danger" : "secondary"} pill='true' style={{marginLeft:"1rem"}}>{sentNotifyNum}</Badge></Button>

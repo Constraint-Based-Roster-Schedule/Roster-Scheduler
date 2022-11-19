@@ -10,17 +10,16 @@ const AdminDashboard = () => {
             <h1>ADMIN DASHBOARD</h1>
             <p></p>
             <div class='testimanial-container'>
-                <div class="testimanial-col">
-                    <Link  to='../roster' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
+            <div class="testimanial-col">
+                <Link  to='../admin/addWard' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
                     
-                        <img src={require("../assets/roster-icon.jpg")} alt=""></img>
-                        <div>
-                            <p>
-                                ADD CONSTRAINTS
-                            </p>
-                            <h3></h3>
-                            <h6></h6>
-                        </div>
+                    <img src={require("../assets/doctor.png")} alt=""></img>
+                    <div>
+                        <p active={true} >
+                            Add Ward
+                        </p>
+                    
+                    </div>
                     </Link>
                 </div>
                        
@@ -65,33 +64,6 @@ const AdminDashboard = () => {
                         </div>
                         </Link>
                 </div>
-            </div>
-            <div className="testimanial-container">
-                <div class="testimanial-col">
-                <Link  to='../admin/addWard' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
-                    
-                    <img src={require("../assets/doctor.png")} alt=""></img>
-                    <div>
-                        <p active={true} >
-                            Add Ward
-                        </p>
-                    
-                    </div>
-                    </Link>
-                </div>
-                {/* <div class="testimanial-col">
-                    <Link  to='../admin/signupForm' style={{textDecoration:"none", alignItems:'center',marginLeft:"20px" ,}}>
-                    
-                        <img src={require("../assets/doctor.png")} alt=""></img>
-                        <div>
-                            <p active={true} >
-                                ADD USER
-                            </p>
-                        
-                        </div>
-                        </Link>
-                </div> */}
-            
             </div>
           
         </section>

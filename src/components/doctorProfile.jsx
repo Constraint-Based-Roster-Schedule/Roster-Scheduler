@@ -173,7 +173,7 @@ export default function DocotrProfile() {
 
                   <Link className="requestButton" to="../wardRoster">
                     <MDBBtn outline className="ms-1">
-                      Ward Roster
+                      Ward 
                     </MDBBtn>
                   </Link>
                 </div>
@@ -242,7 +242,7 @@ export default function DocotrProfile() {
                   </MDBCol>
                 </MDBRow>
                 <hr />
-                <MDBRow>
+                {/* <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText
                       style={{ color: "#11289c", fontWeight: "bold" }}
@@ -256,7 +256,7 @@ export default function DocotrProfile() {
                     </MDBCardText>
                   </MDBCol>
                 </MDBRow>
-                <hr />
+                <hr /> */}
                 <MDBRow>
                   <MDBCol sm="3">
                     <MDBCardText
