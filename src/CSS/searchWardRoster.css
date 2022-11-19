@@ -45,9 +45,13 @@
 }
 .const-detail-p{
     color: white;
-    margin-left: 2rem;
 }
-
+.const-detail-par{
+    color: white;
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    margin-top: -1rem;
+}
 
 .doc-detail{
     color: white;

@@ -67,9 +67,13 @@ function WardDetails(props) {
           <div className='ward-det'>
             <p className='ward-detail-p'>ward name     :  {wardName}</p>
             <p className='ward-detail-p'>Consultant details</p>
-            <p className='const-detail-p'>Consultant name   :  {consultantDetails[0]} {consultantDetails[1]} </p>
-            <p className='const-detail-p'>Consultant email   :  {consultantDetails[2]} </p>
-            <p className='const-detail-p'>Consultant contact number  :  {consultantDetails[3]} </p>
+            {consultantDetails.map((cons)=>{
+              return <div>
+                <p className='const-detail-p'>Name   :  {cons[0]} {cons[1]} </p>
+                <p className='const-detail-par'>Email   :  {cons[2]} </p>
+                <p className='const-detail-par'>Contact number  :  {cons[3]} </p>
+              </div>
+            })}
           </div>
           <div className='doc-det'>
             <h1 className='doc-topic'>Ward doctors</h1>
