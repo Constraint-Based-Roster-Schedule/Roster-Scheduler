@@ -72,7 +72,7 @@ function RosterIndividual() {
 
 
     return (
-        <>
+        <section className='roster-section'>
             <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>My Roster Schedule</h1>
             <div className='requestButton-filter' >
                 <Link className='requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>
@@ -123,7 +123,8 @@ function RosterIndividual() {
                 </Menu>
             </div>
             <IndividualRoster docID={isMyroster ? authService.getIntID(): searched} wardID={authService.getWardID().toString()}/>
-        </>    
+
+        </section>    
     )
 }
 

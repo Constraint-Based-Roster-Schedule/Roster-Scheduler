@@ -88,7 +88,7 @@ function SearchWardRoster() {
 
 
   return (
-    <div className='search-ward-main-container' >
+    <div className='search-ward-main-container' style={{marginTop:"5rem"}}>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Ward Rosters</h1>
       <div className='wardSearch'> 
         <Button variant="primary" className='req-button-ward-search' style={{height: "3rem",width:"15rem",backgroundColor:"rgb(22, 198, 106)" }} onClick={()=>setRosterType(!rosterType)}>{rosterType ? "show ward rosters":"show individividual rosters"}</Button>

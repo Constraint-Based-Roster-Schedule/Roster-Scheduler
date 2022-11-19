@@ -91,7 +91,7 @@ function Router(props) {
         </Routes>
       </>
     </BrowserRouter>
-    <Footer/>
+    {/* <Footer/> */}
     </>
   );
 }

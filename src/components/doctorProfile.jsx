@@ -142,7 +142,7 @@ export default function DocotrProfile() {
     getUserDetails();
   });
   return (
-    <section style={{ backgroundColor: "#40d2e5", marginTop: "-5px" }}>
+    <section style={{ backgroundColor: "#40d2e5", marginTop: "3.5rem" }}>
       <div className="p-2 text-center" style={{ marginBottom: "-35px" }}>
         <h1 className="mb-3">Doctor Profile</h1>
       </div>

@@ -11,6 +11,12 @@ import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
 import authService from '../auth_service/auth_services';
+import doc_photo1 from '../assets/doc_illus1.jpg';
+import doc_photo2 from '../assets/doc_illus2.jpg';
+import doc_photo3 from '../assets/doc_illus3.jpg';
+import doc_photo4 from '../assets/doc_illus4.jpg';
+import doc_photo5 from '../assets/doc_illus5.jpg';
+import Carousel from 'react-bootstrap/Carousel';
 
 function WardDetails(props) {
 
@@ -76,6 +82,24 @@ function WardDetails(props) {
               </div>
             })}
           </div>
+
+          <div id="carouselExampleInterval"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active" data-bs-interval="1500">
+                <div className='wardDetailsPhoto ' ><img className='ward-photo' src={doc_photo1} alt="image" /></div>
+              </div>
+              <div className="carousel-item" data-bs-interval="1500">
+                <div className='wardDetailsPhoto '><img className='ward-photo' src={doc_photo3} alt="image" /></div>
+              </div>
+              <div className="carousel-item" data-bs-interval="1500">
+                <div className='wardDetailsPhoto '><img className='ward-photo' src={doc_photo5} alt="image" /></div>
+              </div>
+            </div>
+          </div>
+          
           <div className='doc-det'>
             <h1 className='doc-topic'>Ward doctors</h1>
             {docDetails.map((doc,index)=>{
