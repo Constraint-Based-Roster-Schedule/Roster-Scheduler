@@ -9,7 +9,7 @@ import {
   MDBBtn,
   MDBIcon,
 } from "mdb-react-ui-kit";
-
+import WardRosterTestComponent from "./wardRosterTest";
 import { useState } from "react";
 import Axios from "axios";
 import axios from "axios";
@@ -18,7 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { display } from "@mui/system";
 import { Padding } from "@mui/icons-material";
 export const GenarateRoster = () => {
-  const [numOfDoctors, setNumOfDoctors] = useState(4);
+  const [numOfDoctors, setNumOfDoctors] = useState();
   const [numOfMinimumDoctors, setNumOfMinimumDoctors] = useState();
   const [numOfMaximumDoctors, setNumOfMaximumDoctors] = useState();
   const [numOfMinimumShifts, setNumOfMinimumShifts] = useState();
@@ -35,6 +35,10 @@ export const GenarateRoster = () => {
   const [isPreferable, setIsPreferable] = useState(false);
   const wardID = authService.getWardID();
   const navigate = useNavigate();
+  const [isRosterCreated, setIsRosterCreated] = useState(false);
+  const [roster, setRoster] = useState();
+  const [shiftNames, setShiftNames] = useState();
+  const [month1, setMonth1] = useState();
   const monthNames = [
     "january",
     "february",
@@ -63,9 +67,26 @@ export const GenarateRoster = () => {
     });
     return number;
   };
+  const getShiftNames = async () => {
+    let data = { wardID: wardID, month: month, year: year };
+    await axios
+      .get("http://localhost:5000/user/consultant/getShiftNames", {
+        headers: { "x-auth-token": authService.getUserToken() },
+        params: {
+          wardID: wardID,
+          month: monthNames[parseInt(month.substring(5)) - 1],
+          year: month.substring(0, 4),
+        },
+      })
+      .then((res) => {
+        console.log("shiftNames:", res.data);
+        setShiftNames(res.data.shiftNames)
+      });
+  };
   function getDaysInMonth(year, month) {
     year = parseInt(year);
-    month = parseInt(month);
+    month = parseInt(month) - 1;
+    console.log(month, year);
     setD(new Date(year, month, 0).getDate());
     return new Date(year, month, 0).getDate();
   }
@@ -76,8 +97,8 @@ export const GenarateRoster = () => {
 
     if (name == "month") {
       setMonth(value);
-      // setM(month.substring(5));
-      // setY(month.substring(0, 4));
+      setMonth1(monthNames[parseInt(value.substring(5)) - 1]);
+      setYear(value.substring(0, 4));
       // console.log(m, y);
     } else if (name == "numOfDoctors") {
       setNumOfDoctors(value);
@@ -111,17 +132,16 @@ export const GenarateRoster = () => {
       if (e.target.checked) {
         setIsPreferable(true);
         console.log(name, e.target.checked);
-      }else{
-        setIsPreferable(false)
-        console.log(name,e.target.checked)
+      } else {
+        setIsPreferable(false);
+        console.log(name, e.target.checked);
       }
     } else if (name == "leaves") {
       if (e.target.checked) {
         setIsLeave(true);
         console.log(name, e.target.checked);
-      }
-      else{
-        setIsLeave(false)
+      } else {
+        setIsLeave(false);
         console.log(name, e.target.checked);
       }
     }
@@ -150,18 +170,18 @@ export const GenarateRoster = () => {
       month: monthNames[parseInt(month.substring(5)) - 1],
       year: month.substring(0, 4),
       numOfDays: getDaysInMonth(month.substring(5), month.substring(0, 4)),
-      numOfDoctors: numOfDoctors,
-      numOfMaxNightShifts: numOfMaxNightShifts,
-      numOfMaximumDoctors: numOfMaximumDoctors,
-      numOfMaximumShifts: numOfMaximumShifts,
-      numOfMinimumDoctors: numOfMaximumDoctors,
-      numOfMinimumShifts: numOfMinimumShifts,
+      numOfDoctors: parseInt(numOfDoctors),
+      numOfMaxNightShifts: parseInt(numOfMaxNightShifts),
+      numOfMaximumDoctors: parseInt(numOfMaximumDoctors),
+      numOfMaximumShifts: parseInt(numOfMaximumShifts),
+      numOfMinimumDoctors: parseInt(numOfMaximumDoctors),
+      numOfMinimumShifts: parseInt(numOfMinimumShifts),
       wardID: wardID,
       shiftNum: numOfShift,
       isPref: isPreferable,
       isLeave: isLeave,
     };
-
+    getShiftNames();
     axios
       .post(
         "http://localhost:5000/user/consultant/generateRoster",
@@ -169,19 +189,19 @@ export const GenarateRoster = () => {
         { headers: { "x-auth-token": authService.getUserToken() } }
       )
       .then((res) => {
-        console.log(
-          res
-        );
+        console.log(res);
 
-        // if (res.data.success) {
-        //   alert(res.data.msg);
-        //   navigate("../wardRoster");
-        // } else {
-        //   console.log("no roster for this constraints");
-        //   alert(res.data.msg);
-        //   refresh();
-        //   navigate("../generateRoster");
-        // }
+        if (res.data.success) {
+          alert(res.data.msg);
+
+          setIsRosterCreated(true);
+          setRoster(res.data.roster);
+          console.log("roster");
+        } else {
+          console.log("no roster for this constraints");
+          alert(res.data.msg);
+          setIsRosterCreated(false);
+        }
       });
   };
   // to check the function
@@ -222,6 +242,7 @@ export const GenarateRoster = () => {
   };
   const getNumberOfShift = () => {
     let data = { wardId: wardID };
+    console.log(data);
     axios
       .post("http://localhost:5000/user/consultant/getShiftCount", data, {
         headers: { "x-auth-token": authService.getUserToken() },
@@ -236,11 +257,35 @@ export const GenarateRoster = () => {
         }
       });
   };
+  const sendtoward=()=>{
+    // navigate('../wardRoster')
+  }
+  const saveRoster = async () => {
+    let data = { wardID: wardID, month: month1, year: year, roster: roster };
+    axios
+      .post("http://localhost:5000/user/consultant/saveRoster", data, {
+        headers: { "x-auth-token": authService.getUserToken() },
+      })
+      .then((res) => {
+        console.log(res.data);
+        if (!res.data.success){
+          console.log("can not save the roster");
+          alert("can not save the roster");
+        } else {
+          console.log("save the roster");
+          alert("Save the roster");
+          navigate('../wardRoster')
+        }
+      });
+  };
+
   return (
     <div className="generateRosterContainer">
       <MDBContainer
         className="py-5"
-        style={{  marginTop: "0px" }}
+
+        style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "0px",border:'solid',width:'50%' }}
+
       >
         <MDBRow>
           <h1 className="mb-3">Generate Roster</h1>
@@ -313,7 +358,7 @@ export const GenarateRoster = () => {
             <MDBCol>
               <MDBInput
                 className="mb-3"
-                label="Maximum shifts per month"
+                label="Maximum shifts per day"
                 type="number"
                 name="maxShiftPerMonth"
                 onChange={handleChange}
@@ -327,7 +372,7 @@ export const GenarateRoster = () => {
               <MDBInput
                 className="mb-3"
                 type="number"
-                label="Minimum shifts per month"
+                label="Minimum shifts per day"
                 onChange={handleChange}
                 name="minShiftPerMonth"
                 value={numOfMinimumShifts}
@@ -388,6 +433,7 @@ export const GenarateRoster = () => {
               With Leaves
             </MDBCol>
           </MDBRow>
+          <br></br>
           <MDBRow
             style={{
               alignItems: "center",
@@ -412,7 +458,7 @@ export const GenarateRoster = () => {
             </MDBCol>
             <MDBCol>{/* <MDBBtn>get vac working slots</MDBBtn> */}</MDBCol>
           </MDBRow>
-          <MDBRow>
+          {/* <MDBRow>
             <MDBCol>
               <h3>preferable work slots</h3>
               <MDBRow>x</MDBRow>
@@ -427,8 +473,28 @@ export const GenarateRoster = () => {
               <MDBRow>x</MDBRow>
               <MDBRow>x</MDBRow>
             </MDBCol>
-          </MDBRow>
+          </MDBRow> */}
         </div>
+
+        {isRosterCreated && (
+          <div>
+            {/* <WardRosterTestComponent
+              month={month1}
+              year={year}
+              shiftNames={shiftNames}
+              roster={roster}
+            /> */}
+            <div>
+              <MDBRow style={{alignItems:'center'}}>
+                <MDBCol style={{alignItems:'center'}}>
+                 
+                  <MDBBtn onClick={e=>{
+                  saveRoster();sendtoward();}}>View Roster</MDBBtn>
+                </MDBCol>
+              </MDBRow>
+            </div>
+          </div>
+        )}
       </MDBContainer>
     </div>
   );
