@@ -10,11 +10,13 @@ import '../CSS/leaveRequest.css';
 import { IconButton } from '@mui/material';
 import {AiOutlineDelete} from 'react-icons/ai';
 import {IoMdAddCircle} from 'react-icons/io';
-import { useState,useEffect } from 'react';
+import React,{ useState,useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
 import Axios from "axios";
 import authService from "../auth_service/auth_services";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 
 function AddLeavesComponent(props) {
@@ -28,10 +30,24 @@ function AddLeavesComponent(props) {
   const [Dateerror,setDateError]=useState('');
 
   const numberOfDays=31
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+  const handleClick = () => {
+    setOpen(true);
+    };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+    };
 
   function deleteLeaves(dltDate,dltSlot){
-    //console.log(dltDate,dltSlot)
-    //console.log(leaveRequests);
+
     var filteredNumbers = leaveRequests.filter(function (currentElement) {
       return currentElement[0] ===dltDate  && currentElement[1]===dltSlot;
     });
@@ -41,7 +57,7 @@ function AddLeavesComponent(props) {
       return this.indexOf(e) < 0;
     },filteredNumbers
     );
-    //console.log(filteredNumbers)
+
     setLeaveRequests(filtered);
   }
 
@@ -52,10 +68,12 @@ function AddLeavesComponent(props) {
     }else{
       setIsError(false);
       setError('');
+
       setLeaveRequests([...leaveRequests,[+leavedate,+slot]])
+
       setDate('');
       setSlot(null);
-      //console.log(leaveRequests);
+
     }
     
   }
@@ -75,12 +93,14 @@ function AddLeavesComponent(props) {
     
     const doc_id=authService.getUserID().toString();
     const wardID=authService.getWardID().toString();
-    //console.log(leaveRequests)
+
     await Axios.get("http://localhost:5000/user/doctor/submitLeaveRequest", {
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
       console.log(res.data)})
       handleReset();
+      handleClick();
   }
 
   function handleReset(){
@@ -108,6 +128,11 @@ function AddLeavesComponent(props) {
 
   return (
     <div className='leaveRequestForm col-lg-5'>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                This is a success message!
+            </Alert>
+      </Snackbar>
       <div className='add-button-container'>
         <h1 className='add-text'>Add leave requests</h1>
       </div>

@@ -3,12 +3,14 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import '../CSS/shiftRequest.css';
 import Table from 'react-bootstrap/Table';
-import doctor from '../public/doctor1.jpg'; 
+import doctor from '../assets/doctor_illustration.png'; 
 import FormGroup from '@mui/material/FormGroup';
 import { useEffect } from 'react';
 import Axios from "axios";
 import Alert from '@mui/material/Alert';
 import authService from "../auth_service/auth_services";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function ShiftRequest() {
   const [id,setID]=useState("")
@@ -33,12 +35,29 @@ function ShiftRequest() {
 
   const numberOfDays=31
 
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
   useEffect(()=>{
     setID(authService.getIntID());
     fetchShiftnames();
     fetchData();
     fetchWardDoctors();
   },[])
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+  };
 
   const fetchData=async()=>{
     const monthNames = ["January", "February", "March", "April", "May", "June",
@@ -49,17 +68,17 @@ function ShiftRequest() {
     const ward_id=authService.getWardID();
     const int_id=authService.getIntID();
     await Axios.get("http://localhost:5000/user/doctor/getData",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
     }).then((res) => {
       setMyshifts(res.data.myShifts);
-      //console.log(res.data.wardDoctors);
-      //console.log(res.data.myShifts);
     })
   }
 
   const fetchWardDoctors=async()=>{
     const ward_id=authService.getWardID();
     await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"wardID":ward_id}
     }).then((res) => {
       setWardDoctors(res.data.doctorDetails);
@@ -73,7 +92,8 @@ function ShiftRequest() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
-      params:{"month":month,"year":year}
+      headers: { "x-auth-token": authService.getUserToken() },
+      params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
       setShiftNames(res.data.shiftNames)
@@ -87,11 +107,19 @@ function ShiftRequest() {
     if(default_toID.length===0){
       default_toID=wardDoctors[0][3]
     }
-    const shiftExchangeData={"currentDate":date, "currentShift":shift,"requestedDate":datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
+    const monthNames = ["January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const year=new Date().getFullYear();
+    const shiftExchangeData={"currentDate":+date,"month": month,"year":year,"currentShift":shift,"requestedDate":+datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
     console.log(shiftExchangeData);
-    await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData).then((res) => {
+    await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData,{
+      headers: { "x-auth-token": authService.getUserToken() }
+    }).then((res) => {
       console.log(res.data)})
-    handleReset();
+      handleClick();
+      handleReset();
   }
 
   const handleReset=()=>{
@@ -153,7 +181,12 @@ function ShiftRequest() {
 
 
   return (
-    <>
+    <section className='shiftExchange-section'>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                This is a success message!
+            </Alert>
+      </Snackbar>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"3rem"}}>Request for a Shift Exchange</h1>
       <div className='main-container col-lg-10'>
         <div className='form-container col-lg-2 '>          
@@ -192,7 +225,6 @@ function ShiftRequest() {
                     return <option value={doc[3]}>{doc[0]} {doc[1]} {doc[2]}</option>
                   })}
                 </Form.Select>
-              {/* <Form.Control className='formControlId' type="text" placeholder="Doctor ID" value={docID} onChange={(e)=>setDocID(e.target.value)} required/> */}
             </Form.Group>
             <Form.Group className="formGrp-btn mb-3 col-lg-8 d-flex flex-row justify-content-center px-0">
               <Button className='req-sub-btn' variant="primary" type="submit" >
@@ -238,7 +270,7 @@ function ShiftRequest() {
             )}
         </div>
       </div>    
-    </>
+    </section>
   )
 }
 

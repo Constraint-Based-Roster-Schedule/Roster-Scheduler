@@ -10,28 +10,38 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import authService from '../auth_service/auth_services';
+import doc_photo1 from '../assets/doc_illus1.jpg';
+import doc_photo2 from '../assets/doc_illus2.jpg';
+import doc_photo3 from '../assets/doc_illus3.jpg';
+import doc_photo4 from '../assets/doc_illus4.jpg';
+import doc_photo5 from '../assets/doc_illus5.jpg';
+import Carousel from 'react-bootstrap/Carousel';
 
 function WardDetails(props) {
 
   const [wardName,setwardName]=useState('');
   const [docDetails,setDocDetails]=useState([]);
   const [consultantDetails,setConsultantDetails]=useState([]);
+  const [wardObj,setWardObj]=useState("6371a53b963e2cb4f2f65a0c");
 
   useEffect(()=>{
     fetchWardDetails();
-  },[])
+  },[props.wardID])
 
   const fetchWardDetails=async()=>{
     const ward=props.wardID;
-    //console.log(ward)
+
     await Axios.get("http://localhost:5000/user/admin/getWardDetails",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward}
         }).then((res) => {
-          //console.log(res.data);
+
           setwardName(res.data.wardName);
           setDocDetails(res.data.docData);
           setConsultantDetails(res.data.consultantData);
+          setWardObj(res.data.wardObj.toString())
+          console.log(wardObj)
         })
   }
 
@@ -64,10 +74,32 @@ function WardDetails(props) {
           <div className='ward-det'>
             <p className='ward-detail-p'>ward name     :  {wardName}</p>
             <p className='ward-detail-p'>Consultant details</p>
-            <p className='const-detail-p'>Consultant name   :  {consultantDetails[0]} {consultantDetails[1]} </p>
-            <p className='const-detail-p'>Consultant email   :  {consultantDetails[2]} </p>
-            <p className='const-detail-p'>Consultant contact number  :  {consultantDetails[3]} </p>
+            {consultantDetails.map((cons)=>{
+              return <div>
+                <p className='const-detail-p'>Name   :  {cons[0]} {cons[1]} </p>
+                <p className='const-detail-par'>Email   :  {cons[2]} </p>
+                <p className='const-detail-par'>Contact number  :  {cons[3]} </p>
+              </div>
+            })}
           </div>
+
+          <div id="carouselExampleInterval"
+            className="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <div className="carousel-inner">
+              <div className="carousel-item active" data-bs-interval="1500">
+                <div className='wardDetailsPhoto ' ><img className='ward-photo' src={doc_photo1} alt="image" /></div>
+              </div>
+              <div className="carousel-item" data-bs-interval="1500">
+                <div className='wardDetailsPhoto '><img className='ward-photo' src={doc_photo3} alt="image" /></div>
+              </div>
+              <div className="carousel-item" data-bs-interval="1500">
+                <div className='wardDetailsPhoto '><img className='ward-photo' src={doc_photo5} alt="image" /></div>
+              </div>
+            </div>
+          </div>
+          
           <div className='doc-det'>
             <h1 className='doc-topic'>Ward doctors</h1>
             {docDetails.map((doc,index)=>{
@@ -130,7 +162,7 @@ function WardDetails(props) {
         </DialogActions>
       </Dialog>
     </div>
-        <WardRosterComponent/>
+        <WardRosterComponent wardID={wardObj}/>
     </Box>
   )
 }

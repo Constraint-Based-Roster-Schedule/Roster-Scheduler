@@ -23,16 +23,39 @@ function IndividualRoster(props){
   const [docID,setDocID]=useState("");
   const [shiftNames,setShiftNames]=useState([]);
   const [finalShifts,setFinalShifts]=useState([]);
+  const [current,setCurrent]=useState('')
 
   useEffect(()=>{
-      fetchIndividualRoster();     
+      fetchIndividualRoster();  
+      
       //console.log(props.docID)  
+  },[props.docID])
+
+  useEffect(()=>{
+    getCurrentDate();
   },[])
+
+  const getCurrentDate=()=>{
+        const d=new Date();
+        const day=''+d.getDate();
+        const month=''+d.getMonth()+1;
+        const year=''+d.getFullYear();
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+            
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        //console.log([year, month, day].join('-'))
+        setCurrent([year, month, day].join('-'))
+    }
 
   const fetchIndividualRoster=async()=>{
       // const wardID=authService.getWardID();
       //console.log(props.myID)
-      const myID=props.docID.toString();
+      const myID=props.docID;
       
       //console.log(myID)
       
@@ -40,6 +63,7 @@ function IndividualRoster(props){
                           "july", "august", "september", "october", "november", "december"
                           ];
       const current_month=new Date().getMonth();
+      const current_year=new Date().getFullYear();
       const required_months=[]
       required_months.push(monthNames[current_month-2]);
       required_months.push(monthNames[current_month-1]);
@@ -49,22 +73,23 @@ function IndividualRoster(props){
       //console.log(required_months); 
 
       await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
-          params:{"month":"november","year":"2022","months":required_months}
-      }).then((res) => {
+          headers: { "x-auth-token": authService.getUserToken() },
+          params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
+      },).then((res) => {
       const myShifts=res.data.myShifts;
       const shiftNames=res.data.shiftNames
-      //console.log(myShifts)
+      console.log(myShifts)
       setShiftNames(shiftNames)
       const data_to_send=[]
       myShifts.forEach((mon,month_index)=>{
           mon.forEach((day,date)=>{
               day.forEach((shift,index)=>{
-                  if(shift.includes(myID)){
+                  if(shift.includes(+myID)){
                       const shift_detail={
-                          title: shiftNames[index][0],
-                          startDate: new Date(2022, 10+month_index-2, date+1, 13, 0),
-                          endDate: new Date(2022, 10+month_index-2, date+1, 19, 0),
-                          color:shiftNames[index][1],
+                          title: shiftNames[month_index][index][0],
+                          startDate: new Date(+current_year, current_month+month_index-2, date+1, 13, 0),
+                          endDate: new Date(+current_year, current_month+month_index-2, date+1, 19, 0),
+                          color:shiftNames[month_index][index][1],
                       }
                       data_to_send.push(shift_detail)
                   }     
@@ -74,6 +99,7 @@ function IndividualRoster(props){
       })
       
       setFinalShifts(data_to_send);
+      console.log(finalShifts);
       })
   }
   
@@ -93,7 +119,7 @@ function IndividualRoster(props){
 
 
   return (
-    <div className='individual_roster_month_week'>
+    <div data-testid="individual-roster" className='individual_roster_month_week'>
       <Paper className='calender_individual_month'>
         <Scheduler
           data={finalShifts}

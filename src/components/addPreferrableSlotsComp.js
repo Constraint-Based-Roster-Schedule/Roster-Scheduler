@@ -15,6 +15,8 @@ import Table from 'react-bootstrap/Table';
 import Alert from '@mui/material/Alert';
 import Axios from "axios";
 import authService from "../auth_service/auth_services";
+import Snackbar from '@mui/material/Snackbar';
+import MuiAlert from '@mui/material/Alert';
 
 function AddPreferrableSlotsComp(props) {
   const [preferrableSlotRequests,setpreferrableSlotRequests]=useState([]);
@@ -27,6 +29,23 @@ function AddPreferrableSlotsComp(props) {
   
 
   const numberOfDays=31
+  const [open, setOpen] = React.useState(false);
+  const Alert = React.forwardRef(function Alert(props, ref) {
+    return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+  });
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+        return;
+    }
+
+    setOpen(false);
+  };
+
 
   function deleteSlots(sltDate,sltSlot){   
     var filteredNumbers = preferrableSlotRequests.filter(function (currentElement) {
@@ -48,10 +67,10 @@ function AddPreferrableSlotsComp(props) {
     }else{
       setIsError(false);
       setError('');
-      setpreferrableSlotRequests([...preferrableSlotRequests,[slotdate,slot]])
+      setpreferrableSlotRequests([...preferrableSlotRequests,[+slotdate,+slot]])
       setSlotDate('');
       setSlot(null);
-      //console.log(leaveRequests);
+
     }
     
   }
@@ -72,10 +91,12 @@ function AddPreferrableSlotsComp(props) {
     const wardID=authService.getWardID().toString();
     //console.log(month)
     await Axios.get("http://localhost:5000/user/doctor/submitPrefferableSlots", {
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"prefferableSlots":preferrableSlotRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
       console.log(res.data)})
-    handleReset();
+      handleReset();
+      handleClick();
   }
 
   function handleReset(){
@@ -103,6 +124,11 @@ function AddPreferrableSlotsComp(props) {
 
   return (
     <div className='preferrableSlotForm col-lg-5'>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
+                This is a success message!
+            </Alert>
+      </Snackbar>
       <div className='add-button-container'>
         <h1 className='add-text'>Add preferrable working slots</h1>
       </div>

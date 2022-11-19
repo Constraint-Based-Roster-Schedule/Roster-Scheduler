@@ -1,3 +1,8 @@
+.roster-section{
+    margin-top: 3.6rem;
+    background-image: linear-gradient(to bottom, rgba(12, 23, 218, 0.22), rgba(74, 206, 229, 0.23)), url(../assets/background.jpg);
+}
+
 .roster_topic{
     color: aqua;
 }
@@ -15,11 +20,28 @@
     width:12rem;
 }
 
+.select-rosterType{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
 .legend_roster{
     display: flex;
     flex-direction: row;
     margin-top: 0.5rem;
 }
+
+.isMyRoster-button{
+    margin-right: 4rem;
+    width: 13rem;
+}
+
+.doctor-search-roster-button{
+    margin-left: 4rem;
+    width: 13rem;
+}
+
 .legend-color{
     width: 1rem;
     height: 1rem;
@@ -65,6 +87,15 @@
         width: 1rem;
         height: 0.7rem;
         border-radius: 0.5rem;
+    }
+    .isMyRoster-button {
+        margin-right: 1rem;
+        width: 12.5rem;
+    }
+
+    .doctor-search-roster-button {
+        margin-left: 1rem;
+        width: 12rem;
     }
 }
 

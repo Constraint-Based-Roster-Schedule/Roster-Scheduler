@@ -45,9 +45,13 @@
 }
 .const-detail-p{
     color: white;
-    margin-left: 2rem;
 }
-
+.const-detail-par{
+    color: white;
+    margin-left: 2rem;
+    font-size: 0.8rem;
+    margin-top: -1rem;
+}
 
 .doc-detail{
     color: white;
@@ -85,6 +89,36 @@
 }
 .modal-doc{
     margin-top: 2.5rem;
+}
+
+.wardDetailsPhoto img{
+    object-fit: contain;
+    width:15rem;
+}
+
+.ward-photo{
+    height:15rem;
+    width: 15rem;
+}
+
+#carouselExampleInterval{
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 1300px){
+    .wardDetailsPhoto img {
+        object-fit: contain;
+        width: 10rem;
+    }
+
+}
+
+@media screen and (max-width: 1150px) {
+    .wardDetailsPhoto img {
+        display: none;
+    }
+
 }
 
 @media screen and (max-width: 1050px){

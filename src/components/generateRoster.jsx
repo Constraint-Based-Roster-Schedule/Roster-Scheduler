@@ -283,7 +283,9 @@ export const GenarateRoster = () => {
     <div className="generateRosterContainer">
       <MDBContainer
         className="py-5"
+
         style={{ backgroundColor: "rgb(255, 255, 255)", marginTop: "0px",border:'solid',width:'50%' }}
+
       >
         <MDBRow>
           <h1 className="mb-3">Generate Roster</h1>

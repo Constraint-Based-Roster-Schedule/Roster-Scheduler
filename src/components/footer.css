@@ -7,7 +7,7 @@ body{
    
 }
 .Box{
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
     left: 0;
     

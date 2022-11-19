@@ -41,7 +41,7 @@ const Navbar = () => {
   };
 
   return (
-    <div>
+    <div className="navBarMainContainer">
       <nav>
         <div className="nav-center">
           <div className="nav-header">

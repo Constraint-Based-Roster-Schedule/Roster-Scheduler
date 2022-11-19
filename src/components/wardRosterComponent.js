@@ -16,15 +16,15 @@ import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import '../CSS/wardRosterComponent.css';
 import {appointments} from './data';
 import Axios from "axios";
+import authService from '../auth_service/auth_services';
 
 
-
-function WardRosterComponent() {
+function WardRosterComponent(props) {
     const [windowSize,setWindowSize]=useState(getWindowSize());
-    const currentDate = '2022-11-05';
     const [shiftNames,setShiftNames]=useState([]);
-
+    const [current,setCurrent]=useState('')
     const [finalShifts,setFinalShifts]=useState([]);
+    const currentDate = '2022-11-05';
 
     useEffect(() => {
         function handleWindowResize() {
@@ -41,8 +41,25 @@ function WardRosterComponent() {
 
     useEffect(()=>{
         fetchIndividualRoster();
-    },[])
+        getCurrentDate();
+    },[props.wardID])
 
+    const getCurrentDate=()=>{
+        const d=new Date();
+        const day=''+d.getDate();
+        const month=''+d.getMonth()+1;
+        const year=''+d.getFullYear();
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+            
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        console.log([year, month, day].join('-'))
+        setCurrent([year, month, day].join('-'))
+    }
 
     const fetchIndividualRoster=async()=>{
         
@@ -50,6 +67,7 @@ function WardRosterComponent() {
                             "july", "august", "september", "october", "november", "december"
                             ];
         const current_month=new Date().getMonth();
+        const current_year=new Date().getFullYear();
         const required_months=[]
         required_months.push(monthNames[current_month-2]);
         required_months.push(monthNames[current_month-1]);
@@ -59,7 +77,8 @@ function WardRosterComponent() {
         console.log(required_months); 
 
         await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
-            params:{"month":"november","year":"2022","months":required_months}
+            headers: { "x-auth-token": authService.getUserToken() },
+            params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
         }).then((res) => {
             const myShifts=res.data.myShifts;
             const shiftNames=res.data.shiftNames
@@ -73,9 +92,9 @@ function WardRosterComponent() {
                         //console.log(shift_string)
                         const shift_detail={
                             title: shift_string,
-                            startDate: new Date(2022, 10+month_index-2, date+1, shiftNames[index][2][0][0], shiftNames[index][2][0][1]),
-                            endDate: new Date(2022, 10+month_index-2,date+1, shiftNames[index][2][1][0], shiftNames[index][2][1][1]),
-                            color:shiftNames[index][1],
+                            startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[month_index][index][2][0][0], shiftNames[month_index][index][2][0][1]),
+                            endDate: new Date(+current_year, current_month+month_index-2,date+1, shiftNames[month_index][index][2][1][0], shiftNames[month_index][index][2][1][1]),
+                            color:shiftNames[month_index][index][1],
                         }
                         data_to_send.push(shift_detail)
                             
@@ -110,7 +129,7 @@ function WardRosterComponent() {
 
 
     return (
-        <div className='individual_roster_month_week'>
+        <div data-testid="ward-roster" className='individual_roster_month_week'>
             <Paper className='calender_individual_month'>
                 <Scheduler data={finalShifts} height={660} >
                         <ViewState
