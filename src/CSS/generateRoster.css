@@ -1,7 +1,18 @@
 .generateRosterContainer{
     background-color:rgb(255, 255, 255);
-    width: 100%;
+
+
+    max-width: 100%;
+    background-image:linear-gradient(to bottom, rgba(12, 23, 218, 0.22), rgba(74, 206, 229, 0.23)),url(../assets/background.jpg);
+    background-size: auto;
+    border-image-repeat: stretch;
+    background-size: cover;
     margin-top: 3.5rem;
+}
+.MDBInput{
+    font-weight: bold;
+    font-size: large;
+
 }
 /* .py-5{
     width: 50%;
