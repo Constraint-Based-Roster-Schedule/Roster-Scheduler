@@ -1,7 +1,7 @@
 body{
     background-color: rgb(156, 204, 249) !important;
     justify-content: center;
-    
+    background-image: linear-gradient(to bottom, rgba(12, 23, 218, 0.22), rgba(74, 206, 229, 0.23)), url(./assets/background.jpg);
 }
 
 nav {
