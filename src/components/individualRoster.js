@@ -74,7 +74,7 @@ function IndividualRoster(props){
 
       await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
           headers: { "x-auth-token": authService.getUserToken() },
-          params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
+          params:{"month":monthNames[current_month],"year":current_year,"months":required_months,"wardID":props.wardID}
       },).then((res) => {
       const myShifts=res.data.myShifts;
       const shiftNames=res.data.shiftNames
