@@ -21,10 +21,10 @@ import authService from '../auth_service/auth_services';
 
 function WardRosterComponent(props) {
     const [windowSize,setWindowSize]=useState(getWindowSize());
-    const currentDate = '2022-11-05';
     const [shiftNames,setShiftNames]=useState([]);
-
+    const [current,setCurrent]=useState('')
     const [finalShifts,setFinalShifts]=useState([]);
+    const currentDate = '2022-11-05';
 
     useEffect(() => {
         function handleWindowResize() {
@@ -41,8 +41,25 @@ function WardRosterComponent(props) {
 
     useEffect(()=>{
         fetchIndividualRoster();
+        getCurrentDate();
     },[props.wardID])
 
+    const getCurrentDate=()=>{
+        const d=new Date();
+        const day=''+d.getDate();
+        const month=''+d.getMonth()+1;
+        const year=''+d.getFullYear();
+        if (month.length < 2) {
+            month = '0' + month;
+        }
+            
+        if (day.length < 2) {
+            day = '0' + day;
+        }
+
+        console.log([year, month, day].join('-'))
+        setCurrent([year, month, day].join('-'))
+    }
 
     const fetchIndividualRoster=async()=>{
         

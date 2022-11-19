@@ -10,7 +10,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
-
+import authService from '../auth_service/auth_services';
 
 function WardDetails(props) {
 
@@ -27,6 +27,7 @@ function WardDetails(props) {
     const ward=props.wardID;
 
     await Axios.get("http://localhost:5000/user/admin/getWardDetails",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward}
         }).then((res) => {
 

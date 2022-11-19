@@ -54,6 +54,7 @@ const ConsultantWardRoster = () => {
   const year=new Date().getFullYear();
   console.log(authService.getWardID())
   await Axios.get("http://localhost:5000/user/consultant/getShiftNames",{
+        headers: { "x-auth-token": authService.getUserToken() },
         params:{"month":month,"year":year,"wardID":"6371a53b963e2cb4f2f65a0c"}
     }).then((res) => {
 
@@ -62,7 +63,8 @@ const ConsultantWardRoster = () => {
   }
   const getWardName=async()=>{
       await Axios.get("http://localhost:5000/user/consultant/getWardNamebyID",{
-          params:{"wardID":"6371a53b963e2cb4f2f65a0c"}
+        headers: { "x-auth-token": authService.getUserToken() },
+        params:{"wardID":"6371a53b963e2cb4f2f65a0c"}
       }).then((res) => {
 
           setWardName(res.data.wardNumber)
@@ -72,6 +74,7 @@ const ConsultantWardRoster = () => {
     const fetchWardDoctors=async()=>{
         const ward_id=authService.getWardID();
         await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward_id}
         }).then((res) => {
             setWardDoctors(res.data.doctorDetails);

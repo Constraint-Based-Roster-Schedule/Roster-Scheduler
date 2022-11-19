@@ -60,7 +60,9 @@ const handleClose = (event, reason) => {
 
 
 const fetchAvailableWards=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAvailableWards").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getAvailableWards",{
+        headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
         //console.log(res.data.availableWards);
         setWards(res.data.availableWards);
         setWard(wards[0])
@@ -68,7 +70,9 @@ const fetchAvailableWards=async()=>{
     })
 }
 const fetchtakenEmails=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getTakenEmails").then((res) => {
+    await Axios.get("http://localhost:5000/user/admin/getTakenEmails",{
+        headers: { "x-auth-token": authService.getUserToken() },
+    }).then((res) => {
         setTakenDoctorEmails(res.data.doctorEmails);
         setTakenConsEmails(res.data.constEmails);
     })
@@ -76,7 +80,9 @@ const fetchtakenEmails=async()=>{
 const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
+        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+            headers: { "x-auth-token": authService.getUserToken() },
+        }).then((res) => {
       console.log(res.data);
       handleClick()
     });
@@ -86,7 +92,9 @@ const handleSubmitConsultant=async(e)=>{
 const handleSubmitDoctor=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user).then((res) => {
+        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+            headers: { "x-auth-token": authService.getUserToken() },
+        }).then((res) => {
       console.log(res.data);
       handleClick()
     });
