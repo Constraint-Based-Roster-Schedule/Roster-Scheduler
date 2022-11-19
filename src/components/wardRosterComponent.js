@@ -92,9 +92,9 @@ function WardRosterComponent(props) {
                         //console.log(shift_string)
                         const shift_detail={
                             title: shift_string,
-                            startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[index][2][0][0], shiftNames[index][2][0][1]),
-                            endDate: new Date(+current_year, current_month+month_index-2,date+1, shiftNames[index][2][1][0], shiftNames[index][2][1][1]),
-                            color:shiftNames[index][1],
+                            startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[month_index][index][2][0][0], shiftNames[month_index][index][2][0][1]),
+                            endDate: new Date(+current_year, current_month+month_index-2,date+1, shiftNames[month_index][index][2][1][0], shiftNames[month_index][index][2][1][1]),
+                            color:shiftNames[month_index][index][1],
                         }
                         data_to_send.push(shift_detail)
                             
@@ -129,7 +129,7 @@ function WardRosterComponent(props) {
 
 
     return (
-        <div className='individual_roster_month_week'>
+        <div data-testid="ward-roster" className='individual_roster_month_week'>
             <Paper className='calender_individual_month'>
                 <Scheduler data={finalShifts} height={660} >
                         <ViewState

@@ -48,14 +48,14 @@ function IndividualRoster(props){
             day = '0' + day;
         }
 
-        console.log([year, month, day].join('-'))
+        //console.log([year, month, day].join('-'))
         setCurrent([year, month, day].join('-'))
     }
 
   const fetchIndividualRoster=async()=>{
       // const wardID=authService.getWardID();
       //console.log(props.myID)
-      const myID=props.docID.toString();
+      const myID=props.docID;
       
       //console.log(myID)
       
@@ -86,10 +86,10 @@ function IndividualRoster(props){
               day.forEach((shift,index)=>{
                   if(shift.includes(+myID)){
                       const shift_detail={
-                          title: shiftNames[index][0],
+                          title: shiftNames[month_index][index][0],
                           startDate: new Date(+current_year, current_month+month_index-2, date+1, 13, 0),
                           endDate: new Date(+current_year, current_month+month_index-2, date+1, 19, 0),
-                          color:shiftNames[index][1],
+                          color:shiftNames[month_index][index][1],
                       }
                       data_to_send.push(shift_detail)
                   }     
@@ -99,6 +99,7 @@ function IndividualRoster(props){
       })
       
       setFinalShifts(data_to_send);
+      console.log(finalShifts);
       })
   }
   
@@ -118,7 +119,7 @@ function IndividualRoster(props){
 
 
   return (
-    <div className='individual_roster_month_week'>
+    <div data-testid="individual-roster" className='individual_roster_month_week'>
       <Paper className='calender_individual_month'>
         <Scheduler
           data={finalShifts}
