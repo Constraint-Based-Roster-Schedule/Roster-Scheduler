@@ -240,7 +240,7 @@ export const GenarateRoster = () => {
     <div className="generateRosterContainer">
       <MDBContainer
         className="py-5"
-        style={{ backgroundColor: "rgb(59, 130, 237)", marginTop: "0px" }}
+        style={{  marginTop: "0px" }}
       >
         <MDBRow>
           <h1 className="mb-3">Generate Roster</h1>
