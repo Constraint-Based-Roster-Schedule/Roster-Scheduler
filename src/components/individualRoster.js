@@ -84,7 +84,7 @@ function IndividualRoster(props){
       myShifts.forEach((mon,month_index)=>{
           mon.forEach((day,date)=>{
               day.forEach((shift,index)=>{
-                  if(shift.includes(myID)){
+                  if(shift.includes(+myID)){
                       const shift_detail={
                           title: shiftNames[index][0],
                           startDate: new Date(+current_year, current_month+month_index-2, date+1, 13, 0),
