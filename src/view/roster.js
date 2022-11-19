@@ -52,6 +52,7 @@ function RosterIndividual() {
         const month=monthNames[new Date().getMonth()].toLowerCase();
         const year=new Date().getFullYear();
         await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
         }).then((res) => {
 
@@ -62,6 +63,7 @@ function RosterIndividual() {
     const fetchWardDoctors=async()=>{
         const ward_id=authService.getWardID();
         await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward_id}
         }).then((res) => {
             setWardDoctors(res.data.doctorDetails);

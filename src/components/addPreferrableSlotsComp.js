@@ -91,6 +91,7 @@ function AddPreferrableSlotsComp(props) {
     const wardID=authService.getWardID().toString();
     //console.log(month)
     await Axios.get("http://localhost:5000/user/doctor/submitPrefferableSlots", {
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"prefferableSlots":preferrableSlotRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
       console.log(res.data)})

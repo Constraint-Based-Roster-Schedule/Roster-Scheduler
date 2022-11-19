@@ -95,6 +95,7 @@ function AddLeavesComponent(props) {
     const wardID=authService.getWardID().toString();
 
     await Axios.get("http://localhost:5000/user/doctor/submitLeaveRequest", {
+      headers: { "x-auth-token": authService.getUserToken() },
       params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
       console.log(res.data)})

@@ -16,7 +16,7 @@ import { AppointmentForm } from '@devexpress/dx-react-scheduler-material-ui';
 import '../CSS/wardRosterComponent.css';
 import {appointments} from './data';
 import Axios from "axios";
-
+import authService from '../auth_service/auth_services';
 
 
 function WardRosterComponent(props) {
@@ -59,6 +59,7 @@ function WardRosterComponent(props) {
         console.log(required_months); 
 
         await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+            headers: { "x-auth-token": authService.getUserToken() },
             params:{"month":"november","year":"2022","months":required_months,"wardID":props.wardID}
         }).then((res) => {
             const myShifts=res.data.myShifts;
