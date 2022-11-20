@@ -18,7 +18,7 @@ const HomePage = () => {
          </div>
          <div className="roster-description">
          We are the MDN hospital to ensure your health with providing good services for our patients.
-              we provide your rooster near to your hand.
+              we provide your roster near to your hand.
               You can easily requeat the leaves, preferable work slots, and shift exchange easyly and quickly.
               Save your time.
               <br></br>
