@@ -11,6 +11,7 @@ import Axios from "axios";
 import authService from '../auth_service/auth_services';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import config from '../config.json';
 
 const ConsultantWardRoster = () => {
   const [shiftNames,setShiftNames]=useState([]);
@@ -21,7 +22,8 @@ const ConsultantWardRoster = () => {
   const [searched,setSearched]=useState(2);
   const ITEM_HEIGHT = 120;
   const [isWardRoster,setIsWardRoster]=useState(true);
-  const [months,setMonths]=useState([])
+  const [months,setMonths]=useState([]);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
       fetchShiftnames();
@@ -60,7 +62,7 @@ const ConsultantWardRoster = () => {
         required_months.push(monthNames[current_month+1]);
         setMonths(required_months); 
         console.log(authService.getWardID().toString())
-        await Axios.get("http://localhost:5000/user/doctor/getShiftNamesForRoster",{
+        await Axios.get(APIEndpoint+"/doctor/getShiftNamesForRoster",{
             params:{"month":monthNames[current_month],"year":current_year,"wardID":authService.getWardID().toString(),"months":required_months}
         }).then((res) => {
 
@@ -71,7 +73,7 @@ const ConsultantWardRoster = () => {
 
 
   const getWardName=async()=>{
-      await Axios.get("http://localhost:5000/user/consultant/getWardNamebyID",{
+      await Axios.get(APIEndpoint+"/consultant/getWardNamebyID",{
         headers: { "x-auth-token": authService.getUserToken() },
         params:{"wardID":authService.getWardID().toString()}
       }).then((res) => {
@@ -81,7 +83,7 @@ const ConsultantWardRoster = () => {
   }
 
     const fetchWardDoctors=async()=>{
-        await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+        await Axios.get(APIEndpoint+"/doctor/getWardDoctors",{
             headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":authService.getWardID().toString()}
         }).then((res) => {

@@ -11,6 +11,7 @@ import Alert from '@mui/material/Alert';
 import authService from "../auth_service/auth_services";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import config from '../config.json';
 
 function ShiftRequest() {
   const [id,setID]=useState("")
@@ -35,6 +36,8 @@ function ShiftRequest() {
 
   const numberOfDays=31
 
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const [open, setOpen] = React.useState(false);
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
@@ -45,6 +48,7 @@ function ShiftRequest() {
     fetchShiftnames();
     fetchData();
     fetchWardDoctors();
+    console.log(APIEndpoint)
   },[])
 
   const handleClick = () => {
@@ -67,7 +71,7 @@ function ShiftRequest() {
     const year=new Date().getFullYear();
     const ward_id=authService.getWardID();
     const int_id=authService.getIntID();
-    await Axios.get("http://localhost:5000/user/doctor/getData",{
+    await Axios.get(APIEndpoint+"/doctor/getData",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
     }).then((res) => {
@@ -79,7 +83,7 @@ function ShiftRequest() {
 
   const fetchWardDoctors=async()=>{
     const ward_id=authService.getWardID();
-    await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+    await Axios.get(APIEndpoint+"/doctor/getWardDoctors",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"wardID":ward_id}
     }).then((res) => {
@@ -93,7 +97,7 @@ function ShiftRequest() {
     ];
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
-    await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+    await Axios.get(APIEndpoint+"/doctor/getShiftNames",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
@@ -117,7 +121,7 @@ function ShiftRequest() {
     const year=new Date().getFullYear();
     const shiftExchangeData={"currentDate":+date,"month": month,"year":year,"currentShift":shift,"requestedDate":+datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
     //console.log(shiftExchangeData);
-    await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData,{
+    await Axios.post(APIEndpoint+"/doctor/putRequest", shiftExchangeData,{
       headers: { "x-auth-token": authService.getUserToken() }
     }).then((res) => {
       console.log(res.data)})

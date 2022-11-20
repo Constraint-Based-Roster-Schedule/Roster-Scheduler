@@ -14,6 +14,7 @@ import Axios from "axios";
 import authService from "../auth_service/auth_services";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import config from '../config.json';
 
 function SignupForm() {
 const [userType,setUserType]=useState('');
@@ -36,6 +37,9 @@ const [takenConsEmails,setTakenConsEmails]=useState([]);
 const [wards,setWards]=useState("");
 // const [isSuccess,setIsSuccess]=useState(false)
 const [open, setOpen] = React.useState(false);
+
+const APIEndpoint=config.DOMAIN_NAME+"/user";
+
 const Alert = React.forwardRef(function Alert(props, ref) {
   return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
 });
@@ -60,7 +64,7 @@ const handleClose = (event, reason) => {
 
 
 const fetchAvailableWards=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAvailableWards",{
+    await Axios.get(APIEndpoint+"/admin/getAvailableWards",{
         headers: { "x-auth-token": authService.getUserToken() },
     }).then((res) => {
         //console.log(res.data.availableWards);
@@ -70,7 +74,7 @@ const fetchAvailableWards=async()=>{
     })
 }
 const fetchtakenEmails=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getTakenEmails",{
+    await Axios.get(APIEndpoint+"/admin/getTakenEmails",{
         headers: { "x-auth-token": authService.getUserToken() },
     }).then((res) => {
         setTakenDoctorEmails(res.data.doctorEmails);
@@ -80,7 +84,7 @@ const fetchtakenEmails=async()=>{
 const handleSubmitConsultant=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName,"speciality":specializedArea};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+        await Axios.post(APIEndpoint+"/admin/addUser", user,{
             headers: { "x-auth-token": authService.getUserToken() },
         }).then((res) => {
       console.log(res.data);
@@ -92,7 +96,7 @@ const handleSubmitConsultant=async(e)=>{
 const handleSubmitDoctor=async(e)=>{
     e.preventDefault();
     const user={"type":userType,"firstName":firstName,"lastName":lastName,"userName":userName,"wardID":ward,"address":address,"emailaddress":email,"telephone":contact,"password":firstName};
-        await Axios.post("http://localhost:5000/user/admin/addUser", user,{
+        await Axios.post(APIEndpoint+"/admin/addUser", user,{
             headers: { "x-auth-token": authService.getUserToken() },
         }).then((res) => {
       console.log(res.data);

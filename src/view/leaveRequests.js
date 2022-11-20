@@ -4,11 +4,13 @@ import AddPreferrableSlotsComp from '../components/addPreferrableSlotsComp';
 import '../CSS/leaveRequest.css';
 import Axios from "axios";
 import authService from '../auth_service/auth_services';
-
+import config from '../config.json';
 
 function LeaveRequests() {
 
   const [shiftNames,setShiftNames]=useState([])
+
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
     fetchShiftnames();
@@ -20,7 +22,7 @@ function LeaveRequests() {
     ];
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
-    await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+    await Axios.get(APIEndpoint+"/doctor/getShiftNames",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"wardID":authService.getWardID().toString()}
     }).then((res) => {

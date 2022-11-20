@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import IndividualRoster from './individualRoster';
 import { ConstructionOutlined } from '@mui/icons-material';
 import authService from '../auth_service/auth_services';
+import config from '../config.json';
 
 function Doc_details(props) {
 
   const [doctorDetails,setDoctorDetails]=useState([]);
-  const [docId,setDocID]=useState()
+  const [docId,setDocID]=useState();
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
     fetchDoctorDetails();
@@ -19,7 +21,7 @@ function Doc_details(props) {
 
   const fetchDoctorDetails=async(id)=>{
     const doc_id=props.docID
-    await Axios.get("http://localhost:5000/user/admin/getDoctorDetails",{
+    await Axios.get(APIEndpoint+"/admin/getDoctorDetails",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"docID":+doc_id}
     }).then((res) => {

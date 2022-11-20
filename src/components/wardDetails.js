@@ -17,6 +17,7 @@ import doc_photo3 from '../assets/doc_illus3.jpg';
 import doc_photo4 from '../assets/doc_illus4.jpg';
 import doc_photo5 from '../assets/doc_illus5.jpg';
 import Carousel from 'react-bootstrap/Carousel';
+import config from '../config.json';
 
 function WardDetails(props) {
 
@@ -24,6 +25,7 @@ function WardDetails(props) {
   const [docDetails,setDocDetails]=useState([]);
   const [consultantDetails,setConsultantDetails]=useState([]);
   const [wardObj,setWardObj]=useState("6371a53b963e2cb4f2f65a0c");
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
     fetchWardDetails();
@@ -32,7 +34,7 @@ function WardDetails(props) {
   const fetchWardDetails=async()=>{
     const ward=props.wardID;
 
-    await Axios.get("http://localhost:5000/user/admin/getWardDetails",{
+    await Axios.get(APIEndpoint+"/admin/getWardDetails",{
             headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward}
         }).then((res) => {

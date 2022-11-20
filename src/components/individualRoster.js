@@ -15,8 +15,8 @@ import '../CSS/rosterIndividual.css';
 import { useState,useEffect } from 'react';
 import Axios from "axios";
 import authService from '../auth_service/auth_services';
-
-
+import config from '../config.json';
+import Loader from './Loader';
 
 function IndividualRoster(props){
   const currentDate = '2022-11-05';
@@ -24,10 +24,18 @@ function IndividualRoster(props){
   const [shiftNames,setShiftNames]=useState([]);
   const [finalShifts,setFinalShifts]=useState([]);
   const [current,setCurrent]=useState('')
+  const [isLoading,setIsLoading]=useState(true)
+
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
+
+      setIsLoading(true);
       fetchIndividualRoster();  
       
+      setTimeout(()=>{
+        setIsLoading(false)
+      },2000)
       //console.log(props.docID)  
   },[props.docID])
 
@@ -72,7 +80,7 @@ function IndividualRoster(props){
       
       //console.log(required_months); 
 
-      await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+      await Axios.get(APIEndpoint+"/doctor/getRosterObject",{
           headers: { "x-auth-token": authService.getUserToken() },
           params:{"month":monthNames[current_month],"year":current_year,"months":required_months,"wardID":props.wardID}
       },).then((res) => {
@@ -117,9 +125,11 @@ function IndividualRoster(props){
     </Appointments.Appointment>
   );
 
-
-  return (
-    <div data-testid="individual-roster" className='individual_roster_month_week'>
+if(isLoading){
+  return <Loader/>
+}else
+  {return (
+     <div data-testid="individual-roster" className='individual_roster_month_week'>
       <Paper className='calender_individual_month'>
         <Scheduler
           data={finalShifts}
@@ -135,9 +145,9 @@ function IndividualRoster(props){
         </Scheduler>
       </Paper>
     </div>  
-  );
+  );}
 
-}
+  }
 
 export default IndividualRoster;
 

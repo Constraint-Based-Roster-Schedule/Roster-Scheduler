@@ -1,0 +1,11 @@
+.loader-container{
+    margin-top: 10rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.spinner{
+    width: 22px;
+    height: 22px;
+}

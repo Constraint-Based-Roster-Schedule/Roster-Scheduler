@@ -8,7 +8,7 @@ import '../CSS/notifications.css';
 import { Link } from 'react-router-dom';
 import authService from "../auth_service/auth_services";
 import Axios from "axios";
-
+import config from '../config.json';
 
 function Notifications() {
   const [recNotifications,setRecNotifications]=useState([]);
@@ -18,6 +18,8 @@ function Notifications() {
   const [shiftNames,setShiftNames]=useState([])
   const [showReceivedReq, setShowReceivedReq]=useState(true);
   const [showSentReq,setShowSentReq]=useState(false);
+
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
     fetchNotifications();
@@ -34,7 +36,7 @@ function Notifications() {
     const year=new Date().getFullYear();
     const date=new Date().getDate();
     const doc_id=authService.getUserID().toString();
-    await Axios.get("http://localhost:5000/user/doctor/getOutNotif",{
+    await Axios.get(APIEndpoint+"/doctor/getOutNotif",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"docID":doc_id,"month":month,"year":year,"date":+date}
     }).then((res) => {
@@ -49,7 +51,7 @@ function Notifications() {
     ];
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
-    await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
+    await Axios.get(APIEndpoint+"/doctor/getShiftNames",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
     }).then((res) => {
@@ -59,7 +61,7 @@ function Notifications() {
   }
 
   const acceptRecNotify=async(i)=>{
-    await Axios.get("http://localhost:5000/user/doctor/acceptRequest",{
+    await Axios.get(APIEndpoint+"/doctor/acceptRequest",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
@@ -74,7 +76,7 @@ function Notifications() {
   } 
 
   const declineRecNotify=async(i)=>{
-    await Axios.get("http://localhost:5000/user/doctor/declineRequest",{
+    await Axios.get(APIEndpoint+"/doctor/declineRequest",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
@@ -88,7 +90,7 @@ function Notifications() {
   } 
 
   const closeSentNotify=async(i)=>{
-    await Axios.get("http://localhost:5000/user/doctor/closeNotification",{
+    await Axios.get(APIEndpoint+"/doctor/closeNotification",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"notifID":i}
     }).then((res) => {
