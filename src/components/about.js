@@ -46,10 +46,7 @@ const About = () => {
               <p></p>
               <h3>Gamunu Bandara</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aliquam, officiis impedit eveniet culpa odio officia velit,
-                corporis deserunt ad quas nemo recusandae possimus distinctio?
-                Dolorum ipsum voluptatum inventore nisi accusantium.
+                I am Gamunu Bandara from university of Moratuwa.
               </p>
               <Box
                 component="ul"
@@ -78,10 +75,7 @@ const About = () => {
             <div>
               <h3>Sakuni Bandara</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aliquam, officiis impedit eveniet culpa odio officia velit,
-                corporis deserunt ad quas nemo recusandae possimus distinctio?
-                Dolorum ipsum voluptatum inventore nisi accusantium.
+                I am Sakuni Bandara from university of Moratuwa.
               </p>
               <Box
                 component="ul"
@@ -109,10 +103,7 @@ const About = () => {
             <div>
               <h3>Harshani Bandara</h3>
               <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                Aliquam, officiis impedit eveniet culpa odio officia velit,
-                corporis deserunt ad quas nemo recusandae possimus distinctio?
-                Dolorum ipsum voluptatum inventore nisi accusantium.
+              I am Harshani Bandara from university of Moratuwa.
               </p>
               <Box
                 component="ul"
