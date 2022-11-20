@@ -83,13 +83,14 @@ function WardRosterComponent(props) {
             const myShifts=res.data.myShifts;
             const shiftNames=res.data.shiftNames
             console.log(shiftNames)
+            console.log(myShifts)
             setShiftNames(shiftNames)
             const data_to_send=[]
             myShifts.forEach((mon,month_index)=>{
                 mon.forEach((day,date)=>{
                     day.forEach((shift,index)=>{
                         const shift_string=shift.join(" , ")
-                        //console.log(shift_string)
+                        console.log(shiftNames[month_index][index][1])
                         const shift_detail={
                             title: shift_string,
                             startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[month_index][index][2][0][0], shiftNames[month_index][index][2][0][1]),
@@ -102,7 +103,7 @@ function WardRosterComponent(props) {
 
                 });
             })
-        
+        console.log(data_to_send)
         setFinalShifts(data_to_send);
         })
     }
