@@ -19,7 +19,4 @@ test("doctor profile testing", () => {
   expect(nameLabel).toBeInTheDocument();
   // expect(getByTestId("doctor-profile-title")).toHaveTextContent("Doctor Profile");
 });
-it("matches doctor profile snapshot", () => {
-  const tree = renderer.create(<DoctorProfile />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+

@@ -5,11 +5,11 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import ReactDom from "react-dom";
 // import 'jest-dom/extend-expect';
-afterEach(cleanup);
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDom.render(<Button></Button>, div);
-});
+// afterEach(cleanup);
+// it("renders without crashing", () => {
+//   const div = document.createElement("div");
+//   ReactDom.render(<Button></Button>, div);
+// });
 
 test("test", () => {
   expect(true).toBe(true);
@@ -20,9 +20,3 @@ it("renders element correctly", () => {
   expect(getByTestId("doctor-dashboard")).toHaveTextContent("Follow usFacebookLinkedInTwitterYour AccountSignupLoginHomeVisitContact usAbout usGallery© Copyright TechNext");
 });
 
-
-it('matches snapshot',()=>{
-  const tree=renderer.create(<DoctorDashboard></DoctorDashboard>).toJSON();
-  expect(tree).toMatchSnapshot();
-
-})
