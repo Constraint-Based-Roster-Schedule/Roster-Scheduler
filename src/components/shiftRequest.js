@@ -145,10 +145,8 @@ function ShiftRequest() {
     }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
         setIsDateWithValidate(false);
         setDateWithError(`Date should be a numeric value from 1 to ${numberOfDays}`);
-    }else if(wardShifts.length<enter_date){
-      setIsDateWithValidate(false);
-      setDateWithError(`Slot should be in ward shedule`);
-    }    
+    }
+   
     else{
         setIsDateWithValidate(true);
     }
@@ -162,17 +160,15 @@ function ShiftRequest() {
     }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
         setIsDateValidate(false);
         setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
-    }else if(myShifts.length>=enter_date){
-      console.log("hriii")
-      if(!myShifts[enter_date-1].includes(shift)){
+    }
+     
+    else if(!(myShifts[enter_date-1]).includes(+shift)){
         setIsDateValidate(false);
-        setDateError(`Slot should be in your shedule`);
-      }else{
-        setIsDateValidate(true);
+        setDateError(`Slot should be in your schedule`);
       }
-    } else if(myShifts.length<enter_date){
+    else if(myShifts.length<enter_date){
       setIsDateValidate(false);
-      setDateError(`Slot should be in your sheduler`);
+      setDateError(`Slot should be in your schedule`);
     }  
     else{
         setIsDateValidate(true);
