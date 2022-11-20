@@ -112,7 +112,7 @@ const AddWard = () => {
     console.log(!isWardIdValidate | !isWardNameValidate);
     if(isWardIdValidate && isWardNameValidate){
     await axios
-      .post(APIEndpoint+"/user/admin/addWard", data, {
+      .post(APIEndpoint+"/admin/addWard", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
