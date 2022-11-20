@@ -29,7 +29,7 @@
 .legend_roster{
     display: flex;
     flex-direction: row;
-    margin-top: 0.5rem;
+    margin-top: -1rem;
 }
 
 .isMyRoster-button{
@@ -43,23 +43,27 @@
 }
 
 .legend-color{
-    width: 1rem;
-    height: 1rem;
+    width: 0.8rem;
+    height: 0.8rem;
     border-radius: 1rem;
-    margin-right: 0.7rem;
+    margin-right: 0.5rem;
     position: relative;
     top: 0.3rem;
 }
 .legend-container{
     display: flex;
     flex-direction: row;
-    margin-right: 1.5rem;
+}
+
+.legend-text{
+    font-size: 0.85rem;
 }
 
 @media screen and (max-width: 1100px){
     .requestButton-filter{
         flex-direction: column;
         justify-content: center;
+
     }
     .legend_roster {
         align-self: center;
@@ -71,7 +75,20 @@
         align-self: center;
         margin-top: 0.5rem;
     }
-    
+
+    .legend_roster {
+        margin-bottom: -2rem;
+    }
+    .select-rosterType {
+        margin-top: 2.5rem;
+    }
+
+}
+
+@media screen and (max-width: 800px){
+    .main-legend-container{
+        display: none;
+    }
 }
 
 @media screen and (max-width: 700px){

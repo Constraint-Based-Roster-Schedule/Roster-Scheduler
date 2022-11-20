@@ -20,7 +20,8 @@ const ConsultantWardRoster = () => {
   const [open,setOpen] = useState(false);
   const [searched,setSearched]=useState(2);
   const ITEM_HEIGHT = 120;
-  const [isWardRoster,setIsWardRoster]=useState(true)
+  const [isWardRoster,setIsWardRoster]=useState(true);
+  const [months,setMonths]=useState([])
 
   useEffect(()=>{
       fetchShiftnames();
@@ -46,25 +47,33 @@ const ConsultantWardRoster = () => {
         setOpen(false)
     };
 
-  const fetchShiftnames=async()=>{
-  const monthNames = ["January", "February", "March", "April", "May", "June",
-    "July", "August", "September", "October", "November", "December"
-  ];
-  const month=monthNames[new Date().getMonth()].toLowerCase();
-  const year=new Date().getFullYear();
-  console.log(authService.getWardID())
-  await Axios.get("http://localhost:5000/user/consultant/getShiftNames",{
-        headers: { "x-auth-token": authService.getUserToken() },
-        params:{"month":month,"year":year,"wardID":"6371a53b963e2cb4f2f65a0c"}
-    }).then((res) => {
+    const fetchShiftnames=async()=>{
+    const monthNames = ["january", "february", "march", "april", "may", "june",
+                            "july", "august", "september", "october", "november", "december"
+                            ];
+        const current_month=new Date().getMonth();
+        const current_year=new Date().getFullYear();
+        const required_months=[]
+        required_months.push(monthNames[current_month-2]);
+        required_months.push(monthNames[current_month-1]);
+        required_months.push(monthNames[current_month]);
+        required_months.push(monthNames[current_month+1]);
+        setMonths(required_months); 
+        console.log(authService.getWardID().toString())
+        await Axios.get("http://localhost:5000/user/doctor/getShiftNamesForRoster",{
+            params:{"month":monthNames[current_month],"year":current_year,"wardID":authService.getWardID().toString(),"months":required_months}
+        }).then((res) => {
 
-        setShiftNames(res.data.shiftNames)
-    })
-  }
+            setShiftNames(res.data.shiftNames)
+        })
+    }
+
+
+
   const getWardName=async()=>{
       await Axios.get("http://localhost:5000/user/consultant/getWardNamebyID",{
         headers: { "x-auth-token": authService.getUserToken() },
-        params:{"wardID":"6371a53b963e2cb4f2f65a0c"}
+        params:{"wardID":authService.getWardID().toString()}
       }).then((res) => {
 
           setWardName(res.data.wardNumber)
@@ -72,10 +81,9 @@ const ConsultantWardRoster = () => {
   }
 
     const fetchWardDoctors=async()=>{
-        const ward_id=authService.getWardID();
         await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
             headers: { "x-auth-token": authService.getUserToken() },
-            params:{"wardID":ward_id}
+            params:{"wardID":authService.getWardID().toString()}
         }).then((res) => {
             setWardDoctors(res.data.doctorDetails);
         })
@@ -88,16 +96,22 @@ const ConsultantWardRoster = () => {
         <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem"}}>Roster Schedule of ward number {wardName}</h1>
         <div className='ward-requestButton-filter' >                
             <Link className='ward-requestButton' to='../shiftRequest'><Button variant="primary" style={{backgroundColor:"rgb(205, 37, 33)" }}>Request Shift Exchange</Button></Link>             
-            <div className='legend_roster-ward'>
-                {
-                    shiftNames.map((shift)=>{
-                        return <div className='legend-container-ward'>
-                            <Box className='legend-color-ward' sx={{backgroundColor:`${shift[1]}`}}></Box>
-                            <p>{shift[0]}</p>
+            <div className='main-legend-container'>
+                    {shiftNames.map((monthShiftNames,index)=>{
+                        return <div className='legend_roster'>
+                            <p style={{marginRight:"2rem"}} className='legend-text'><b>{months[index]} : </b></p>
+                            {
+                                monthShiftNames.map((shift)=>{
+                                    return <div className='legend-container'>
+                                        <Box className='legend-color' sx={{backgroundColor:`${shift[1]}`}}></Box>
+                                        <p className='legend-text' style={{marginRight:"1rem"}}>{shift[0]}</p>
+                                    </div>
+                                })
+                            }
                         </div>
-                    })
-                }
-            </div>
+                    })}
+
+                </div>
         </div>
         <div className='select-rosterType'>
           <Button variant="primary" className='isMyRoster-button' style={{height: "3rem" }} onClick={()=>setIsWardRoster(!isWardRoster)}>{isWardRoster ? "Search individual rosters":"Show ward roster"}</Button>
