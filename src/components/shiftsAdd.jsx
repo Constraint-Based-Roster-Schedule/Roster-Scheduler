@@ -148,7 +148,7 @@ export const ShiftsAdd = () => {
         alert(res.data.msg);
         if (res.data.success) {
           window.location.reload(false);
-          navigate("../shiftsAdd");
+          // navigate("../shiftsAdd");
         }
       });
 
