@@ -99,6 +99,7 @@ function ShiftRequest() {
     }).then((res) => {
 
       setShiftNames(res.data.shiftNames)
+
     })
   }
 
