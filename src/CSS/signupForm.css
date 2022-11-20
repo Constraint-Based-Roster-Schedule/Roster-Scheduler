@@ -1,4 +1,6 @@
-
+section{
+    min-height: 67vh;
+}
 .container{
     display: flex;
     flex-direction: row;

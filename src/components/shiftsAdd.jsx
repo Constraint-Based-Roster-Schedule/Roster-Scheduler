@@ -227,7 +227,7 @@ export const ShiftsAdd = () => {
       //     0: endingTime1,
       //     1: endingTime2,
       //   },
-      details.push([dumyshiftdetails[li[i]],dumyshiftdetails[li[i + 1]],[startingTime1,startingTime2],[endingTime1,endingTime2]])
+      details.push([dumyshiftdetails[li[i]],dumyshiftdetails[li[i + 1]],[[startingTime1,startingTime2],[endingTime1,endingTime2]]])
       // };
       // details.(i)={
       //         0:dumyshiftdetails.{name},
