@@ -105,6 +105,7 @@ function WardRosterComponent(props) {
             })
         console.log(data_to_send)
         setFinalShifts(data_to_send);
+        console.log(data_to_send)
         })
     }
 
