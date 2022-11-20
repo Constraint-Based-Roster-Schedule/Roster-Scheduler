@@ -25,7 +25,7 @@ function ShiftRequest() {
   const [showShiftList,setShowShiftList]=useState(false);
   const [wardDoctors,setWardDoctors]=useState([])
   const [myShifts,setMyshifts]=useState({});
-
+  const [wardShifts,setWardShifts]=useState([])
   const [shiftNames,setShiftNames]=useState([])
 
   const [isDateValidate,setIsDateValidate]=useState(true);
@@ -72,6 +72,8 @@ function ShiftRequest() {
       params:{"month":month,"year":year,"wardID":ward_id,"intID":int_id}
     }).then((res) => {
       setMyshifts(res.data.myShifts);
+      setWardShifts(res.data.wardShifts)
+      //console.log(res.data.wardShifts);
     })
   }
 
@@ -113,7 +115,7 @@ function ShiftRequest() {
     const month=monthNames[new Date().getMonth()].toLowerCase();
     const year=new Date().getFullYear();
     const shiftExchangeData={"currentDate":+date,"month": month,"year":year,"currentShift":shift,"requestedDate":+datewith,"requestedShift":shiftwith,"toID":default_toID,"fromID":myId,"requestState":1}
-    console.log(shiftExchangeData);
+    //console.log(shiftExchangeData);
     await Axios.post("http://localhost:5000/user/doctor/putRequest", shiftExchangeData,{
       headers: { "x-auth-token": authService.getUserToken() }
     }).then((res) => {
@@ -138,7 +140,11 @@ function ShiftRequest() {
     }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
         setIsDateWithValidate(false);
         setDateWithError(`Date should be a numeric value from 1 to ${numberOfDays}`);
-    }else{
+    }else if(wardShifts.length<enter_date){
+      setIsDateWithValidate(false);
+      setDateWithError(`Slot should be in ward shedule`);
+    }    
+    else{
         setIsDateWithValidate(true);
     }
   }
@@ -151,10 +157,23 @@ function ShiftRequest() {
     }else if((enter_date>numberOfDays || enter_date<=0) && enter_date.length>0 ){
         setIsDateValidate(false);
         setDateError(`Date should be a numeric value from 1 to ${numberOfDays}`);
-    }else{
+    }else if(myShifts.length>=enter_date){
+      console.log("hriii")
+      if(!myShifts[enter_date-1].includes(shift)){
+        setIsDateValidate(false);
+        setDateError(`Slot should be in your shedule`);
+      }else{
+        setIsDateValidate(true);
+      }
+    } else if(myShifts.length<enter_date){
+      setIsDateValidate(false);
+      setDateError(`Slot should be in your sheduler`);
+    }  
+    else{
         setIsDateValidate(true);
     }
   } 
+
 
   function renderDoctorList(wardDoctors){
     const rows=[]
