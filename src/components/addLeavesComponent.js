@@ -17,7 +17,7 @@ import Axios from "axios";
 import authService from "../auth_service/auth_services";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
-
+import config from '../config.json';
 
 function AddLeavesComponent(props) {
   const [leaveRequests,setLeaveRequests]=useState([]);
@@ -31,6 +31,8 @@ function AddLeavesComponent(props) {
 
   const numberOfDays=31
   const [open, setOpen] = React.useState(false);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -94,7 +96,7 @@ function AddLeavesComponent(props) {
     const doc_id=authService.getUserID().toString();
     const wardID=authService.getWardID().toString();
 
-    await Axios.get("http://localhost:5000/user/doctor/submitLeaveRequest", {
+    await Axios.get(APIEndpoint+"/doctor/submitLeaveRequest", {
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {

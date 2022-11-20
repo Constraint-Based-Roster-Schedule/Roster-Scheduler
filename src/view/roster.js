@@ -9,7 +9,7 @@ import Box from '@mui/material/Box';
 import authService from '../auth_service/auth_services';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-
+import config from '../config.json';
 
 
 function RosterIndividual() {
@@ -22,7 +22,9 @@ function RosterIndividual() {
     const [wardDoctors,setWardDoctors]=useState([]);
     const [anchorEl, setAnchorEl] = useState(false);
     const [open,setOpen] = useState(false);
-    const [months,setMonths]=useState([])
+    const [months,setMonths]=useState([]);
+
+    const APIEndpoint=config.DOMAIN_NAME+"/user";
 
     useEffect(()=>{
         fetchShiftnames();
@@ -61,7 +63,7 @@ function RosterIndividual() {
         required_months.push(monthNames[current_month+1]);
         setMonths(required_months);                           
 
-        await Axios.get("http://localhost:5000/user/doctor/getShiftNamesForRoster",{
+        await Axios.get(APIEndpoint+"/doctor/getShiftNamesForRoster",{
             headers: { "x-auth-token": authService.getUserToken() },
             params:{"month":monthNames[current_month],"year":current_year,"wardID":authService.getWardID().toString(),"months":required_months}
         }).then((res) => {

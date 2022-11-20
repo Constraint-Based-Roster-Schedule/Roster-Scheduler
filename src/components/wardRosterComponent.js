@@ -17,7 +17,8 @@ import '../CSS/wardRosterComponent.css';
 import {appointments} from './data';
 import Axios from "axios";
 import authService from '../auth_service/auth_services';
-
+import config from '../config.json';
+import Loader from './Loader';
 
 function WardRosterComponent(props) {
     const [windowSize,setWindowSize]=useState(getWindowSize());
@@ -25,6 +26,9 @@ function WardRosterComponent(props) {
     const [current,setCurrent]=useState('')
     const [finalShifts,setFinalShifts]=useState([]);
     const currentDate = '2022-11-05';
+    const [isLoading,setIsLoading]=useState(true);
+
+    const APIEndpoint=config.DOMAIN_NAME+"/user";
 
     useEffect(() => {
         function handleWindowResize() {
@@ -40,8 +44,14 @@ function WardRosterComponent(props) {
     },);
 
     useEffect(()=>{
+
+        setIsLoading(true);
         fetchIndividualRoster();
         getCurrentDate();
+
+        setTimeout(() => {
+            setIsLoading(false)
+        }, 2000);
     },[props.wardID])
 
     const getCurrentDate=()=>{
@@ -76,7 +86,7 @@ function WardRosterComponent(props) {
         
         console.log(required_months); 
 
-        await Axios.get("http://localhost:5000/user/doctor/getRosterObject",{
+        await Axios.get(APIEndpoint+"/doctor/getRosterObject",{
             headers: { "x-auth-token": authService.getUserToken() },
             params:{"month":monthNames[current_month],"year":current_year,"months":required_months,"wardID":props.wardID}
         }).then((res) => {
@@ -129,8 +139,10 @@ function WardRosterComponent(props) {
         return {innerWidth, innerHeight};
     }
 
-
-    return (
+    if(isLoading){
+        return <Loader/>
+    }else{
+        return (
         <div data-testid="ward-roster" className='individual_roster_month_week'>
             <Paper className='calender_individual_month'>
                 <Scheduler data={finalShifts} height={660} >
@@ -151,7 +163,7 @@ function WardRosterComponent(props) {
                 </Scheduler>
             </Paper>
         </div>
-    )
+    )}
 }
 
 export default WardRosterComponent;

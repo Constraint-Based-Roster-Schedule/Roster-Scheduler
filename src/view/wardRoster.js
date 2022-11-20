@@ -8,12 +8,14 @@ import WardRosterComponent from '../components/wardRosterComponent';
 import Box from '@mui/material/Box';
 import Axios from "axios";
 import authService from '../auth_service/auth_services';
+import config from '../config.json';
 
 function  WardRoster() {
     const [shiftNames,setShiftNames]=useState([]);
     const [wardName,setWardName]=useState("");
     const [months,setMonths]=useState([])
 
+    const APIEndpoint=config.DOMAIN_NAME+"/user";
 
     useEffect(()=>{
         fetchShiftnames();
@@ -34,7 +36,7 @@ function  WardRoster() {
         required_months.push(monthNames[current_month+1]);
         setMonths(required_months); 
         console.log(authService.getWardID().toString())
-        await Axios.get("http://localhost:5000/user/doctor/getShiftNamesForRoster",{
+        await Axios.get(APIEndpoint+"/doctor/getShiftNamesForRoster",{
             params:{"month":monthNames[current_month],"year":current_year,"wardID":authService.getWardID().toString(),"months":required_months}
         }).then((res) => {
 
@@ -43,7 +45,7 @@ function  WardRoster() {
     }
 
     const getWardName=async()=>{
-        await Axios.get("http://localhost:5000/user/doctor/getWardNamebyID",{
+        await Axios.get(APIEndpoint+"/doctor/getWardNamebyID",{
             params:{"wardID":authService.getWardID().toString()}
         }).then((res) => {
 

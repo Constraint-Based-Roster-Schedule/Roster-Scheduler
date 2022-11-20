@@ -17,6 +17,7 @@ import Axios from "axios";
 import authService from "../auth_service/auth_services";
 import Snackbar from '@mui/material/Snackbar';
 import MuiAlert from '@mui/material/Alert';
+import config from '../config.json';
 
 function AddPreferrableSlotsComp(props) {
   const [preferrableSlotRequests,setpreferrableSlotRequests]=useState([]);
@@ -30,6 +31,8 @@ function AddPreferrableSlotsComp(props) {
 
   const numberOfDays=31
   const [open, setOpen] = React.useState(false);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const Alert = React.forwardRef(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
   });
@@ -90,7 +93,7 @@ function AddPreferrableSlotsComp(props) {
     const doc_id=authService.getUserID().toString();
     const wardID=authService.getWardID().toString();
     //console.log(month)
-    await Axios.get("http://localhost:5000/user/doctor/submitPrefferableSlots", {
+    await Axios.get(APIEndpoint+"/doctor/submitPrefferableSlots", {
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"prefferableSlots":preferrableSlotRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {

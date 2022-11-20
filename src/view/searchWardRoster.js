@@ -15,6 +15,7 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import authService from '../auth_service/auth_services';
+import config from '../config.json';
 
 function SearchWardRoster() {
 
@@ -29,7 +30,7 @@ function SearchWardRoster() {
   const [open,setOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(false)
   const [WardAnchorEl, setWardAnchorEl] = useState(false)
-
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
 
   useEffect(()=>{
     fetchAvailableWards();
@@ -37,7 +38,7 @@ function SearchWardRoster() {
   },[])
 
   const fetchAvailableWards=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAvailableWards",{
+    await Axios.get(APIEndpoint+"/admin/getAvailableWards",{
       headers: { "x-auth-token": authService.getUserToken() },
     }).then((res) => {
           setWards(res.data.availableWards);
@@ -45,7 +46,7 @@ function SearchWardRoster() {
   }
 
   const fetchAllDoctors=async()=>{
-    await Axios.get("http://localhost:5000/user/admin/getAllDoctors",{
+    await Axios.get(APIEndpoint+"/admin/getAllDoctors",{
       headers: { "x-auth-token": authService.getUserToken() },
     }).then((res) => {
           setAllDoctors(res.data.allDoctors);
