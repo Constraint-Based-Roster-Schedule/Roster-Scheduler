@@ -1,6 +1,6 @@
 import Axios from "axios";
 import authService from "../../auth_service/auth_services";
-import config from '../config.json';
+import config from '../../config.json';
 function signup(user) {
   const APIEndpoint=config.DOMAIN_NAME;
   return Axios({
