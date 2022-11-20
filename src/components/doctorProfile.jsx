@@ -25,7 +25,7 @@ import {
 } from "mdb-react-ui-kit";
 import { border } from "@mui/system";
 import jwtDecode from "jwt-decode";
-
+import config from '../config.json';
 export default function DocotrProfile() {
   const [doctor1, setDoctor1] = useState({});
   const [name, setName] = useState("");
@@ -41,6 +41,8 @@ export default function DocotrProfile() {
   const [validateNewPasswordError, setValidateNewPasswordError] = useState();
   const [changed, setChanged] = useState(false);
   console.log(doctor1);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   // useEffect
 
   const doctor = {
@@ -58,6 +60,7 @@ export default function DocotrProfile() {
 
   const getUserDetails = async (e) => {
     console.log(jwtDecode(localStorage.getItem("user")));
+   
     // e.preventDefault();
     let user = null;
     user = jwtDecode(localStorage.getItem("user"));
@@ -65,7 +68,7 @@ export default function DocotrProfile() {
     const data = { userName: user.userName, type: user.userType };
     console.log(authService.getUserToken);
     await axios
-      .post("http://localhost:5000/user/doctor/userDetails", data, {
+      .post(APIEndpoint+"/doctor/userDetails", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
@@ -125,7 +128,7 @@ export default function DocotrProfile() {
         email: email,
       };
       await axios
-        .post("http://localhost:5000/user/doctor/changePassword", data, {
+        .post(APIEndpoint+"/doctor/changePassword", data, {
           headers: { "x-auth-token": authService.getUserToken() },
         })
         .then((res) => {

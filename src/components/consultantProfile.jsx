@@ -26,7 +26,7 @@ import {
   MDBInput,
 } from "mdb-react-ui-kit";
 import { Construction } from "@mui/icons-material";
-
+import config from '../config.json';
 export const ConsultantProfile = () => {
   const [consultant1, setConsultant1] = useState({});
   const [name, setName] = useState("");
@@ -43,8 +43,11 @@ export const ConsultantProfile = () => {
   const [validateNewPasswordError, setValidateNewPasswordError] = useState();
   const [changed, setChanged] = useState(false);
   console.log(consultant1);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const getUserDetails = async (e) => {
     console.log(jwtDecode(localStorage.getItem("user")));
+   
     // e.preventDefault();
     let user = null;
     user = jwtDecode(localStorage.getItem("user"));
@@ -52,7 +55,7 @@ export const ConsultantProfile = () => {
     const data = { userName: user.userName, type: user.userType };
 
     await axios
-      .post("http://localhost:5000/user/consultant/userDetails", data, {
+      .post(APIEndpoint+"/consultant/userDetails", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
@@ -105,10 +108,11 @@ export const ConsultantProfile = () => {
   };
   const handleSubmit = async (e) => {
     console.log("in the handle submit");
+   
     e.preventDefault();
     if (isValidNewPassword) {
       const data = {currentPassword:currentPassword,newPassword:newPassword,email:email};
-      await axios.post("http://localhost:5000/user/consultant/changePassword", data, {
+      await axios.post(APIEndpoint+"/consultant/changePassword", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res)=>{

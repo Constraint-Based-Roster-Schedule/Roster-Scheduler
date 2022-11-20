@@ -17,6 +17,7 @@ import Alert from "@mui/material/Alert";
 import { useNavigate } from "react-router-dom";
 import { Message } from "@mui/icons-material";
 import { margin } from "@mui/system";
+import config from '../config.json';
 const AddWard = () => {
   const [wardNumber, setWardNumber] = useState();
   const [wardName, setWardName] = useState("");
@@ -29,9 +30,11 @@ const AddWard = () => {
   const [nameValidateError, setNameValidateError] = useState("");
   const [isWardIdValidate, setIsWardIdValidate] = useState(true);
   const [idValidateError, setIdValidateError] = useState("");
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const getWardNames = async (e) => {
     await axios
-      .post("http://localhost:5000/user/admin/getWardNumbersNames", {
+      .post(APIEndpoint+"/admin/getWardNumbersNames", {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
@@ -97,7 +100,6 @@ const AddWard = () => {
   };
   const handleSubmit = async (e) => {
     // e.preventDefault(); //to avoid the refresh the page when submit
-
     setShiftNames(getShiftNameInput(shiftCount));
     const data = {
       wardNumber: wardNumber,
@@ -110,7 +112,7 @@ const AddWard = () => {
     console.log(!isWardIdValidate | !isWardNameValidate);
     if(isWardIdValidate && isWardNameValidate){
     await axios
-      .post("http://localhost:5000/user/admin/addWard", data, {
+      .post(APIEndpoint+"/user/admin/addWard", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {

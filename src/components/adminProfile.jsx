@@ -26,7 +26,7 @@ import {
   MDBListGroupItem
 } from 'mdb-react-ui-kit';
 import { Telegram, ThreeK } from '@mui/icons-material';
-
+import config from '../config.json';
 
 export default function AdminProfile() {
   const [admin1, setAdmin1] = useState({});
@@ -41,6 +41,8 @@ export default function AdminProfile() {
   const [validateNewPasswordError, setValidateNewPasswordError] = useState();
   const [changed, setChanged] = useState(false);
   console.log(admin1);
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
+
   const getUserDetails = async (e) => {
     console.log(jwtDecode(localStorage.getItem("user")));
     // e.preventDefault();
@@ -50,7 +52,7 @@ export default function AdminProfile() {
     const data = { userName: user.userName, type: user.userType };
 
     await axios
-      .post("http://localhost:5000/user/admin/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
+      .post(APIEndpoint+"/admin/userDetails", data,{headers: { "x-auth-token": authService.getUserToken() }})
       .then((res) => {
         console.log("AAAAAAAAAAAaaaaaaaaaaa");
         console.log(res.data.fullName);
@@ -103,7 +105,7 @@ export default function AdminProfile() {
     e.preventDefault();
     if (isValidNewPassword) {
       const data = {currentPassword:currentPassword,newPassword:newPassword,email:email};
-      await axios.post("http://localhost:5000/user/admin/changePassword", data, {
+      await axios.post(APIEndpoint+"/admin/changePassword", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res)=>{

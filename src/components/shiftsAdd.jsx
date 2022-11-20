@@ -14,7 +14,7 @@ import authService from "../auth_service/auth_services";
 import { useEffect } from "react";
 import { Refresh } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
-
+import config from '../config.json';
 export const ShiftsAdd = () => {
   let [shiftArrayData, setShiftArrayData] = useState([]);
   const [shiftArray, setShiftArray] = useState([]);
@@ -26,6 +26,7 @@ export const ShiftsAdd = () => {
   console.log(wardID)
   const d = new Date();
   const navigate = useNavigate();
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
   const months = [
     "january",
     "february",
@@ -73,7 +74,7 @@ export const ShiftsAdd = () => {
   const getNumberOfShift = () => {
     let data = { wardId: wardID };
     axios
-      .post("http://localhost:5000/user/consultant/getShiftCount", data, {
+      .post(APIEndpoint+"/consultant/getShiftCount", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
@@ -133,7 +134,7 @@ export const ShiftsAdd = () => {
     };
     axios
       .post(
-        "http://localhost:5000/user/consultant/addShift",
+        APIEndpoint+"/consultant/addShift",
         {
           month: month,
           wardID: wardID,

@@ -74,7 +74,7 @@ function RosterIndividual() {
 
     const fetchWardDoctors=async()=>{
         const ward_id=authService.getWardID();
-        await Axios.get("http://localhost:5000/user/doctor/getWardDoctors",{
+        await Axios.get(APIEndpoint+"/doctor/getWardDoctors",{
             headers: { "x-auth-token": authService.getUserToken() },
             params:{"wardID":ward_id}
         }).then((res) => {

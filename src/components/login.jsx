@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { Alert } from "@mui/material";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import config from '../config.json';
 // import Footer from './footer.jsx'
 function Login() {
   // const handlesubmit-(event)->{
@@ -17,6 +18,7 @@ function Login() {
   const [password, setPassword] = useState("");
   const [type, setType] = useState("");
   const navigate=useNavigate();
+  const APIEndpoint=config.DOMAIN_NAME;
   const handleChange = (e) => {
     const value = e.target.value;
     const name = e.target.name;
@@ -30,6 +32,7 @@ function Login() {
     }
     
   };
+  
   //handle the submit and  send to the following page according to the user type
   //if doctor-user type 1
   //admin user type 0
@@ -38,7 +41,7 @@ function Login() {
     e.preventDefault();
     const data = { emailAddress: email, type: type, password: password };
 
-    await Axios.post("http://localhost:5000/auth/login", data).then((res) => {
+    await Axios.post(APIEndpoint+"/auth/login", data).then((res) => {
       console.log(res.data.msg + "AAAAAAAAAAAa");
 
       if (!res.data.success) {

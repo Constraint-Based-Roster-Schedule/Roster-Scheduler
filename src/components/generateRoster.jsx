@@ -18,6 +18,7 @@ import { useNavigate } from "react-router-dom";
 import { display } from "@mui/system";
 import { Padding } from "@mui/icons-material";
 import { Button } from "bootstrap";
+import config from '../config.json';  
 export const GenarateRoster = () => {
   const [numOfDoctors, setNumOfDoctors] = useState();
   const [numOfMinimumDoctors, setNumOfMinimumDoctors] = useState();
@@ -40,6 +41,7 @@ export const GenarateRoster = () => {
   const [roster, setRoster] = useState();
   const [shiftNames, setShiftNames] = useState();
   const [month1, setMonth1] = useState();
+  const APIEndpoint=config.DOMAIN_NAME+"/user";
   const monthNames = [
     "january",
     "february",
@@ -59,7 +61,7 @@ export const GenarateRoster = () => {
     let number = 0;
     let data = { wardID: wardID };
     await Axios.post(
-      "http://localhost:5000/user/consultant/doctorsCount",
+      APIEndpoint+"/consultant/doctorsCount",
       data,
       { headers: { "x-auth-token": authService.getUserToken() } }
     ).then((res) => {
@@ -71,7 +73,7 @@ export const GenarateRoster = () => {
   const getShiftNames = async () => {
     let data = { wardID: wardID, month: month, year: year };
     await axios
-      .get("http://localhost:5000/user/consultant/getShiftNames", {
+      .get(APIEndpoint+"/consultant/getShiftNames", {
         headers: { "x-auth-token": authService.getUserToken() },
         params: {
           wardID: wardID,
@@ -185,7 +187,7 @@ export const GenarateRoster = () => {
     getShiftNames();
     axios
       .post(
-        "http://localhost:5000/user/consultant/generateRoster",
+        APIEndpoint+"/consultant/generateRoster",
         rosterConstraints,
         { headers: { "x-auth-token": authService.getUserToken() } }
       )
@@ -245,7 +247,7 @@ export const GenarateRoster = () => {
     let data = { wardId: wardID };
     console.log(data);
     axios
-      .post("http://localhost:5000/user/consultant/getShiftCount", data, {
+      .post(APIEndpoint+"/consultant/getShiftCount", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
@@ -264,7 +266,7 @@ export const GenarateRoster = () => {
   const saveRoster = async () => {
     let data = { wardID: wardID, month: month1, year: year, roster: roster };
     axios
-      .post("http://localhost:5000/user/consultant/saveRoster", data, {
+      .post(APIEndpoint+"/consultant/saveRoster", data, {
         headers: { "x-auth-token": authService.getUserToken() },
       })
       .then((res) => {
