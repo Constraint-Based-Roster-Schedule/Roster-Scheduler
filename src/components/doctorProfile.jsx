@@ -347,7 +347,7 @@ export default function DocotrProfile() {
                       )}
                     </MDBCol>
                     <MDBRow>
-                      <MDBBtn type="submit">Change Password</MDBBtn>
+                      <button  class="btn btn-primary" type="submit">Change Password</button>
                     </MDBRow>
                   </form>
                 </MDBRow>

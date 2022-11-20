@@ -252,12 +252,12 @@ const AddWard = () => {
               </MDBRow>
               <MDBRow style={{ alignItems: "center", display: "flex" }}>
                 <MDBCol>
-                  <MDBBtn type="button" onClick={handleSubmit}>Add ward</MDBBtn>
+                  <button  class="btn btn-primary" type="button" onClick={handleSubmit}>Add ward</button>
                 </MDBCol>
                 <MDBCol>
-                  <MDBBtn type="submit" onSubmit={clearForm}>
+                  <button  class="btn btn-primary" type="submit" onSubmit={clearForm}>
                     Clear form
-                  </MDBBtn>
+                  </button>
                 </MDBCol>
               </MDBRow>
             </form>

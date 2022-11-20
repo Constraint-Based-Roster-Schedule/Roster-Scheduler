@@ -332,7 +332,7 @@ export const ShiftsAdd = () => {
             ))}
           </MDBRow>
           <MDBRow>
-            <MDBBtn type="submit">add shift</MDBBtn>
+            <button  class="btn btn-primary" type="submit">add shift</button>
           </MDBRow>
         </form>
       </MDBContainer>

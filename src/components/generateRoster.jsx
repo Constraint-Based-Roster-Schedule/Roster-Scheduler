@@ -17,6 +17,7 @@ import "../CSS/generateRoster.css";
 import { useNavigate } from "react-router-dom";
 import { display } from "@mui/system";
 import { Padding } from "@mui/icons-material";
+import { Button } from "bootstrap";
 export const GenarateRoster = () => {
   const [numOfDoctors, setNumOfDoctors] = useState();
   const [numOfMinimumDoctors, setNumOfMinimumDoctors] = useState();
@@ -442,12 +443,12 @@ export const GenarateRoster = () => {
             }}
           >
             <MDBCol>
-              <MDBBtn type="submit">Generate</MDBBtn>
+              <button  class="btn btn-primary" type="submit">Generate</button>
             </MDBCol>
             <MDBCol>
-              <MDBBtn type="button" onClick={refresh}>
+              <button  class="btn btn-primary" onClick={refresh}>
                 Refresh
-              </MDBBtn>
+              </button>
             </MDBCol>
           </MDBRow>
         </form>
