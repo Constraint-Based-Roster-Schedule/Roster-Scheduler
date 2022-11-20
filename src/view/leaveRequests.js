@@ -22,7 +22,7 @@ function LeaveRequests() {
     const year=new Date().getFullYear();
     await Axios.get("http://localhost:5000/user/doctor/getShiftNames",{
       headers: { "x-auth-token": authService.getUserToken() },
-      params:{"month":month,"year":year,"wardID":authService.getWardID().toString()}
+      params:{"wardID":authService.getWardID().toString()}
     }).then((res) => {
 
       setShiftNames(res.data.shiftNames)
