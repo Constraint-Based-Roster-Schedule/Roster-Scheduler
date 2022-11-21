@@ -1,70 +1,48 @@
-# Getting Started with Create React App
+# Constrained Based Roster Scheduler - Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Used technologies
 
-## Available Scripts
+  React is the main Framework used to implement front-end which use JavaScript.\
+  CSS were used for styling purposes.\
+  Material UI were used to import build in components.\
+  React Bootstrap used to adjust CSS.
 
-In the project directory, you can run:
 
-### `npm start`
+## Main pages and functions
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+  #### Login page
+  #### Add user page
+  #### View Individual roster page 
+    This page was implemented three different ways for the Admin, Consultants and doctors
+  #### View ward roster page
+    This page was implemented three different ways for the Admin, Consultants and doctors
+  #### Generate Roster Page
+  #### Request for shift exchanges page
+  #### Page for requesting prefferable work slots and leave requests
+  #### Add ward page
+  #### Add shifts for a ward page
+    Many components were imported in these pages
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
-### `npm test`
+## Authentication from front-end
+  If a person tries to access a unauthorized page, front-end validation will check for the user token and prevent such entries.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Start with the app
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Clone the reporsitory from https://github.com/Constraint-Based-Roster-Schedule/Roster-Scheduler to a suitable location.\
+Run `npm -install`\
+Run `npm start`
+  
+  
+## Used testing tools 
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+  Jest were used to implement unit testing
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-### `npm run eject`
+## instructions for Developers
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+  Run `npm -i` before developing
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)

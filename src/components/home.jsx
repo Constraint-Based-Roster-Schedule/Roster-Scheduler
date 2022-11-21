@@ -17,8 +17,15 @@ const HomePage = () => {
            
          </div>
          <div className="roster-description">
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolores numquam ipsa quia impedit. Deleniti magni necessitatibus obcaecati quo voluptatem quae, voluptate ipsam fuga dolore iste repudiandae facilis soluta cupiditate eos.
-         </div>
+         We are the MDN hospital to ensure your health with providing good services for our patients.
+              we provide your roster near to your hand.
+              You can easily requeat the leaves, preferable work slots, and shift exchange easyly and quickly.
+              Save your time.
+              <br></br>
+              Be safe...............
+              <br></br>
+              Be calm...............
+          </div>
          <div className="button-container1">
           <button><Link to='/about'>View More</Link></button>
          </div>

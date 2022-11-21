@@ -22,7 +22,7 @@
 }
 
 .line-des p{
-    font-size: 1.3vw;
+    font-size: 2vw;
     font-weight: bold;
     color:white;
     line-height: 0.5vw;
@@ -49,7 +49,7 @@
     background-color: rgb(6, 44, 102);
     /* border-style: none; */
     border: 1px solid white;
-    margin-top: 5vw;
+    margin-top: 20px;
     color: white;
     width: 15vw;
     height: 3vw;
@@ -107,17 +107,22 @@
 
 
 @media screen and (max-width: 900px) {
+    .main-home{
+        margin-top: 50px;
+    }
     .home-container{
         height: 75vh;
         width:70%;
         /* background-color: rgb(34, 177, 199); */
         /* background: linear-gradient(to right bottom,rgba(255,255,255,0.7),rgba(10, 50, 182, 0.4));  */
         border-radius: 1rem;
-        margin: 2rem auto;
+        margin: 100 auto;
         box-shadow:0.5 rem;
         display: inline;
         justify-content: center;
         align-items: center;
+        margin-top: 100px;
+        
         
     
     }
@@ -128,5 +133,12 @@
         /* justify-content: center; */
         /* box-shadow: 0.5rem 0.5rem 2rem -1rem rgb(21, 15, 100); */
         
+    }
+    .line-des p{
+        font-size: medium;
+    }
+    .button-container1 button{
+        height: 50px;
+        width: 200px;
     }
   }
