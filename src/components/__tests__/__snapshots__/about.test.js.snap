@@ -1,0 +1,429 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  style={
+    Object {
+      "background": "#2EC4F3",
+    }
+  }
+>
+  <div
+    className="row justify-content-start"
+  >
+    <div
+      className="col-10"
+      style={
+        Object {
+          "background": "#2EC4F3",
+        }
+      }
+    >
+      <br />
+      <br />
+      <h4>
+        Add doctor
+      </h4>
+      <br />
+    </div>
+  </div>
+  <div
+    className="container py-5"
+    style={
+      Object {
+        "background": "#D9D9D9",
+        "borderRadius": "15px",
+        "marginTop": "0",
+        "width": "50%",
+      }
+    }
+  >
+    <div
+      className="row justify-content-start"
+    >
+      <form>
+        <div
+          className="row mb-6"
+          style={Object {}}
+        >
+          <div
+            className="col"
+          >
+            <div
+              className="form-outline"
+            >
+              <input
+                className="form-control"
+                id="FirstNmae"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Enter first name"
+                readOnly={false}
+              />
+              <label
+                className="form-label"
+                htmlFor="FirstNmae"
+              >
+                First name
+              </label>
+              <div
+                className="form-notch"
+              >
+                <div
+                  className="form-notch-leading"
+                />
+                <div
+                  className="form-notch-middle"
+                  style={
+                    Object {
+                      "width": 0,
+                    }
+                  }
+                />
+                <div
+                  className="form-notch-trailing"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            className="col"
+          >
+            <div
+              className="form-outline"
+            >
+              <input
+                className="form-control"
+                id="LastName"
+                onBlur={[Function]}
+                onChange={[Function]}
+                onFocus={[Function]}
+                placeholder="Enter first name"
+                readOnly={false}
+              />
+              <label
+                className="form-label"
+                htmlFor="LastName"
+              >
+                Last name
+              </label>
+              <div
+                className="form-notch"
+              >
+                <div
+                  className="form-notch-leading"
+                />
+                <div
+                  className="form-notch-middle"
+                  style={
+                    Object {
+                      "width": 0,
+                    }
+                  }
+                />
+                <div
+                  className="form-notch-trailing"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example3"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example3"
+          >
+            Ward numbers
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example4"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example4"
+          >
+            Address
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example5"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+            type="email"
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example5"
+          >
+            Email
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example6"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+            type="tel"
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example6"
+          >
+            Phone
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example5"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+            type="email"
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example5"
+          >
+            Email
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example6"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            placeholder="Enter first name"
+            readOnly={false}
+            type="tel"
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example6"
+          >
+            Phone
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-outline mb-2"
+        >
+          <input
+            className="form-control"
+            id="form6Example7"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            readOnly={false}
+            rows={4}
+            textarea={true}
+          />
+          <label
+            className="form-label"
+            htmlFor="form6Example7"
+          >
+            Additional information
+          </label>
+          <div
+            className="form-notch"
+          >
+            <div
+              className="form-notch-leading"
+            />
+            <div
+              className="form-notch-middle"
+              style={
+                Object {
+                  "width": 0,
+                }
+              }
+            />
+            <div
+              className="form-notch-trailing"
+            />
+          </div>
+        </div>
+        <div
+          className="form-check d-flex justify-content-center mb-4"
+        >
+          <input
+            className="form-check-input"
+            defaultChecked={true}
+            id="form6Example8"
+            type="checkbox"
+          />
+          <label
+            className="form-check-label"
+            htmlFor="form6Example8"
+          >
+            Create an account?
+          </label>
+        </div>
+        <button
+          className="ripple ripple-surface btn btn-primary btn-block mb-4"
+          onClick={[Function]}
+          role="button"
+          style={
+            Object {
+              "background": "#2bd1ce",
+            }
+          }
+          type="info"
+        >
+          Add account
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+`;
