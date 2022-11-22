@@ -1,28 +1,21 @@
-import { render, screen, cleanup } from "@testing-library/react";
-import DoctorDashboard from "../footer";
-import renderer from "react-test-renderer";
-import React from "react";
-import { Button } from "react-bootstrap";
+import { render, screen } from "@testing-library/react";
+import { getByTestId } from "@testing-library/react";
+import doctorDashboard from "../doctorDashboard";
 import ReactDom from "react-dom";
-// import 'jest-dom/extend-expect';
-afterEach(cleanup);
-it("renders without crashing", () => {
-  const div = document.createElement("div");
-  ReactDom.render(<Button></Button>, div);
+import { Button } from "react-bootstrap";
+import renderer from "react-test-renderer";
+import { DoDisturb } from "@mui/icons-material";
+// it("renders without crashing testing", () => {
+//   const div = document.createElement("div");
+//   ReactDom.render(<Button></Button>, div);
+// });
+
+test("doctor dashboard testing", () => {
+  render(<doctorDashboard />);
+  
 });
-
-test("test", () => {
-  expect(true).toBe(true);
-});
-
-it("renders element correctly", () => {
-  const { getByTestId } = render(<DoctorDashboard />);
-  expect(getByTestId("doctor-dashboard")).toHaveTextContent("Follow usFacebookLinkedInTwitterYour AccountSignupLoginHomeVisitContact usAbout usGallery© Copyright TechNext");
-});
-
-
 it('matches snapshot',()=>{
-  const tree=renderer.create(<DoctorDashboard></DoctorDashboard>).toJSON();
+  const tree=renderer.create(<doctorDashboard></doctorDashboard>).toJSON();
   expect(tree).toMatchSnapshot();
 
 })

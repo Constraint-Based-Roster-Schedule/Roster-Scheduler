@@ -9,7 +9,7 @@ it("renders without crashing testing", () => {
   ReactDom.render(<Button></Button>, div);
 });
 
-test("doctor profile testing", () => {
+test("about container testing", () => {
   render(<About />);
   const nameLabel = screen.getByText(/Additional information/i);
   const nameLabe2 = screen.getByText(/Create an account?/i);
@@ -17,6 +17,13 @@ test("doctor profile testing", () => {
   const nameLabe4 = screen.getByText(/Add doctor/i);
   
   expect(nameLabel).toBeInTheDocument();
+  expect(nameLabe2).toBeInTheDocument();
+  expect(nameLabe3).toBeInTheDocument();
+  expect(nameLabe4).toBeInTheDocument();
   // expect(getByTestId("doctor-profile-title")).toHaveTextContent("Doctor Profile");
 });
+it('matches snapshot',()=>{
+  const tree=renderer.create(<About></About>).toJSON();
+  expect(tree).toMatchSnapshot();
 
+})
