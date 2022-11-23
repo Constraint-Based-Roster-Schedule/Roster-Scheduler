@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshot 1`] = `
+<div
+  data-testid="individual-roster"
+>
+  <div
+    className="loader-container"
+    data-testid="loader"
+  >
+    <div
+      className="sk-fade-in sk-spinner spinner ball-spin-fade-loader"
+    >
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+      <div />
+    </div>
+  </div>
+</div>
+`;

@@ -156,7 +156,7 @@ const handleReset=()=>{
 
 
 return (
-    <section>
+    <section style={{marginTop:"3.5rem"}}>
         <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!

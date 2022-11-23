@@ -67,7 +67,7 @@ function ShiftRequest() {
     const monthNames = ["January", "February", "March", "April", "May", "June",
       "July", "August", "September", "October", "November", "December"
     ];
-    const month=monthNames[new Date().getMonth()].toLowerCase();
+    const month=monthNames[new Date().getMonth()+1].toLowerCase();
     const year=new Date().getFullYear();
     const ward_id=authService.getWardID();
     const int_id=authService.getIntID();
@@ -77,7 +77,7 @@ function ShiftRequest() {
     }).then((res) => {
       setMyshifts(res.data.myShifts);
       setWardShifts(res.data.wardShifts)
-      //console.log(res.data.wardShifts);
+      console.log(res.data.myShifts);
     })
   }
 

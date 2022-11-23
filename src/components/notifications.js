@@ -36,6 +36,7 @@ function Notifications() {
     const year=new Date().getFullYear();
     const date=new Date().getDate();
     const doc_id=authService.getUserID().toString();
+    console.log(doc_id)
     await Axios.get(APIEndpoint+"/doctor/getOutNotif",{
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"docID":doc_id,"month":month,"year":year,"date":+date}

@@ -90,13 +90,19 @@ function IndividualRoster(props){
       setShiftNames(shiftNames)
       const data_to_send=[]
       myShifts.forEach((mon,month_index)=>{
+          var displaying_month=0;
+                if(myShifts.length>1){
+                    displaying_month=current_month+month_index-2
+                }else{
+                    displaying_month=current_month+1
+                }
           mon.forEach((day,date)=>{
               day.forEach((shift,index)=>{
                   if(shift.includes(+myID)){
                       const shift_detail={
                           title: shiftNames[month_index][index][0],
-                          startDate: new Date(+current_year, current_month+month_index-2, date+1, 13, 0),
-                          endDate: new Date(+current_year, current_month+month_index-2, date+1, 19, 0),
+                          startDate: new Date(+current_year, displaying_month, date+1, 13, 0),
+                          endDate: new Date(+current_year, displaying_month, date+1, 19, 0),
                           color:shiftNames[month_index][index][1],
                       }
                       data_to_send.push(shift_detail)
@@ -126,7 +132,7 @@ function IndividualRoster(props){
   );
 
 if(isLoading){
-  return <Loader/>
+  return <div data-testid="individual-roster"><Loader /></div>
 }else
   {return (
      <div data-testid="individual-roster" className='individual_roster_month_week'>

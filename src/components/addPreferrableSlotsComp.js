@@ -126,7 +126,7 @@ function AddPreferrableSlotsComp(props) {
   }
 
   return (
-    <div className='preferrableSlotForm col-lg-5'>
+    <div data-testid="add-prefferables" className='preferrableSlotForm col-lg-5'>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!
@@ -142,7 +142,7 @@ function AddPreferrableSlotsComp(props) {
           <Select className='slot-select' label="slot" name="os" value={slot} onChange={(e)=>setSlot(e.target.value)} >
 
 
-              {props.shiftNames.map((shift,index)=>{
+              {typeof props.shiftNames!=='undefined' && props.shiftNames.map((shift,index)=>{
                 return <MenuItem key={index} value={index}>{shift[0]}</MenuItem>
               })}
           </Select>

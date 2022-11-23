@@ -100,9 +100,9 @@ function AddLeavesComponent(props) {
       headers: { "x-auth-token": authService.getUserToken() },
       params:{"leaveRequests":leaveRequests,"month":month,"year":year,"docID":doc_id,"wardID":wardID}
     }).then((res) => {
-      console.log(res.data)})
+      //console.log(res.data)
       handleReset();
-      handleClick();
+      handleClick();})
   }
 
   function handleReset(){
@@ -129,7 +129,7 @@ function AddLeavesComponent(props) {
 }
 
   return (
-    <div className='leaveRequestForm col-lg-5'>
+    <div data-testid="leave-request-component" className='leaveRequestForm col-lg-5'>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
             <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
                 This is a success message!
@@ -145,7 +145,7 @@ function AddLeavesComponent(props) {
           <Select className='slot-select' label="slot" name="os" value={slot} onChange={(e)=>setSlot(e.target.value)} >
 
 
-              {props.shiftNames.map((shift,index)=>{
+              {typeof props.shiftNames !=='undefined' && props.shiftNames.map((shift,index)=>{
                 return <MenuItem key={index} value={index}>{shift[0]}</MenuItem>
               })}
           </Select>

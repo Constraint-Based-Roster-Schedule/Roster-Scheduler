@@ -42,7 +42,7 @@ const Navbar = () => {
 
   return (
     <div className="navBarMainContainer">
-      <nav>
+      <nav >
         <div className="nav-center">
           <div className="nav-header">
             {type==null && (<Link to=''>

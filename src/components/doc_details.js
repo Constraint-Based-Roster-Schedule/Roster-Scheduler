@@ -31,7 +31,7 @@ function Doc_details(props) {
   }
 
   return (
-    <div className='doctor-detail-container'>
+    <div data-testid="doctor-details" className='doctor-detail-container'>
       <h1 className='font-monospace' style={{textAlign:"center", marginTop:"1rem",fontSize:"2em", color:"white"}}>Roster for {doctorDetails[0]} {doctorDetails[1]}</h1>
       <div className='individual-doc-details'>
         <p className='indivilual-doc-d'>Name : {doctorDetails[0]} {doctorDetails[1]}</p>

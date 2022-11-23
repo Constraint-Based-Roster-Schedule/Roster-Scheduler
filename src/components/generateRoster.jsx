@@ -491,8 +491,8 @@ export const GenarateRoster = () => {
               <MDBRow style={{alignItems:'center'}}>
                 <MDBCol style={{alignItems:'center'}}>
                  
-                  <MDBBtn onClick={e=>{
-                  saveRoster();sendtoward();}}>View Roster</MDBBtn>
+                  <Button onClick={e=>{
+                  saveRoster();sendtoward();}}>View Roster</Button>
                 </MDBCol>
               </MDBRow>
             </div>

@@ -97,14 +97,20 @@ function WardRosterComponent(props) {
             setShiftNames(shiftNames)
             const data_to_send=[]
             myShifts.forEach((mon,month_index)=>{
+                var displaying_month=0;
+                if(myShifts.length>1){
+                    displaying_month=current_month+month_index-2
+                }else{
+                    displaying_month=current_month+1
+                }
+                console.log(current_month+month_index-2)
                 mon.forEach((day,date)=>{
                     day.forEach((shift,index)=>{
-                        const shift_string=shift.join(" , ")
-                        console.log(shiftNames[month_index][index][1])
+                        const shift_string=shift.join(" , ")                       
                         const shift_detail={
                             title: shift_string,
-                            startDate: new Date(+current_year, current_month+month_index-2, date+1, shiftNames[month_index][index][2][0][0], shiftNames[month_index][index][2][0][1]),
-                            endDate: new Date(+current_year, current_month+month_index-2,date+1, shiftNames[month_index][index][2][1][0], shiftNames[month_index][index][2][1][1]),
+                            startDate: new Date(+current_year,displaying_month, date+1, shiftNames[month_index][index][2][0][0], shiftNames[month_index][index][2][0][1]),
+                            endDate: new Date(+current_year, displaying_month, date+1,shiftNames[month_index][index][2][1][0], shiftNames[month_index][index][2][1][1]),
                             color:shiftNames[month_index][index][1],
                         }
                         data_to_send.push(shift_detail)
@@ -140,7 +146,7 @@ function WardRosterComponent(props) {
     }
 
     if(isLoading){
-        return <Loader/>
+        return <div data-testid="ward-roster"><Loader /></div>
     }else{
         return (
         <div data-testid="ward-roster" className='individual_roster_month_week'>

@@ -6,13 +6,8 @@ var Spinner = require('react-spinkit');
 
 function Loader() {
     return (
-    <div className='loader-container'>
+    <div data-testid="loader" className='loader-container'>
         <Spinner className='spinner' name="ball-spin-fade-loader" />
-        {/* <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
-            <CircularProgress color="secondary" />
-            <CircularProgress color="success" />
-            <CircularProgress color="inherit" />
-        </Stack> */}
     </div>    
     
     );

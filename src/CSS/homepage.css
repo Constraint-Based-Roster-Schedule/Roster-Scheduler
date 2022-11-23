@@ -5,6 +5,7 @@
     min-width: 90vw;
     border-color: black;
     background-color:rgb(59, 130, 237);
+    
 }
 .home-container{
     height: 75vh;
@@ -127,11 +128,11 @@
     
     }
     .left-side_{
-       
-        /* align-items: center; */
+    
         display: static;
-        /* justify-content: center; */
-        /* box-shadow: 0.5rem 0.5rem 2rem -1rem rgb(21, 15, 100); */
+        margin-right: 39px;
+        padding-right: 50px;
+
         
     }
     .line-des p{
